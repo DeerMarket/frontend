@@ -1,0 +1,168 @@
+{
+  "config": {
+    "hideLogo": true,
+    "submitText": "Update Store Metadata"
+  },
+  "steps": [
+    {
+      "name": "name",
+      "title": "What would you like to name your store?",
+      "subtitle": "This can be your name or your business name",
+      "type": "text",
+      "options": {
+        "label": "Store name",
+        "placeholder": ""
+      },
+      "validation": {
+        "required": true,
+        "min": 3,
+        "max": 100
+      }
+    },
+    {
+      "name": "description",
+      "title": "Describe your store in a few words",
+      "subtitle": "This will be shown on the store page",
+      "type": "textarea",
+      "options": {
+        "label": "Store description",
+        "placeholder": ""
+      },
+      "validation": {
+        "required": false,
+        "max": 1000
+      }
+    },
+    {
+      "name": "terms",
+      "title": "Your Store Terms and Conditions",
+      "subtitle": "Write your conditions and terms that your customers will agree to when they buy from your store",
+      "type": "textarea",
+      "options": {
+        "label": "Store terms",
+        "placeholder": ""
+      },
+      "validation": {
+        "required": false,
+        "max": 1000
+      }
+    },
+    {
+      "name": "category",
+      "title": "What are you planning to sell?",
+      "subtitle": "Picking a category will help customers find your store",
+      "type": "select",
+      "options": [
+        {
+          "label": "Services",
+          "value": "1"
+        },
+        {
+          "label": "Digital Goods",
+          "value": "2"
+        },
+        {
+          "label": "Physical Goods",
+          "value": "3"
+        },
+        {
+          "label": "NFTs",
+          "value": "4"
+        },
+        {
+          "label": "Courses",
+          "value": "5"
+        },
+        {
+          "label": "Other",
+          "value": "0"
+        }
+      ],
+      "validation": {
+        "required": true,
+        "min": 1,
+        "max": 1
+      }
+    },
+    {
+      "name": "tags",
+      "title": "What are some tags that describe your store?",
+      "subtitle": "These will help customers find your store. Maximum 5 tags",
+      "type": "array",
+      "options": {
+        "label": "Store tags",
+        "placeholder": "Add a tag"
+      },
+      "validation": {
+        "required": false,
+        "min": 0,
+        "max": 5
+      }
+    },
+    {
+      "name": "contact",
+      "title": "Store Contact",
+      "subtitle": "How can customers reach out to you?",
+      "type": "fields",
+      "validation": {
+        "required": false
+      },
+      "fields": [
+        {
+          "name": "email",
+          "label": "Email",
+          "type": "email",
+          "placeholder": "john@example.com",
+          "validation": {
+            "required": false,
+            "pattern": "email"
+          }
+        },
+        {
+          "name": "phone",
+          "label": "Phone",
+          "type": "tel",
+          "placeholder": "+1 123 456 7890",
+          "validation": {
+            "required": false,
+            "pattern": "phone"
+          }
+        },
+        {
+          "name": "website",
+          "label": "Website",
+          "type": "url",
+          "placeholder": "https://example.com",
+          "validation": {
+            "required": false,
+            "pattern": "url"
+          }
+        }
+      ]
+    },
+    {
+      "name": "logo",
+      "title": "A direct URL to your store logo",
+      "subtitle": "This will be displayed everywhere your store is mentioned",
+      "type": "image",
+      "options": {
+        "variant": "logo"
+      },
+      "validation": {
+        "required": false
+      }
+    },
+    {
+      "name": "cover",
+      "title": "A direct URL to your store cover image",
+      "subtitle": "This will be displayed on the store page",
+      "type": "image",
+      "options": {
+        "variant": "cover"
+      },
+      "validation": {
+        "required": false
+      }
+    }
+  ]
+}

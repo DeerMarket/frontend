@@ -1,0 +1,79 @@
+{
+  "config": {
+    "hideLogo": true,
+    "submitText": "List Item"
+  },
+  "steps": [
+    {
+      "name": "title",
+      "title": "What are you selling?",
+      "subtitle": "Give your item a descriptive title",
+      "type": "text",
+      "options": {
+        "label": "Item Title",
+        "placeholder": ""
+      },
+      "validation": {
+        "required": true,
+        "min": 3,
+        "max": 100
+      }
+    },
+    {
+      "name": "description",
+      "title": "Description & Details",
+      "subtitle": "Describe what the user will receive in detail",
+      "type": "textarea",
+      "options": {
+        "label": "Description",
+        "placeholder": ""
+      },
+      "validation": {
+        "required": false,
+        "max": 2000
+      }
+    },
+    {
+      "name": "price",
+      "title": "Price",
+      "subtitle": "Set the price for your item",
+      "type": "price",
+      "options": {
+        "label": "Price",
+        "placeholder": ""
+      },
+      "validation": {
+        "required": true,
+        "min": 1,
+        "max": 10000000
+      }
+    },
+    {
+      "name": "tags",
+      "title": "Give your item some tags",
+      "subtitle": "These will help customers find your item. Maximum 5 tags",
+      "type": "array",
+      "options": {
+        "label": "Store tags",
+        "placeholder": "Add a tag"
+      },
+      "validation": {
+        "required": false,
+        "min": 0,
+        "max": 5
+      }
+    },
+    {
+      "name": "images",
+      "title": "Upload Images",
+      "subtitle": "Show off your item with images",
+      "type": "images",
+      "options": {},
+      "validation": {
+        "min": 0,
+        "max": 6,
+        "required": false
+      }
+    }
+  ]
+}
