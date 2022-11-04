@@ -50,7 +50,7 @@ export default function Stores({ data }: any) {
       <Container
         sx={{
           display: "grid",
-          gridGap: 4,
+          gridGap: [2, 2, 4],
           gridTemplateColumns: "minmax(200px, 1fr) minmax(300px, 4fr)",
           "@media screen and (max-width: 700px)": {
             gridTemplateColumns: "1fr",
@@ -59,7 +59,6 @@ export default function Stores({ data }: any) {
       >
         <Box
           sx={{
-            minHeight: 500,
             borderTop: "none",
             borderTopLeftRadius: 0,
             borderTopRightRadius: 0,
@@ -74,7 +73,8 @@ export default function Stores({ data }: any) {
           <Box
             sx={{
               display: "flex",
-              flexDirection: "column",
+              flexDirection: ["row", "row", "column"],
+              flexWrap: ["wrap", "wrap", "nowrap"],
               alignItems: "flex-start",
               mt: 3,
               gap: 3,
@@ -200,6 +200,8 @@ function StoreCard({
         "&:hover": {
           variant: "box.cardHover",
         },
+
+        flexDirection: ["column", "column", "row", "row"],
       }}
     >
       <StoreAvatar image={store?.image} />
@@ -274,23 +276,6 @@ function StoreCard({
             <Paragraph variant="text.tiny">
               {store.sales || "0"} Sales
             </Paragraph>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              gap: 3,
-              alignItems: "center",
-            }}
-          >
-            <Button variant="tiny">
-              <span>🤍</span> Favorite
-            </Button>
-            <Button variant="tiny">
-              <span>📤</span> Share
-            </Button>
-            <Button variant="tiny">
-              <span>🚨</span> Report
-            </Button>
           </Box>
         </Box>
       </Box>

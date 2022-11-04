@@ -13,7 +13,7 @@ export default function PageHeader({
   return (
     <Box
       sx={{
-        py: 4,
+        py: [2, 2, 4],
       }}
       variant="background.bottom.0"
     >

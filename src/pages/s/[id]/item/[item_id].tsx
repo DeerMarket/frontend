@@ -34,7 +34,7 @@ export default function ItemPage({ data }: any) {
 
   return (
     <DefaultLayout loading={loading}>
-      <Container py={4}>
+      <Container pb={4} pt={[1, 1, 4]}>
         <Box
           sx={{
             display: "grid",
@@ -57,71 +57,6 @@ export default function ItemPage({ data }: any) {
               Description &amp; Details
             </Heading>
             <Paragraph>{item?.description || "No description"}</Paragraph>
-
-            <Heading variant="sectionHeading" as="h3" mt={4}>
-              Reviews (0)
-            </Heading>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              {[...Array(3)].map((_, i) => (
-                <Box
-                  sx={{
-                    borderBottom: "default",
-                    py: 3,
-                  }}
-                  key={i}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 2,
-                    }}
-                  >
-                    <Heading variant="account" as="h5" mb={1}>
-                      achraf.near
-                    </Heading>
-                    <Box
-                      sx={{
-                        display: "flex",
-                      }}
-                    >
-                      {[...Array(5)].map((_, i) => (
-                        <svg
-                          key={i}
-                          width="34"
-                          height="34"
-                          viewBox="0 0 20 20"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          sx={{
-                            mx: -1,
-                          }}
-                        >
-                          <path
-                            d="M8 11.5L5.5 13.5L6.5 10.5L4 8.5L7 8L8 5L9 8L12 8.5L9.5 10.5L10.5 13.5L8 11.5Z"
-                            fill="#FFC107"
-                          />
-                          <path
-                            d="M8 11.5L5.5 13.5L6.5 10.5L4 8.5L7 8L8 5L9 8L12 8.5L9.5 10.5L10.5 13.5L8 11.5Z"
-                            stroke="#FFC107"
-                          />
-                        </svg>
-                      ))}
-                    </Box>
-                    <Text>3 days ago</Text>
-                  </Box>
-                  <Paragraph mt={1}>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                    tincidunt, nisl eget ultricies tincidunt, nisl elit aliquam
-                  </Paragraph>
-                </Box>
-              ))}
-            </Box>
           </Box>
           <Box>
             <Box

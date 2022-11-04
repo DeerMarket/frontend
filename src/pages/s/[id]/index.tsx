@@ -35,7 +35,6 @@ export default function Store({ data }: any) {
           sx={{
             display: "flex",
             flexDirection: "column",
-            gap: 3,
             p: 4,
           }}
         >
@@ -43,7 +42,7 @@ export default function Store({ data }: any) {
             sx={{
               width: "100%",
               display: "flex",
-              gap: 4,
+              gap: 3,
               flexWrap: "wrap",
             }}
           >
@@ -102,25 +101,17 @@ export default function Store({ data }: any) {
                 ml: "auto",
                 minWidth: 300,
                 flex: 1,
-                mt: 3,
-                alignSelf: "flex-end",
+                alignSelf: "flex-start",
               }}
             >
-              <Box mb={2}>
-                <Text>
-                  Created on {new Date(data?.store?.createdAt).toDateString()}
-                </Text>
-              </Box>
-              <Box>
-                <Text>
-                  Last updated on{" "}
-                  {new Date(data?.store?.updatedAt).toDateString()}
-                </Text>
-              </Box>
-              <Heading mt={4} mb={2} as="h4">
-                Tags
-              </Heading>
               <Paragraph>
+                Created at: {new Date(data?.store?.createdAt).toDateString()}
+              </Paragraph>
+              <Paragraph>
+                Updated at: {new Date(data?.store?.updatedAt).toDateString()}
+              </Paragraph>
+              <Paragraph>
+                Tags:{" "}
                 {data?.store?.tags?.length > 0
                   ? data?.store?.tags?.map((tag: any) => (
                       <Link key={tag.id} href={`/search?query=${tag.id}`}>
@@ -131,14 +122,9 @@ export default function Store({ data }: any) {
               </Paragraph>
             </Box>
           </Box>
-          <Box>
-            <Heading mb={3} as="h4" variant="sectionHeading">
-              Description
-            </Heading>
-            <Paragraph>
-              {data?.store?.description || "No description provided"}
-            </Paragraph>
-          </Box>
+          <Paragraph pt={[0, 0, 0, 3]}>
+            {data?.store?.description || "No description provided"}
+          </Paragraph>
         </Container>
       </Box>
 
@@ -146,33 +132,12 @@ export default function Store({ data }: any) {
         sx={{
           display: "grid",
           gridGap: 3,
-          gridTemplateColumns: "minmax(300px, 2fr) minmax(300px, 1fr)",
+          gridTemplateColumns: "minmax(300px, 1fr) minmax(300px, 2fr)",
           "@media screen and (max-width: 700px)": {
             gridTemplateColumns: "1fr",
           },
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexWrap: "wrap",
-            mb: "auto",
-            gap: 4,
-          }}
-        >
-          {data?.store?.items.map((item: any, i: any) => (
-            <A href={`/s/${id}/item/${item.id}`} key={i} passHref>
-              <Link
-                sx={{
-                  display: "contents",
-                  color: "inherit",
-                }}
-              >
-                <ItemCard data={item} />
-              </Link>
-            </A>
-          ))}
-        </Box>
         <Box
           sx={{
             display: "flex",
@@ -183,7 +148,8 @@ export default function Store({ data }: any) {
         >
           <Box
             sx={{
-              p: 3,
+              p: [1, 1, 3],
+              pt: 0,
               minHeight: 120,
             }}
           >
@@ -272,8 +238,8 @@ export default function Store({ data }: any) {
           </Box>
           <Box
             sx={{
-              p: 3,
-              minHeight: 220,
+              p: [1, 1, 3],
+              minHeight: [0, 0, 120],
               mb: "auto",
             }}
           >
@@ -284,6 +250,28 @@ export default function Store({ data }: any) {
               {data?.store?.terms || "No terms provided"}
             </Paragraph>
           </Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            mb: "auto",
+            gap: 4,
+            pb: 4,
+          }}
+        >
+          {data?.store?.items.map((item: any, i: any) => (
+            <A href={`/s/${id}/item/${item.id}`} key={i} passHref>
+              <Link
+                sx={{
+                  display: "contents",
+                  color: "inherit",
+                }}
+              >
+                <ItemCard data={item} />
+              </Link>
+            </A>
+          ))}
         </Box>
       </Container>
     </DefaultLayout>

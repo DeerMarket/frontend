@@ -105,7 +105,7 @@ export default function Header({ variant = "default", ...rest }) {
               top: 64,
               variant: "box.card",
               right: 0,
-              maxWidth: "360px",
+              maxWidth: "500px",
               width: "100%",
               flexDirection: "column",
               borderRadius: 0,

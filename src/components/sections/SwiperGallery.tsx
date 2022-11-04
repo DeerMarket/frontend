@@ -25,7 +25,7 @@ export default function SwiperGallery({ slides }: { slides?: string[] }) {
         sx={{
           "--swiper-navigation-color": "#fff",
           "--swiper-pagination-color": "#fff",
-          height: 500,
+          height: [360, 360, 440, 600],
           width: "100%",
         }}
         spaceBetween={10}

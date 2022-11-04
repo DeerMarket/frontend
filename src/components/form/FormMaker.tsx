@@ -184,6 +184,7 @@ export default function FormMaker({
         variant: "background.form",
         justifyContent: "center",
         alignItems: "center",
+        p: 2,
       }}
     >
       <Box
@@ -192,8 +193,8 @@ export default function FormMaker({
           width: "100%",
           maxWidth: "900px",
           p: 4,
-          minHeight: "600px",
-          maxHeight: "100%",
+          minHeight: [400, 400, 500, 600],
+          maxHeight: "100vh",
           display: "flex",
           flexDirection: "column",
           gap: 2,

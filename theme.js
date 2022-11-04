@@ -258,7 +258,7 @@ const box = {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    width: "100%",
+    width: ["auto", "auto", "100%"],
     py: 12,
     px: 3,
     borderRadius: 4,
