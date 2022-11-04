@@ -11,25 +11,16 @@ export default function ButtonWithIcon({
 }) {
   return (
     <Button
-      variant="default"
+      variant="primary"
       sx={{
         background: "primary",
-        color: "white",
-        fontFamily: "inherit",
-        padding: "0.35em",
         paddingLeft: "1.2em",
-        fontSize: "17px",
-        fontWeight: "500",
-        borderRadius: "0.9em",
-        border: "none",
-        letterSpacing: "0.05em",
+        paddingRight: "3.3em",
         display: "flex",
         alignItems: "center",
-        boxShadow: "inset 0 0 1.6em -0.6em #714da6",
-        overflow: "hidden",
         position: "relative",
         height: "2.8em",
-        paddingRight: "3.3em",
+        border: "none",
 
         "&:hover .icon": {
           width: "calc(100% - 0.6em)",
@@ -48,15 +39,13 @@ export default function ButtonWithIcon({
         className="icon"
         sx={{
           background: "white",
-          marginLeft: "1em",
           position: "absolute",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           height: "2.2em",
           width: "2.2em",
-          borderRadius: "0.7em",
-          boxShadow: "0.1em 0.1em 0.6em 0.2em #00000029",
+          borderRadius: "100px",
           right: "0.3em",
           transition: "all 0.3s",
         }}
@@ -69,10 +58,10 @@ export default function ButtonWithIcon({
             width="24"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
-            style={{
+            sx={{
               width: "1.1em",
               transition: "transform 0.3s",
-              color: "#7b52b9",
+              color: "primary",
             }}
           >
             <path d="M0 0h24v24H0z" fill="none"></path>

@@ -25,6 +25,7 @@ const Home: NextPage = () => {
           as="h3"
           sx={{
             mt: "auto",
+            mb: 0,
           }}
         >
           Welcome to <span sx={{ color: "primary" }}>deer</span>
@@ -34,6 +35,7 @@ const Home: NextPage = () => {
           as="h1"
           sx={{
             fontSize: [5, 5, 5, 6, 6],
+            mt: 0,
           }}
         >
           Your Decentralized <span sx={{ color: "primary" }}>Marketplace</span>{" "}
@@ -42,8 +44,10 @@ const Home: NextPage = () => {
 
         <Paragraph
           sx={{
-            mb: 4,
+            mb: [3, 3, 3, 4, 4],
             maxWidth: 800,
+            px: 3,
+            fontSize: [1, 1, 1, 2, 2],
           }}
         >
           Using the power of the NEAR blockchain, we are building a trustless,
@@ -51,7 +55,7 @@ const Home: NextPage = () => {
           buy and sell items physically or digitally.
         </Paragraph>
 
-        <Flex sx={{ justifyContent: "center", gap: 4 }}>
+        <Flex sx={{ justifyContent: "center", gap: [3, 3, 3, 4, 4] }}>
           <Link href="/stores" passHref>
             <Button as="a" variant="primary">
               Explore Stores
