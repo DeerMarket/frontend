@@ -203,6 +203,7 @@ const background = {
   background: {
     backgroundImage:
       "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAABlBMVEXd3d39/f1xnp1AAAAAAnRSTlNAQPA2w60AAAGISURBVBjTDdA9SxxRFMbxp81XsNkPILoQIQFD3Fu5pViYKSwtAhYrEmISxLnTaCEESwnLuBAIwdcFi8juZpyTJqQwLiK+ocwUCqsZ1wlZnHFzZ+Z42/PA4ccf/pux1bhFaGavnYM+gfqZtF+EhJGl+ymlLDjuV8NjAh+mp3mT8DyeuTk+IaTcyFVcgvxfZbtBCHjAu7YFSk7vuHEFONedlANCtFG6ZQVEKrXTHmD281tjeZ5QcGtmVwr8LfTVKg+EsqF2y0r/db2loiRsZL+z3g8CU92LzWKT8OxIbkYdglm8qw+EAoON8uTDJeH7bCD9TwKtJDGl9pZU3JK+QM3O5k/7LTQ7e9GN9o6p6SC3YsHPHOYVwlxZrnttgW+3/Gd81EIY75x3dYctb0FxYOG9bHa3HX3/VTWGtadevXtyrztUt4Z2KgWBXMLMESErDP0MfeALt7nzg7CuNfIlIY7zfr6t94nk1T/dyQzXoqBE2I/r/LEBLKeH7tMR3XU7cd9NE8IodcJF8QgGAe8Uybjj2wAAAABJRU5ErkJggg==)",
+    backgroundRepeat: "repeat",
 
     "&::after, &::before": {
       content: "''",
@@ -211,26 +212,43 @@ const background = {
       zIndex: -1,
     },
     "&::before": {
-      backgroundImage:
-        "linear-gradient( 138deg,  white 36.7%, rgba(0,8,187,1) 84.4%, rgba(255,255,255,1) 119.7% )",
-      filter: "blur(100px)",
-      opacity: 0.25,
-      borderRadius: "50%",
-      top: "-10vh",
-      height: "60vh",
-      left: "10vw",
-      width: "40vw",
+      // backgroundImage:
+      // "linear-gradient( 138deg,  white 36.7%, rgba(0,8,187,1) 84.4%, rgba(255,255,255,1) 119.7% )",
+      // filter: "blur(100px)",
+      // opacity: 0.25,
+      // borderRadius: "50%",
+
+      backgroundImage: "url(/g1.png)",
+      backgroundSize: "contain",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      opacity: 0.8,
+
       transform: "rotate(45deg)",
+      top: ["-10vh", "-10vh", "-10vh", "0"],
+      height: "70vh",
+      left: "-5vh",
+      width: "50vw",
+      minWidth: "300px",
     },
     "&::after": {
-      filter: "blur(100px)",
-      opacity: 0.25,
-      borderRadius: "50%",
-      background: `linear-gradient( 109.6deg,  rgba(247,253,166,1) 11.2%, rgba(128,255,221,1) 57.8%)`,
-      bottom: "15vh",
-      height: "60vh",
-      right: "10vw",
-      width: "30vw",
+      // filter: "blur(100px)",
+      // opacity: 0.25,
+      // borderRadius: "50%",
+      // background: `linear-gradient( 109.6deg,  rgba(247,253,166,1) 11.2%, rgba(128,255,221,1) 57.8%)`,
+
+      backgroundImage: "url(/g2.png)",
+      backgroundSize: "contain",
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "center",
+      opacity: 0.9,
+
+      bottom: "10px",
+      right: "-5vw",
+      height: "50vw",
+      width: "50vw",
+      minWidth: "300px",
+      minHeight: "300px",
       transform: "rotate(45deg)",
     },
   },
