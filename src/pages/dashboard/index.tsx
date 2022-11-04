@@ -16,12 +16,7 @@ export default function Dashboard() {
   }
 
   return (
-    <DashboardLayout
-      sx={{
-        variant: "backgrounds.1",
-      }}
-      tab="overview"
-    >
+    <DashboardLayout tab="overview">
       <Heading as="h2" variant="pageHeading">
         {message}, achraf.near!
       </Heading>

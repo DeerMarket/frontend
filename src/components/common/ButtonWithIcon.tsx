@@ -69,7 +69,7 @@ export default function ButtonWithIcon({
             width="24"
             viewBox="0 0 24 24"
             xmlns="http://www.w3.org/2000/svg"
-            sx={{
+            style={{
               width: "1.1em",
               transition: "transform 0.3s",
               color: "#7b52b9",

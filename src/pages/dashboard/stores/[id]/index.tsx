@@ -136,7 +136,8 @@ export default function Store() {
               <>
                 By deleting this store you are deleting the whole account and
                 all the items associated with it. This action is irreversible.
-                You'll receive a refund for the storage you've paid for.
+                You&apos;ll receive a refund for the storage you&apos;ve paid
+                for.
               </>
             }
             onCancel={() => setPopup(false)}

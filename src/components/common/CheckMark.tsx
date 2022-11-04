@@ -15,7 +15,6 @@ export default function CheckMark({
         x="0px"
         y="0px"
         viewBox="0 0 330 330"
-        sx={{ enableBackground: "new 0 0 330 330" }}
         xmlSpace="preserve"
         fill="green"
         width={size}
@@ -44,7 +43,6 @@ export default function CheckMark({
       x="0px"
       y="0px"
       viewBox="0 0 330 330"
-      sx={{ enableBackground: "new 0 0 330 330" }}
       xmlSpace="preserve"
       fill="red"
       width={size}

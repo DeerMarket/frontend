@@ -9,7 +9,7 @@ export default function ManageOrder() {
   const { order_id } = router.query;
 
   return (
-    <DashboardLayout tab="orders" loading={0}>
+    <DashboardLayout tab="orders" loading={false}>
       <Flex
         sx={{
           justifyContent: "space-between",

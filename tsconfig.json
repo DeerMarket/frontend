@@ -14,7 +14,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "jsxImportSource": "theme-ui" 
+    "jsxImportSource": "theme-ui"
   },
   "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx"],
   "exclude": ["node_modules"]

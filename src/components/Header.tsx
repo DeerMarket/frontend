@@ -1,3 +1,5 @@
+/** @jsxImportSource theme-ui */
+
 import Link from "next/link";
 import { useState } from "react";
 import { Box, Button, Container, Flex, NavLink } from "theme-ui";

@@ -412,6 +412,7 @@ export default function FormMaker({
                   >
                     {data[steps[step].name]?.map((d: any, i: number) => (
                       <Box
+                        key={i}
                         sx={{
                           position: "relative",
                           width: "160px",

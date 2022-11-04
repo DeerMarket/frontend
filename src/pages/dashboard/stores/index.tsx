@@ -200,7 +200,7 @@ function NoStore() {
       }}
     >
       <Heading my={0} as="h1" sx={{}}>
-        You don't have a store yet!
+        You don&apos;t have a store yet!
       </Heading>
       <Image
         src={Rocket}
