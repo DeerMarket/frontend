@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Box, Button, Container, Flex, Heading, Paragraph } from "theme-ui";
 import DefaultLayout from "../components/layouts/Default";
 import BuiltPNG from "../assets/png/built.png";
+import ScreenShot from "../assets/jpg/Screenshot 2022-11-05 063403.png";
 
 const Home: NextPage = () => {
   return (
@@ -81,8 +82,8 @@ const Home: NextPage = () => {
       </Container>
       <Box
         sx={{
-          height: "90vh",
           variant: "background.mesh",
+          color: "white",
           mb: 4,
           mt: 3,
           py: 5,
@@ -101,7 +102,6 @@ const Home: NextPage = () => {
           <Heading
             as="h2"
             sx={{
-              color: "white",
               fontSize: [4, 4, 4, 5, 5],
             }}
           >
@@ -109,7 +109,6 @@ const Home: NextPage = () => {
           </Heading>
           <Paragraph
             sx={{
-              color: "white",
               maxWidth: 800,
               mb: 4,
               mt: 3,
@@ -118,6 +117,64 @@ const Home: NextPage = () => {
             Each store is a decentralized smart contract deployed on NEAR. This
             means that each store is owned and operated by the store owner.
           </Paragraph>
+          <Flex
+            sx={{
+              gap: 4,
+              flexDirection: ["column", "column", "column", "row", "row"],
+              mb: 5,
+            }}
+          >
+            <Box
+              variant="box.light"
+              sx={{
+                p: 3,
+                textAlign: "left",
+              }}
+            >
+              <Heading as="h3">Sell Anything</Heading>
+              <Paragraph sx={{ maxWidth: 300 }}>
+                You can sell anything you want. Physical or digital goods. You
+                can even sell services.
+              </Paragraph>
+            </Box>
+            <Box
+              variant="box.light"
+              sx={{
+                p: 3,
+                textAlign: "left",
+              }}
+            >
+              <Heading as="h3">100% Ownership</Heading>
+              <Paragraph sx={{ maxWidth: 300 }}>
+                You own your store. You can do whatever you want with it. We
+                have no control over your store.
+              </Paragraph>
+            </Box>
+            <Box
+              variant="box.light"
+              sx={{
+                p: 3,
+                textAlign: "left",
+              }}
+            >
+              <Heading as="h3">Arbitration &amp; Escrow</Heading>
+              <Paragraph sx={{ maxWidth: 300 }}>
+                We have built in arbitration and escrow features to help you
+                resolve disputes with your customers.
+              </Paragraph>
+            </Box>
+          </Flex>
+          <Image
+            src={ScreenShot}
+            alt="Screenshot of deer"
+            width={1200}
+            height={740}
+            objectFit="cover"
+            objectPosition="top left"
+            sx={{
+              variant: "box.light",
+            }}
+          />
         </Container>
       </Box>
     </DefaultLayout>

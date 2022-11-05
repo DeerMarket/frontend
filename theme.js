@@ -279,6 +279,14 @@ const box = {
     borderColor: alpha("primary", 0.3),
     boxShadow: `0 0 40px 20px var(--theme-ui-colors-shadow)`,
   },
+  light: {
+    background: alpha("white", 0.4),
+    boxShadow: `0 0 15px 0px var(--theme-ui-colors-shadow)`,
+    borderRadius: 5,
+    border: "1px solid",
+    borderColor: alpha("white", 0.6),
+    color: "black",
+  },
   notice: {
     backgroundColor: "#fffacf",
     borderColor: "#ff9800",
@@ -323,7 +331,6 @@ const commonHeadingStyles = {
   lineHeight: 1.125,
   mx: 0,
   my: ".125em",
-  color: "text",
 };
 const commonParagraphStyles = {
   fontWeight: 400,
@@ -332,7 +339,6 @@ const commonParagraphStyles = {
   my: 10,
   fontSize: [1, 1, 1, 2, 2],
   fontFamily: "body",
-  color: "text",
   letterSpacing: 1.125,
 };
 
