@@ -1,6 +1,17 @@
 import { Button, Flex } from "theme-ui";
 
-export default function Tabs({ tabs, ...rest }: any) {
+export default function Tabs({
+  tabs,
+  ...rest
+}: {
+  tabs: {
+    id: string | number;
+    name: string;
+    onClick?: (id: string | number) => void;
+    active?: boolean;
+  }[];
+  [key: string]: any;
+}) {
   return (
     <Flex
       py={1}
@@ -16,19 +27,19 @@ export default function Tabs({ tabs, ...rest }: any) {
           <Button
             key={tab.name}
             variant="text"
-            onClick={tab.onClick}
+            onClick={() => tab.onClick && tab.onClick(tab.id)}
             sx={{
               padding: "8px 20px !important",
               borderRadius: "17px",
               minWidth: "auto",
               backgroundColor: tab.active ? "primary" : "transparent",
-              color: tab.active ? "secondary" : "text",
+              color: tab.active ? "white" : "text",
               transition: "all 0.3s ease",
               fontWeight: 600,
 
               "&:hover": {
-                backgroundColor: !tab.active && "secondary",
-                color: !tab.active ? "text" : "secondary",
+                backgroundColor: !tab.active && "primary",
+                color: "white",
               },
             }}
           >

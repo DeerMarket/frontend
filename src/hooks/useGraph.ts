@@ -11,7 +11,7 @@ export const useGraph = () => {
       return await client.query({
         query: gql`
           query GetOrders($accountId: String!) {
-            orders(buyer: $accountId) {
+            orders(where: { buyer: $accountId }) {
               id
               item {
                 id

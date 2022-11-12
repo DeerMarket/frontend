@@ -1,6 +1,6 @@
-DeerJobs
+Deer
 
 ```bash
-yarn install 
+yarn install
 yarn dev
 ```

@@ -48,21 +48,25 @@ export default function Stores() {
 
   return (
     <DashboardLayout tab="stores" loading={isLoading}>
-      <Flex
-        sx={{
-          justifyContent: "space-between",
-          mb: 3,
-        }}
-      >
-        <Heading as="h2">My stores</Heading>{" "}
-        <A href="/dashboard/stores/create" passHref>
-          <Link>
-            <ButtonWithIcon>Create a Store</ButtonWithIcon>
-          </Link>
-        </A>
-      </Flex>
+      {stores?.length > 0 && (
+        <>
+          <Flex
+            sx={{
+              justifyContent: "space-between",
+              mb: 3,
+            }}
+          >
+            <Heading as="h2">My stores</Heading>{" "}
+            <A href="/dashboard/stores/create" passHref>
+              <Link>
+                <ButtonWithIcon>Create a Store</ButtonWithIcon>
+              </Link>
+            </A>
+          </Flex>
+          <StoresList stores={stores} />
+        </>
+      )}
       {!stores?.length && !isLoading && <NoStore />}
-      {stores?.length > 0 && <StoresList stores={stores} />}
     </DashboardLayout>
   );
 }
