@@ -13,12 +13,25 @@ import StoreAvatar from "../../components/common/StoreAvatar";
 import Tabs from "../../components/common/Tabs";
 import Price from "../../components/common/Price";
 import DisputeCard from "../../components/sections/DisputeCard";
+import { useData } from "../../hooks/useData";
 
 export default function Disputes({ data }: any) {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
   const [canVote, setCanVote] = useState(1);
+
+  const { get_disputes } = useData();
+
+  useEffect(() => {
+    get_disputes()
+      .then((res) => {
+        console.log("d", res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [get_disputes]);
 
   // new post loaded
   useEffect(() => {

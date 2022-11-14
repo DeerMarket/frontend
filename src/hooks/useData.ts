@@ -52,5 +52,10 @@ export const useData = () => {
       );
       return await c.get_item({ item_id: item_id });
     },
+
+    // disputes
+    get_disputes: async () => {
+      return await contracts?.dispute.get_disputes();
+    },
   };
 };

@@ -69,11 +69,18 @@ interface ContractsType {
 function init_contracts(wallet: nearAPI.WalletConnection): ContractsType {
   const contracts: ContractsType = {};
   const store_factory_config = contractsConfig.store_factory;
+  const dispute_config = contractsConfig.dispute;
 
   contracts[store_factory_config.contractName] = new Contract(
     wallet.account(),
     store_factory_config.contractId,
     store_factory_config.contractMethods
+  );
+
+  contracts[dispute_config.contractName] = new Contract(
+    wallet.account(),
+    dispute_config.contractId,
+    dispute_config.contractMethods
   );
 
   return contracts;

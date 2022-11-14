@@ -28,5 +28,21 @@ export const store = {
   callbackUrl:
     typeof window !== "undefined" ? window.location.origin + "/dashboard" : "",
 };
+export const dispute = {
+  contractName: "dispute",
+  contractId: "dev-20221114125212-73354151692913",
+  contractMethods: {
+    changeMethods: ["vote", "add_evidence"],
+    viewMethods: [
+      "get_disputes",
+      "get_dispute",
+      "get_disputes_by_account_id",
+      "get_votes",
+      "get_evidence",
+    ],
+  },
+  callbackUrl:
+    typeof window !== "undefined" ? window.location.origin + "/" : "",
+};
 
-export const contractsConfig = { store_factory, store };
+export const contractsConfig = { store_factory, store, dispute };

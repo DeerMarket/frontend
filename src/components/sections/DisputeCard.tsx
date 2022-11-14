@@ -134,7 +134,7 @@ export default function DisputeCard({
           description
         </Heading>
         <Paragraph mt={1} mb={4}>
-          {description}
+          {description ? description : "No description provided"}
         </Paragraph>
         <Heading as="h4" variant="tiny">
           shared prize pool
