@@ -127,7 +127,7 @@ export default function Disputes({ data }: any) {
               </Button>
             </A>
             <Paragraph variant="sidebarText" mt={2}>
-              The platform is currently in testnet, so you'll be instantly
+              The platform is currently in testnet, so you will be instantly
               whitelisted.
             </Paragraph>
           </Box>

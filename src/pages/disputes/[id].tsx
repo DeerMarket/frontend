@@ -242,7 +242,11 @@ export default function Dispute({ data }: any) {
                   </Heading>
                   <Paragraph>{evidence?.description}</Paragraph>
                   {evidence?.image && (
-                    <a href={evidence?.image} target="_blank">
+                    <a
+                      href={evidence?.image}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <Image
                         src={evidence?.image}
                         sx={{
@@ -298,7 +302,11 @@ export default function Dispute({ data }: any) {
                   </Heading>
                   <Paragraph>{evidence?.description}</Paragraph>
                   {evidence?.image && (
-                    <a href={evidence?.image} target="_blank">
+                    <a
+                      href={evidence?.image}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <Image
                         src={evidence?.image}
                         sx={{
