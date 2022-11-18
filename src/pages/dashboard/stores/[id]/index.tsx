@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import StoreAvatar from "../../../../components/common/StoreAvatar";
 import StoreCover from "../../../../components/common/StoreCover";
 import DashboardLayout from "../../../../components/layouts/Dashboard";
-import { useNear } from "../../../../contexts/Near";
 import { useData } from "../../../../hooks/useData";
 import {
   Avatar,
