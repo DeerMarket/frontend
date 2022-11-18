@@ -62,7 +62,8 @@ export default function Orders() {
       </Heading>
       {sold?.length < 1 ? (
         <Paragraph>
-          No orders yet. When someone buys your products, you'll see them here.
+          No orders yet. When someone buys your products, you&apos;ll see them
+          here.
         </Paragraph>
       ) : (
         <Flex sx={{ flexDirection: "column", gap: 3, mt: 3 }}>
