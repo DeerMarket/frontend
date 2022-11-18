@@ -2,20 +2,67 @@
  *  Hook to interact with the backend
  */
 
-import { Contract, utils } from "near-api-js";
+import { utils } from "near-api-js";
 import { contractsConfig } from "../configs/contracts";
-import { ContractType, useNear } from "../contexts/Near";
+import { useWalletSelector } from "../contexts/WalletSelector";
 
 export const useAction = () => {
-  const { wallet, contracts } = useNear();
+  const { selector, modal, accountId } = useWalletSelector();
+
+  const functionCall = async ({
+    contractId,
+    methodName,
+    args,
+    gas,
+    amount,
+  }: {
+    contractId: string;
+    methodName: string;
+    args: any;
+    gas?: string;
+    amount?: string;
+  }) => {
+    const wallet = await selector.wallet();
+    return wallet
+      .signAndSendTransaction({
+        signerId: accountId!,
+        receiverId: contractId,
+        actions: [
+          {
+            type: "FunctionCall",
+            params: {
+              methodName: methodName,
+              args: args,
+              gas: gas || "300000000000000",
+              deposit: amount || "0",
+            },
+          },
+        ],
+        callbackUrl: window.location.hostname,
+      })
+      .catch((err) => {
+        alert("Failed to send transaction: " + err);
+        console.log("Failed to send transaction: " + err);
+
+        throw err;
+      });
+  };
 
   return {
     // common
-    login: async () =>
-      await wallet?.requestSignIn({
-        contractId: contracts?.store_factory.contractId,
-      }),
-    logout: async () => await wallet?.signOut(),
+    login: async () => modal.show(),
+    logout: async () => {
+      const wallet = await selector.wallet();
+      wallet
+        .signOut()
+        .then(() => {
+          window.location.href = "/";
+        })
+        .catch((err) => {
+          console.log("Failed to sign out");
+          console.error(err);
+        });
+    },
 
     // store factory
     create_store: async ({
@@ -44,8 +91,7 @@ export const useAction = () => {
       tags?: string[];
     }) => {
       const args = {
-        owner_id: await wallet?.getAccountId(),
-        arbiter_id: contracts?.store_factory.contractId,
+        owner_id: accountId!,
         metadata: {
           name,
           category: parseInt(category as string),
@@ -60,13 +106,11 @@ export const useAction = () => {
         },
       };
       const argsBase64 = Buffer.from(JSON.stringify(args)).toString("base64");
-      await contracts?.store_factory.create({
-        callbackUrl: contractsConfig.store_factory.callbackUrl,
-        args: {
-          name: id,
-          args: argsBase64,
-        },
-        gas: "300000000000000",
+
+      return functionCall({
+        contractId: contractsConfig.store_factory.contractId,
+        methodName: "create",
+        args: { name: id, args: argsBase64 },
         amount: "2500000000000000000000000",
       });
     },
@@ -96,15 +140,11 @@ export const useAction = () => {
           category: parseInt(metadata.category as string),
         },
       };
-      const store: ContractType = new Contract(
-        wallet!.account(),
-        store_id,
-        contractsConfig.store.contractMethods
-      );
-      await store.update_store_metadata({
-        callbackUrl: contractsConfig.store_factory.callbackUrl,
-        args: args,
-        gas: "300000000000000",
+
+      return functionCall({
+        contractId: store_id,
+        methodName: "update_store_metadata",
+        args,
       });
     },
 
@@ -134,11 +174,10 @@ export const useAction = () => {
         },
       };
 
-      const c = initStoreContract(wallet, store_id);
-      await c.item_create({
-        callbackUrl: contractsConfig.store_factory.callbackUrl,
-        args: args,
-        gas: "300000000000000",
+      return functionCall({
+        contractId: store_id,
+        methodName: "item_create",
+        args,
       });
     },
 
@@ -171,43 +210,131 @@ export const useAction = () => {
         },
       };
 
-      const c = initStoreContract(wallet, store_id);
-      await c.item_update({
-        callbackUrl: contractsConfig.store_factory.callbackUrl,
-        args: args,
-        gas: "300000000000000",
+      return functionCall({
+        contractId: store_id,
+        methodName: "item_update",
+        args,
       });
     },
 
     item_delete: async (store_id: string, item_id: string) => {
-      const c = initStoreContract(wallet, store_id);
-      await c.item_delete({
-        callbackUrl: contractsConfig.store_factory.callbackUrl,
-        args: {
-          item_id: item_id,
-        },
-        gas: "300000000000000",
+      const args = {
+        item_id: item_id,
+      };
+
+      return functionCall({
+        contractId: store_id,
+        methodName: "item_delete",
+        args,
       });
     },
 
     // orders
     item_buy: async (store_id: string, item_id: string, amount: string) => {
-      const c = initStoreContract(wallet, store_id);
-      await c.item_buy({
-        callbackUrl: contractsConfig.store_factory.callbackUrl,
-        args: {
-          item_id: item_id,
-        },
-        gas: "300000000000000",
+      const args = {
+        item_id: item_id,
+      };
+
+      return functionCall({
+        contractId: store_id,
+        methodName: "item_buy",
+        args,
         amount: amount,
+      });
+    },
+
+    order_cancel: async (store_id: string, order_id: string) => {
+      const args = {
+        order_id: order_id,
+      };
+
+      return functionCall({
+        contractId: store_id,
+        methodName: "order_cancel",
+        args,
+      });
+    },
+
+    order_complete: async (store_id: string, order_id: string) => {
+      const args = {
+        order_id: order_id,
+      };
+
+      return functionCall({
+        contractId: store_id,
+        methodName: "order_complete",
+        args,
+      });
+    },
+
+    order_shipped: async (store_id: string, order_id: string) => {
+      const args = {
+        order_id: order_id,
+      };
+
+      return functionCall({
+        contractId: store_id,
+        methodName: "order_shipped",
+        args,
+      });
+    },
+
+    // disputes
+    dispute_create: async (
+      store_id: string,
+      order_id: string,
+      description: string
+    ) => {
+      const args = {
+        order_id: order_id,
+        description: description,
+      };
+
+      return functionCall({
+        contractId: store_id,
+        methodName: "start_dispute",
+        args,
+      });
+    },
+    add_evidence: async (
+      dispute_id: string,
+      description: string,
+      link: string
+    ) => {
+      const args = {
+        dispute_id: Number(dispute_id),
+        description: description,
+        link: link,
+      };
+
+      return functionCall({
+        contractId: contractsConfig.dispute.contractId,
+        methodName: "add_evidence",
+        args,
+      });
+    },
+    vote: async (dispute_id: string, vote: "Seller" | "Buyer" | "Draw") => {
+      const args = {
+        dispute_id: Number(dispute_id),
+        vote_type: vote,
+      };
+
+      return functionCall({
+        contractId: contractsConfig.dispute.contractId,
+        methodName: "vote",
+        args,
+      });
+    },
+    whitelist_me: async (accountId: string) => {
+      const args = {
+        account_id: accountId,
+      };
+
+      return functionCall({
+        contractId: contractsConfig.dispute.contractId,
+        methodName: "whitelist",
+        args,
       });
     },
   };
 };
-
-// Helper function to get the contract instance
-function initStoreContract(wallet: any, contractId: string): ContractType {
-  return new Contract(wallet.account(), contractId, {
-    ...contractsConfig.store.contractMethods,
-  });
-}

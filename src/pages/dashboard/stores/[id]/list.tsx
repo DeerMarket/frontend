@@ -20,6 +20,7 @@ export default function List() {
       ...d,
     });
     setIsLoading(false);
+    window.location.href = "/dashboard/stores";
   };
 
   return (

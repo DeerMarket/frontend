@@ -47,14 +47,14 @@ export default function StoreCard({
           flex: 1,
         }}
       >
-        <Heading as="h4" variant="account" mr={"auto"} mt={0}>
+        <Heading as="h4" variant="account" mr={"auto"} mt={0} mb={1}>
           {store.id}
         </Heading>
         <Heading as="h3" variant="cardHeading">
           {name}
         </Heading>
         {description && (
-          <Paragraph mb={"auto"} mt={3}>
+          <Paragraph mb={"auto"} mt={2}>
             {description}
           </Paragraph>
         )}
@@ -74,39 +74,45 @@ export default function StoreCard({
                 gap: 3,
               }}
             >
-              <Paragraph
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 1,
-                }}
-                variant="text.tiny"
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+              {store.rating && store.reviews && (
+                <Paragraph
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
+                  }}
+                  variant="text.tiny"
                 >
-                  <path
-                    d="M8 11.5L5.5 13.5L6.5 10.5L4 8.5L7 8L8 5L9 8L12 8.5L9.5 10.5L10.5 13.5L8 11.5Z"
-                    fill="#FFC107"
-                  />
-                  <path
-                    d="M8 11.5L5.5 13.5L6.5 10.5L4 8.5L7 8L8 5L9 8L12 8.5L9.5 10.5L10.5 13.5L8 11.5Z"
-                    stroke="#FFC107"
-                  />
-                </svg>
-                <span>{store.rating || "0"}</span>
-                <span> ({store.reviews || "0"})</span>
-              </Paragraph>
-              <Paragraph variant="text.tiny">
-                {store.products || "0"} Products
-              </Paragraph>
-              <Paragraph variant="text.tiny">
-                {store.sales || "0"} Sales
-              </Paragraph>
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M8 11.5L5.5 13.5L6.5 10.5L4 8.5L7 8L8 5L9 8L12 8.5L9.5 10.5L10.5 13.5L8 11.5Z"
+                      fill="#FFC107"
+                    />
+                    <path
+                      d="M8 11.5L5.5 13.5L6.5 10.5L4 8.5L7 8L8 5L9 8L12 8.5L9.5 10.5L10.5 13.5L8 11.5Z"
+                      stroke="#FFC107"
+                    />
+                  </svg>
+                  <span>{store.rating || "0"}</span>
+                  <span> ({store.reviews || "0"})</span>
+                </Paragraph>
+              )}
+              {store.products && (
+                <Paragraph variant="text.tiny">
+                  {store.products || "0"} Products
+                </Paragraph>
+              )}
+              {store.sales && (
+                <Paragraph variant="text.tiny">
+                  {store.sales || "0"} Sales
+                </Paragraph>
+              )}
             </Box>
           </Box>
         )}

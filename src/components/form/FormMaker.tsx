@@ -46,9 +46,6 @@ export default function FormMaker({
   const { config, steps } = form;
 
   const handleNext = async () => {
-    if (step == steps.length - 1) {
-      return onSubmit(data);
-    }
     // validate
     setError("Waiting for validation...");
     const { isValid, err } = await validateStep(
@@ -58,7 +55,11 @@ export default function FormMaker({
 
     if (isValid) {
       setError("");
-      setStep(step + 1);
+      if (step == steps.length - 1) {
+        return onSubmit(data);
+      } else {
+        setStep(step + 1);
+      }
     } else {
       setError(err);
     }
@@ -128,6 +129,10 @@ export default function FormMaker({
           )
         ) {
           err = "Invalid phone number";
+        }
+      } else if (v.pattern == "yes") {
+        if (d != "yes") {
+          err = "You must type 'yes' to continue";
         }
       } else {
         if (!new RegExp(v.pattern).test(d)) {

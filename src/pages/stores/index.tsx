@@ -125,7 +125,7 @@ export default function Stores({ data }: any) {
             p: 3,
             display: "flex",
             flexDirection: "column",
-            gap: 3,
+            gap: 4,
             minHeight: 400,
             alignItems: "center",
           }}
@@ -152,11 +152,12 @@ export default function Stores({ data }: any) {
                       name: s?.name,
                       description: s?.description,
                       image: s?.logo,
-                      rating: 4.5,
-                      reviews: 100,
+                      // rating: 4.5,
+                      // reviews: 100,
                       products: 3,
                       sales: 300,
                     }}
+                    showExtra={false}
                     sx={{
                       cursor: "pointer",
                       variant: "box.card",

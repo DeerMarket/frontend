@@ -1,5 +1,20 @@
 import { Box, Heading, Paragraph, Text } from "theme-ui";
 
+const toAgo = (timestamp: number) => {
+  const d = new Date(timestamp / 1000000);
+  const now = new Date();
+  const diff = now.getTime() - d.getTime();
+  const diffDays = Math.floor(diff / (1000 * 3600 * 24));
+  const diffHours = Math.floor(diff / (1000 * 3600));
+  const diffMinutes = Math.floor(diff / (1000 * 60));
+  const diffSeconds = Math.floor(diff / 1000);
+  if (diffDays > 0) return diffDays + " days ago";
+  if (diffHours > 0) return diffHours + " hours ago";
+  if (diffMinutes > 0) return diffMinutes + " minutes ago";
+  if (diffSeconds > 0) return diffSeconds + " seconds ago";
+  return "just now";
+};
+
 export default function HistoryList({
   items,
 }: {
@@ -35,10 +50,17 @@ export default function HistoryList({
             px: 3,
           }}
         >
-          <Text>{item?.subject}</Text> <Text>{item?.verb}</Text>{" "}
-          <Text sx={item?.objectSx}>{item?.object}</Text>{" "}
-          <Text sx={{ opacity: 0.6, ml: 2 }} variant="tiny">
-            {item?.time}
+          <Text
+            sx={{
+              fontWeight: 600,
+            }}
+          >
+            {item?.subject}
+          </Text>{" "}
+          <Text>{item?.verb}</Text>{" "}
+          <Text sx={{ ...item?.objectSx }}>{item?.object}</Text>{" "}
+          <Text sx={{ opacity: 0.6, ml: 1 }} variant="tiny">
+            {toAgo(Number(item?.time))}
           </Text>{" "}
         </Paragraph>
       ))}

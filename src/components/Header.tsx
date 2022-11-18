@@ -3,13 +3,13 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Box, Button, Container, Flex, NavLink } from "theme-ui";
-import { useNear } from "../contexts/Near";
 import { useAction } from "../hooks/useAction";
+import { useData } from "../hooks/useData";
 import Logo from "./svg/logo";
 
 export default function Header({ variant = "default", ...rest }) {
   const { login } = useAction();
-  const { wallet } = useNear();
+  const { account } = useData();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -73,7 +73,7 @@ export default function Header({ variant = "default", ...rest }) {
             display: ["none", "none", "flex", "flex"],
           }}
         >
-          {wallet?.isSignedIn() ? (
+          {account ? (
             <Link href="/dashboard" passHref>
               <NavLink p={2}>Dashboard</NavLink>
             </Link>
@@ -127,7 +127,7 @@ export default function Header({ variant = "default", ...rest }) {
               }}
             />
 
-            {wallet?.isSignedIn() ? (
+            {account ? (
               <Link href="/dashboard" passHref>
                 <NavLink p={2}>Dashboard</NavLink>
               </Link>

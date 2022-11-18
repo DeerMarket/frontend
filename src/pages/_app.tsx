@@ -1,18 +1,19 @@
 import "../styles/globals.css";
 import "../assets/font/stylesheet.css";
+import "@near-wallet-selector/modal-ui/styles.css";
 import type { AppProps } from "next/app";
 
 import { ThemeProvider } from "theme-ui";
 import theme from "../../theme";
-import { NearProvider } from "../contexts/Near";
+import { WalletSelectorContextProvider } from "../contexts/WalletSelector";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     // @ts-ignore
     <ThemeProvider theme={theme}>
-      <NearProvider>
+      <WalletSelectorContextProvider>
         <Component {...pageProps} />
-      </NearProvider>
+      </WalletSelectorContextProvider>
     </ThemeProvider>
   );
 }

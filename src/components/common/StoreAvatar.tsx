@@ -14,7 +14,7 @@ export default function StoreAvatar({
         backgroundColor: "muted",
         height: [size],
         width: [size],
-        borderRadius: size < 100 ? 20 : 30,
+        borderRadius: size < 100 ? 20 : 27,
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",

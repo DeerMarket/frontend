@@ -38,6 +38,7 @@ export default function Update() {
     setIsLoading(true);
     await item_update(id as string, { item_id, ...d });
     setIsLoading(false);
+    window.location.href = "/dashboard/stores";
   };
 
   const initial_answers = {

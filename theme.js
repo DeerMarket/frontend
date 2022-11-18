@@ -10,13 +10,13 @@ const baseColors = {
 };
 const accentColors = {
   blue: "#5F8AFA",
-  green: "#AAD055",
+  green: "#2fd5a9",
   yellow: "#FFC860",
-  red: "#DB5555",
+  red: "#f97979",
   aqua: "#4FD1D9",
   purple: "#6B6EF9",
   lilac: "#A463B0",
-  orange: "#E3935B",
+  orange: "#cf8d04",
 };
 // Our brand
 const brandColors = {
@@ -330,13 +330,15 @@ const commonHeadingStyles = {
   fontWeight: 500,
   lineHeight: 1.125,
   mx: 0,
-  my: ".125em",
+  mt: ".250em",
+  mb: ".125em",
 };
 const commonParagraphStyles = {
   fontWeight: 400,
   lineHeight: 1.5,
   mx: 0,
-  my: 10,
+  mt: ".125em",
+  mb: "1.5em",
   fontSize: [1, 1, 1, 2, 2],
   fontFamily: "body",
   letterSpacing: 1.125,

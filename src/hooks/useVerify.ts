@@ -2,23 +2,22 @@
  *  Hook to read data from the backend
  */
 
-import { useNear } from "../contexts/Near";
+import { contractsConfig } from "../configs/contracts";
+import { useData } from "./useData";
 
 export const useVerify = () => {
-  const { connection, contracts } = useNear();
-
+  const { viewAccount } = useData();
   return {
     // utils
     store_id_exists: async (store_id: string) => {
-      const account_id = `${store_id}.${contracts?.store_factory.contractId}`;
+      const account_id = `${store_id}.${contractsConfig?.store_factory.contractId}`;
 
-      console.error(
-        "TODO: implement an actual verification at hooks/useVerify.ts:store_id_exists"
-      );
-
-      // TODO: implement actual verification
-      // 50 50 chance of returning true or false
-      return false;
+      try {
+        await viewAccount(account_id);
+        return true;
+      } catch (err) {
+        return false;
+      }
     },
   };
 };

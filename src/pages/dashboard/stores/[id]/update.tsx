@@ -31,6 +31,7 @@ export default function Update() {
     setIsLoading(true);
     await update_store_metadata(id as string, d);
     setIsLoading(false);
+    window.location.href = "/dashboard/stores";
   };
 
   const initial_answers = {

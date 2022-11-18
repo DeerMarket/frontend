@@ -3,6 +3,7 @@ import Image from "next/image";
 import A from "next/link";
 import { useRouter } from "next/router";
 import {
+  AspectRatio,
   Box,
   Button,
   Container,
@@ -23,8 +24,6 @@ export default function Store({ data }: any) {
   const router = useRouter();
   const { id } = router.query;
 
-  console.log(data);
-
   return (
     <DefaultLayout>
       <Box>
@@ -36,6 +35,7 @@ export default function Store({ data }: any) {
             display: "flex",
             flexDirection: "column",
             p: 4,
+            pb: 0,
           }}
         >
           <Box
@@ -47,6 +47,7 @@ export default function Store({ data }: any) {
             }}
           >
             <StoreAvatar image={data?.store?.logo} />
+
             <Box
               sx={{
                 minWidth: 300,
@@ -54,7 +55,7 @@ export default function Store({ data }: any) {
               }}
             >
               <Heading as="h4" variant="account">
-                s/{data?.store?.id}
+                {data?.store?.id}
               </Heading>
               <Heading as="h3" variant="pageHeading">
                 {data?.store?.name}
@@ -63,68 +64,41 @@ export default function Store({ data }: any) {
                 sx={{
                   display: "flex",
                   alignItems: "center",
-                  gap: 3,
                 }}
               >
-                <Paragraph
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <svg
-                    width="30"
-                    height="30"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 11.5L5.5 13.5L6.5 10.5L4 8.5L7 8L8 5L9 8L12 8.5L9.5 10.5L10.5 13.5L8 11.5Z"
-                      fill="#FFC107"
-                    />
-                    <path
-                      d="M8 11.5L5.5 13.5L6.5 10.5L4 8.5L7 8L8 5L9 8L12 8.5L9.5 10.5L10.5 13.5L8 11.5Z"
-                      stroke="#FFC107"
-                    />
-                  </svg>
-                  <span>4.5</span>
-                  <span> (100)</span>
-                </Paragraph>
-                <Paragraph>3 Products</Paragraph>
-                <Paragraph>674 Sales</Paragraph>
-              </Box>{" "}
-            </Box>
-
-            <Box
-              sx={{
-                ml: "auto",
-                minWidth: 300,
-                flex: 1,
-                alignSelf: "flex-start",
-              }}
-            >
-              <Paragraph>
-                Created at: {new Date(data?.store?.createdAt).toDateString()}
-              </Paragraph>
-              <Paragraph>
-                Updated at: {new Date(data?.store?.updatedAt).toDateString()}
-              </Paragraph>
-              <Paragraph>
-                Tags:{" "}
-                {data?.store?.tags?.length > 0
-                  ? data?.store?.tags?.map((tag: any) => (
-                      <Link key={tag.id} href={`/search?query=${tag.id}`}>
-                        {tag.name + " "}
-                      </Link>
-                    ))
-                  : "No tags provided"}
-              </Paragraph>
+                <Box sx={{ flex: 2 }}>
+                  <Heading as="h5">Owner</Heading>
+                  <Paragraph>
+                    <Text variant="account">{data?.store?.owner?.id}</Text>
+                  </Paragraph>
+                  <Heading as="h5">Description</Heading>
+                  <Paragraph>
+                    {data?.store?.description || "No description provided"}
+                  </Paragraph>
+                </Box>
+                <Box sx={{ flex: 1 }}>
+                  <Heading as="h5">Created at</Heading>
+                  <Paragraph>
+                    {new Date(Number(data?.store?.createdAt)).toLocaleString()}
+                  </Paragraph>
+                  <Heading as="h5">Updated at</Heading>
+                  <Paragraph>
+                    {new Date(Number(data?.store?.updatedAt)).toLocaleString()}
+                  </Paragraph>
+                  <Heading as="h5">Tags</Heading>
+                  <Paragraph>
+                    {data?.store?.tags?.length > 0
+                      ? data?.store?.tags?.map((tag: any) => (
+                          <Link key={tag.id} href={`/search?query=${tag.id}`}>
+                            {tag.name + " "}
+                          </Link>
+                        ))
+                      : "No tags"}
+                  </Paragraph>
+                </Box>
+              </Box>
             </Box>
           </Box>
-          <Paragraph pt={[0, 0, 0, 3]}>
-            {data?.store?.description || "No description provided"}
-          </Paragraph>
         </Container>
       </Box>
 
@@ -132,7 +106,7 @@ export default function Store({ data }: any) {
         sx={{
           display: "grid",
           gridGap: 3,
-          gridTemplateColumns: "minmax(300px, 1fr) minmax(300px, 2fr)",
+          gridTemplateColumns: "minmax(300px, 1fr) minmax(300px, 3fr)",
           "@media screen and (max-width: 700px)": {
             gridTemplateColumns: "1fr",
           },
@@ -282,7 +256,7 @@ function ItemCard({ data }: any) {
   return (
     <Box
       sx={{
-        width: ["100%", "100%", "50%", "30%"],
+        width: ["100%", "100%", "45%", "30%", "22.5%"],
         // p: 3,
         cursor: "pointer",
         display: "flex",
@@ -290,24 +264,26 @@ function ItemCard({ data }: any) {
         textAlign: "left",
         justifyContent: "center",
         variant: "box.card",
+        overflow: "hidden",
 
         ":hover": {
           variant: "box.cardHover",
         },
       }}
     >
-      <Box
+      <AspectRatio
+        ratio={1.25}
         sx={{
-          height: 200,
           width: "100%",
+          height: "100%",
+          mb: 2,
           backgroundColor: "muted",
           backgroundImage: `url(${data?.images?.[0]})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           borderRadius: "inherit",
-          mb: "auto",
         }}
-      ></Box>
+      />
       <Box
         px={3}
         py={3}
@@ -357,6 +333,9 @@ export async function getServerSideProps(context: NextPageContext) {
           tags {
             id
             name
+          }
+          owner {
+            id
           }
           createdAt
           updatedAt

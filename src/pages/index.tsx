@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Box, Button, Container, Flex, Heading, Paragraph } from "theme-ui";
 import DefaultLayout from "../components/layouts/Default";
 import BuiltPNG from "../assets/png/built.png";
-import ScreenShot from "../assets/jpg/Screenshot 2022-11-05 063403.png";
 
 const Home: NextPage = () => {
   return (
@@ -121,7 +120,10 @@ const Home: NextPage = () => {
             sx={{
               gap: 4,
               flexDirection: ["column", "column", "column", "row", "row"],
-              mb: 5,
+              flexWrap: "wrap",
+              alignContent: "center",
+              justifyContent: "center",
+              my: 4,
             }}
           >
             <Box
@@ -163,18 +165,46 @@ const Home: NextPage = () => {
                 resolve disputes with your customers.
               </Paragraph>
             </Box>
+            <Box
+              variant="box.light"
+              sx={{
+                p: 3,
+                textAlign: "left",
+              }}
+            >
+              <Heading as="h3">Arbitration &amp; Escrow</Heading>
+              <Paragraph sx={{ maxWidth: 300 }}>
+                We have built in arbitration and escrow features to help you
+                resolve disputes with your customers.
+              </Paragraph>
+            </Box>
+            <Box
+              variant="box.light"
+              sx={{
+                p: 3,
+                textAlign: "left",
+              }}
+            >
+              <Heading as="h3">Arbitration &amp; Escrow</Heading>
+              <Paragraph sx={{ maxWidth: 300 }}>
+                We have built in arbitration and escrow features to help you
+                resolve disputes with your customers.
+              </Paragraph>
+            </Box>
+            <Box
+              variant="box.light"
+              sx={{
+                p: 3,
+                textAlign: "left",
+              }}
+            >
+              <Heading as="h3">Arbitration &amp; Escrow</Heading>
+              <Paragraph sx={{ maxWidth: 300 }}>
+                We have built in arbitration and escrow features to help you
+                resolve disputes with your customers.
+              </Paragraph>
+            </Box>
           </Flex>
-          <Image
-            src={ScreenShot}
-            alt="Screenshot of deer"
-            width={1200}
-            height={740}
-            objectFit="cover"
-            objectPosition="top left"
-            sx={{
-              variant: "box.light",
-            }}
-          />
         </Container>
       </Box>
     </DefaultLayout>

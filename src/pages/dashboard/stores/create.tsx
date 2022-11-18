@@ -13,6 +13,7 @@ export default function Create() {
     setIsLoading(true);
     await create_store(d);
     setIsLoading(false);
+    window.location.href = "/dashboard/stores";
   };
 
   return (

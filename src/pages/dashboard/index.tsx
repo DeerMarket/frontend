@@ -1,7 +1,11 @@
+import { useEffect, useState } from "react";
 import { Heading } from "theme-ui";
 import DashboardLayout from "../../components/layouts/Dashboard";
+import { useData } from "../../hooks/useData";
 
 export default function Dashboard() {
+  const { account } = useData();
+
   const date = new Date();
   const hour = date.getHours();
   let message = "Good morning";
@@ -18,7 +22,7 @@ export default function Dashboard() {
   return (
     <DashboardLayout tab="overview">
       <Heading as="h2" variant="pageHeading">
-        {message}, achraf.near!
+        {message + ", " + account?.account_id + (account?.account_id && "!")}
       </Heading>
       <Heading mt={2} as="p" variant="pageSubHeading">
         This is your dashboard where you can manage your orders, stores, and

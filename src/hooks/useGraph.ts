@@ -11,8 +11,13 @@ export const useGraph = () => {
       return await client.query({
         query: gql`
           query GetOrders($accountId: String!) {
-            orders(where: { buyer: $accountId }) {
+            orders(
+              where: { buyer: $accountId }
+              orderBy: createdAt
+              orderDirection: desc
+            ) {
               id
+              orderID
               item {
                 id
                 images
@@ -30,6 +35,57 @@ export const useGraph = () => {
         `,
         variables: {
           accountId: buyer_id,
+        },
+      });
+    },
+    get_orders_by_seller: async (seller_id: string) => {
+      return await client.query({
+        query: gql`
+          query GetOrders($accountId: String!) {
+            orders(
+              where: { seller: $accountId }
+              orderBy: createdAt
+              orderDirection: desc
+            ) {
+              id
+              orderID
+              item {
+                id
+                images
+                title
+              }
+              store {
+                id
+              }
+              price
+              status
+              createdAt
+              updatedAt
+            }
+          }
+        `,
+        variables: {
+          accountId: seller_id,
+        },
+      });
+    },
+    get_order_ids: async (order_id: string) => {
+      return await client.query({
+        query: gql`
+          query GetOrder($orderId: String!) {
+            order(id: $orderId) {
+              orderID
+              item {
+                itemID
+              }
+              store {
+                id
+              }
+            }
+          }
+        `,
+        variables: {
+          orderId: order_id,
         },
       });
     },

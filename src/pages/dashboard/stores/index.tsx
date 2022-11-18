@@ -7,28 +7,18 @@ import Image from "next/image";
 import Rocket from "../../../assets/jpg/maker.gif";
 import { useData } from "../../../hooks/useData";
 import { useEffect, useState } from "react";
-import Loading from "../../../components/common/Loading";
 import StoreAvatar from "../../../components/common/StoreAvatar";
+import StoreCard from "../../../components/sections/StoreCard";
 
 export default function Stores() {
   const [isLoading, setIsLoading] = useState(true);
   const [stores, setStores] = useState([]);
-  const [accountId, setAccountId] = useState<string | null>(null);
 
-  const { get_stores_by_creator, get_account_id, get_store_metadata } =
-    useData();
-
-  useEffect(() => {
-    const getAccountId = async () => {
-      const accountId = await get_account_id();
-      setAccountId(accountId);
-    };
-    getAccountId();
-  }, [get_account_id]);
+  const { get_stores_by_creator, account, get_store_metadata } = useData();
 
   useEffect(() => {
     const getStores = async () => {
-      const stores = await get_stores_by_creator(accountId!);
+      const stores = await get_stores_by_creator(account?.account_id!);
       let storeMetadata: any = [];
       for (let i = 0; i < stores.length; i++) {
         const metadata = await get_store_metadata(stores[i]);
@@ -41,10 +31,10 @@ export default function Stores() {
       setStores(storeMetadata);
       setIsLoading(false);
     };
-    if (accountId) {
+    if (account?.account_id) {
       getStores();
     }
-  }, [accountId]);
+  }, [account?.account_id]);
 
   return (
     <DashboardLayout tab="stores" loading={isLoading}>
@@ -81,18 +71,18 @@ function StoresList({ stores }: any) {
       }}
     >
       {stores.map((store: any, i: number) => (
-        <StoreCard store={store} key={i} />
+        <StoreCardA store={store} key={i} />
       ))}
     </Flex>
   );
 }
 
-function StoreCard({ store }: any) {
+function StoreCardA({ store }: any) {
   return (
     <Flex
       sx={{
         flexDirection: "column",
-        p: 3,
+        pr: 3,
         gap: 2,
 
         variant: "box.card",
@@ -112,40 +102,20 @@ function StoreCard({ store }: any) {
         }}
       >
         <A href={`/dashboard/stores/${store.id}`} passHref>
-          <Flex
+          <Box
             sx={{
-              gap: [3, 3, 4],
               cursor: "pointer",
-              flexDirection: ["column", "column", "row"],
-              alignItems: ["flex-start", "flex-start", "center"],
             }}
           >
-            <StoreAvatar image={store?.logo} size={99} />
-            <Flex
-              sx={{
-                flexDirection: "column",
-                alignItems: "flex-start",
+            <StoreCard
+              store={{
+                id: store.id,
+                name: store.name,
+                image: store.logo,
               }}
-            >
-              <Heading
-                as="h4"
-                variant="account"
-                sx={{
-                  maxWidth: [160, 160, "70%"],
-                }}
-              >
-                {store.id}
-              </Heading>
-              <Heading
-                as="h3"
-                sx={{
-                  maxWidth: [160, 160, "70%"],
-                }}
-              >
-                {store.name}
-              </Heading>
-            </Flex>
-          </Flex>
+              showExtra={false}
+            />
+          </Box>
         </A>
 
         <A href={`/dashboard/stores/${store.id}/list`} passHref>

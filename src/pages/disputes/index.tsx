@@ -14,30 +14,48 @@ import Tabs from "../../components/common/Tabs";
 import Price from "../../components/common/Price";
 import DisputeCard from "../../components/sections/DisputeCard";
 import { useData } from "../../hooks/useData";
+import { utils } from "near-api-js";
+import { useAction } from "../../hooks/useAction";
 
-export default function Disputes({ data }: any) {
+export default function Disputes({}) {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [canVote, setCanVote] = useState(1);
+  const [canVote, setCanVote] = useState(false);
+  const [disputes, setDisputes] = useState([]);
 
-  const { get_disputes } = useData();
+  const { get_disputes, can_vote, account } = useData();
+  const { whitelist_me } = useAction();
 
   useEffect(() => {
     get_disputes()
       .then((res) => {
         console.log("d", res);
+        setDisputes(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [get_disputes]);
+  }, []);
 
-  // new post loaded
   useEffect(() => {
+    can_vote(account?.account_id || "")
+      .then((res: boolean) => {
+        console.log("can_vote", res);
+        setCanVote(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [account]);
+
+  const handleWhitelist = async () => {
+    if (!account?.account_id) return;
+    setIsLoading(true);
+    await whitelist_me(account?.account_id);
     setIsLoading(false);
-    console.log(data);
-  }, [data]);
+    window.location.reload();
+  };
 
   return (
     <DefaultLayout>
@@ -86,15 +104,23 @@ export default function Disputes({ data }: any) {
             }}
           />
           {isLoading && <Loading sx={{ my: "auto" }} />}
-          {!isLoading && data?.disputes?.length < 1 && (
+          {!isLoading && disputes?.length < 1 && (
             <Heading as="h3" variant="cardHeading" my={"auto"}>
               No disputes found
             </Heading>
           )}
           {!isLoading &&
-            data?.disputes?.map((dispute: any, i: any) => (
+            disputes?.map((dispute: any, i: any) => (
               <DisputeCard
-                dispute={dispute}
+                dispute={{
+                  ...dispute,
+                  title: "Dispute #" + dispute?.id,
+                  store: dispute?.store_id,
+                  prize: utils.format.formatNearAmount(
+                    BigInt(dispute?.fee).toString(),
+                    2
+                  ),
+                }}
                 key={i}
                 sx={{
                   cursor: "pointer",
@@ -121,11 +147,13 @@ export default function Disputes({ data }: any) {
               whitelisted member of the community. If you are not a member, you
               can apply to join the community by clicking the button below.
             </Paragraph>
-            <A href="/whitelist">
-              <Button variant="primary" sx={{ width: "100%" }}>
-                Apply to join
-              </Button>
-            </A>
+            <Button
+              variant="primary"
+              sx={{ width: "100%" }}
+              onClick={handleWhitelist}
+            >
+              Apply to join
+            </Button>
             <Paragraph variant="sidebarText" mt={2}>
               The platform is currently in testnet, so you will be instantly
               whitelisted.
@@ -156,73 +184,4 @@ export default function Disputes({ data }: any) {
       </Container>
     </DefaultLayout>
   );
-}
-
-export async function getServerSideProps(context: NextPageContext) {
-  let category = context.query.category || "";
-
-  //   const { data } = await client.query({
-  //     query: gql`
-  //       query GetStoresByCategory($category: String, $getAll: Boolean) {
-  //         stores(where: { category_contains: $category }) @skip(if: $getAll) {
-  //           id
-  //           name
-  //           description
-  //           logo
-  //         }
-  //         stores @include(if: $getAll) {
-  //           id
-  //           name
-  //           description
-  //           logo
-  //         }
-  //       }
-  //     `,
-  //     variables: {
-  //       category,
-  //       getAll: category === "",
-  //     },
-  //   });
-  const exampleData = {
-    data: {
-      disputes: [
-        {
-          id: "1",
-          title: "Dispute 1",
-          description:
-            "Hey, my question is about self-sustainability. What are the best strategies to maintain the DAO without grants? It is possible to trace a standard path as a basis for keeping the work of those involved? Especially new projects that need an initial boost, how to do it?",
-          disputer: "disputer1.near",
-          item: "item1",
-          store: "store1",
-          endsAt: 1668161456000 + 1000 * 60 * 60 * 13 * 7,
-          prize: 10,
-        },
-        {
-          id: "2",
-          title: "Dispute 2",
-          description: "Dispute 2 description",
-          disputer: "disputer2.testnet",
-          item: "item2",
-          store: "store2",
-          endsAt: 1668161456000 + 1000 * 60 * 60 * 24 * 5,
-          prize: 2,
-        },
-        {
-          id: "3",
-          title: "Dispute 3",
-          description: "Dispute 3 description",
-          disputer: "disputer3.testnet",
-          item: "item3",
-          store: "store3",
-          endsAt: 1668161456000,
-          prize: 88.56,
-        },
-      ],
-    },
-  };
-  return {
-    props: {
-      data: exampleData.data,
-    },
-  };
 }

@@ -1,6 +1,6 @@
 export const store_factory = {
   contractName: "store_factory",
-  contractId: "dev-20221028024743-81046331272148",
+  contractId: "deerm.testnet",
   contractMethods: {
     changeMethods: ["create", "update"],
     viewMethods: ["get_stores_by_creator", "get_stores"],
@@ -22,15 +22,17 @@ export const store = {
       "item_delete",
       // orders
       "item_buy",
+      // disputes
+      "start_dispute",
     ],
-    viewMethods: ["store_metadata", "get_items", "get_item"],
+    viewMethods: ["store_metadata", "get_items", "get_item", "get_order"],
   },
   callbackUrl:
     typeof window !== "undefined" ? window.location.origin + "/dashboard" : "",
 };
 export const dispute = {
   contractName: "dispute",
-  contractId: "dev-20221114125212-73354151692913",
+  contractId: "arbiter.testnet",
   contractMethods: {
     changeMethods: ["vote", "add_evidence"],
     viewMethods: [
@@ -39,6 +41,8 @@ export const dispute = {
       "get_disputes_by_account_id",
       "get_votes",
       "get_evidence",
+      "assert_whitelisted",
+      "whitelist",
     ],
   },
   callbackUrl:

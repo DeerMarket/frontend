@@ -1,7 +1,23 @@
-import { Box, Heading } from "theme-ui";
+import { Box, Heading, Text } from "theme-ui";
 import { PieChart, pieChartDefaultProps } from "react-minimal-pie-chart";
 
-export default function VotingChart({ voting }: any) {
+export default function VotingChart({ buyer, seller, split }: any) {
+  const total = buyer + seller + split;
+  const buyerPercent = (buyer / total) * 100;
+  const sellerPercent = (seller / total) * 100;
+  const splitPercent = (split / total) * 100;
+
+  const data = [];
+  if (buyerPercent > 0) {
+    data.push({ title: "Buyer", value: buyerPercent, color: "#2fd5a9" });
+  }
+  if (sellerPercent > 0) {
+    data.push({ title: "Seller", value: sellerPercent, color: "#f97979" });
+  }
+  if (splitPercent > 0) {
+    data.push({ title: "Split", value: splitPercent, color: "#cf8d04" });
+  }
+
   return (
     <Box
       sx={{
@@ -24,27 +40,45 @@ export default function VotingChart({ voting }: any) {
         }}
       >
         <Box color="#2fd5a9">
-          <Heading as="h4" variant="tiny">
-            yes
+          <Heading
+            as="h4"
+            variant="tiny"
+            sx={{
+              fontWeight: 700,
+            }}
+          >
+            Buyer
           </Heading>
           <Heading as="h3" mb={2}>
-            {voting?.results?.yes}%
+            {buyer}
           </Heading>
         </Box>
         <Box color="#f97979">
-          <Heading as="h4" variant="tiny">
-            no
+          <Heading
+            as="h4"
+            variant="tiny"
+            sx={{
+              fontWeight: 700,
+            }}
+          >
+            Seller
           </Heading>
           <Heading as="h3" mb={2}>
-            {voting?.results?.no}%
+            {seller}
           </Heading>
         </Box>
         <Box color="#cf8d04">
-          <Heading as="h4" variant="tiny">
-            split
+          <Heading
+            as="h4"
+            variant="tiny"
+            sx={{
+              fontWeight: 700,
+            }}
+          >
+            Split
           </Heading>
           <Heading as="h3" mb={2}>
-            {voting?.results?.split}%
+            {split}
           </Heading>
         </Box>
       </Box>
@@ -55,26 +89,10 @@ export default function VotingChart({ voting }: any) {
         }}
       >
         <PieChart
-          data={[
-            {
-              title: "Yes",
-              value: voting?.results?.yes,
-              color: "#58F7CD",
-            },
-            {
-              title: "No",
-              value: voting?.results?.no,
-              color: "#f97979",
-            },
-            {
-              title: "Split",
-              value: voting?.results?.split,
-              color: "#F7C358",
-            },
-          ]}
+          data={data}
           label={({ dataEntry }) => dataEntry.value + "%"}
           radius={pieChartDefaultProps.radius - 6}
-          paddingAngle={3}
+          paddingAngle={5}
           lineWidth={60}
           labelPosition={100 - 60 / 2}
           labelStyle={{

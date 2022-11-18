@@ -1,0 +1,37 @@
+{
+  "config": {
+    "hideLogo": true,
+    "submitText": "Start a dispute"
+  },
+  "steps": [
+    {
+      "name": "description",
+      "title": "What's the problem?",
+      "subtitle": "Please describe the problem you're having with this order.",
+      "type": "textarea",
+      "options": {
+        "label": "Description",
+        "placeholder": ""
+      },
+      "validation": {
+        "required": true,
+        "max": 1000
+      }
+    },
+    {
+      "name": "confirm",
+      "title": "Are you sure?",
+      "subtitle": "Please confirm that you want to start a dispute. This action cannot be undone and will result in a 20% fee. We highly recommend that you contact the seller first to resolve the issue.",
+      "type": "text",
+      "options": {
+        "label": "Type 'yes' to confirm",
+        "placeholder": ""
+      },
+      "validation": {
+        "required": true,
+        "max": 1000,
+        "pattern": "yes"
+      }
+    }
+  ]
+}
