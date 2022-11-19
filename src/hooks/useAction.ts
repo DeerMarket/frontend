@@ -109,7 +109,7 @@ export const useAction = () => {
         contractId: contractsConfig.store_factory.contractId,
         methodName: "create",
         args: { name: id, args: argsBase64 },
-        amount: "2500000000000000000000000",
+        amount: "3000000000000000000000000",
       });
     },
     delete_store: async (store_id: string) => {
