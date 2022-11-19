@@ -108,6 +108,11 @@ export const buttons = {
     },
   },
 
+  connect: {
+    background: "black",
+    color: "white",
+  },
+
   icon: {
     borderRadius: `50%`,
     width: `50px`,
@@ -280,11 +285,11 @@ const box = {
     boxShadow: `0 0 40px 20px var(--theme-ui-colors-shadow)`,
   },
   light: {
-    background: alpha("white", 0.4),
+    background: alpha("white", 0.78),
     boxShadow: `0 0 15px 0px var(--theme-ui-colors-shadow)`,
-    borderRadius: 5,
+    borderRadius: 30,
     border: "1px solid",
-    borderColor: alpha("white", 0.6),
+    borderColor: alpha("white", 0.9),
     color: "black",
   },
   notice: {

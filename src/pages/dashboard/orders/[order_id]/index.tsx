@@ -10,6 +10,7 @@ import { utils } from "near-api-js";
 import Status from "../../../../components/common/Status";
 import { useAction } from "../../../../hooks/useAction";
 import ConfirmBox from "../../../../components/popups/ConfirmBox";
+import Steps from "../../../../components/common/Steps";
 
 export default function ManageOrder() {
   const router = useRouter();
@@ -41,12 +42,94 @@ export default function ManageOrder() {
       get_store_owner(store_id)
         .then((r: string) => {
           setOwner(r);
+          console.log("owner", r);
         })
         .catch((e: any) => {
           console.error(e);
         });
     }
   }, [order_id]);
+
+  let steps = [
+    {
+      title: "Order Placed",
+      description: "Waiting for confirmation from the seller",
+      icon: "1",
+      active: true,
+      color: "green",
+    },
+  ];
+
+  // 3 states
+  // - normal
+  // - cancel
+  // - dispute
+  let state = "normal";
+
+  if (order?.status == "Cancelled") {
+    state = "cancel";
+  } else if (order?.status == "Disputed" || order?.status == "Resolved") {
+    state = "dispute";
+  }
+
+  if (state == "normal") {
+    steps = [
+      ...steps,
+      {
+        title: "Order Shipped",
+        description: "Waiting for you to receive the item",
+        icon: "2",
+        active: order?.status == "Shipped",
+        color: "green",
+      },
+      {
+        title: "Order Completed",
+        description: "Waiting for the buyer to confirm the order",
+        icon: "3",
+        active: order?.status == "Completed",
+        color: "green",
+      },
+    ];
+  } else if (state == "cancel") {
+    steps = [
+      ...steps,
+      {
+        title: "Order Cancelled",
+        description: "The order has been cancelled",
+        icon: "2",
+        active: true,
+        color: "red",
+      },
+    ];
+  } else if (state == "dispute") {
+    steps = [
+      ...steps,
+      {
+        title: "Order Shipped",
+        description: "Waiting for you to receive the item",
+        icon: "2",
+        active:
+          order?.status == "Shipped" ||
+          order?.status == "Disputed" ||
+          order?.status == "Resolved",
+        color: "green",
+      },
+      {
+        title: "Order Disputed",
+        description: "The order has been disputed",
+        icon: "3",
+        active: order?.status == "Disputed" || order?.status == "Resolved",
+        color: "orange",
+      },
+      {
+        title: "Order Resolved",
+        description: "The order has been resolved",
+        icon: "4",
+        active: order?.status == "Resolved",
+        color: "green",
+      },
+    ];
+  }
 
   return (
     <DashboardLayout tab="orders" loading={loading}>
@@ -66,9 +149,16 @@ export default function ManageOrder() {
             ml: "auto",
           }}
         >
-          <OrderActions order={order} owner={owner} account={account} />
+          <OrderActions
+            order={order}
+            owner={owner}
+            account={account}
+            order_id={order_id?.toString().split("@")[0]}
+            store_id={store_id}
+          />
         </Flex>
       </Flex>
+      <Steps steps={steps} />
       <Flex
         sx={{
           flexDirection: "column",
@@ -189,9 +279,7 @@ export default function ManageOrder() {
   );
 }
 
-// TODO: Complete this
-// TODO: Add animation between pages
-function OrderActions({ order, owner, account }: any) {
+function OrderActions({ order, owner, account, order_id, store_id }: any) {
   const isSeller = owner === account?.account_id;
   const isBuyer = order?.buyer_id === account?.account_id;
 
@@ -213,7 +301,8 @@ function OrderActions({ order, owner, account }: any) {
     setConfirmCB(() => {
       return () => {
         setLoading(true);
-        order_cancel(order?.store_id, order?.order_id)
+
+        order_cancel(store_id, order_id)
           .then((r) => {
             window.location.reload();
           })
@@ -232,7 +321,7 @@ function OrderActions({ order, owner, account }: any) {
     setConfirmCB(() => {
       return () => {
         setLoading(true);
-        order_shipped(order?.store_id, order?.order_id)
+        order_shipped(store_id, order_id)
           .then((r) => {
             window.location.reload();
           })
@@ -255,7 +344,7 @@ function OrderActions({ order, owner, account }: any) {
     setConfirmCB(() => {
       return () => {
         setLoading(true);
-        order_complete(order?.store_id, order?.order_id)
+        order_complete(store_id, order_id)
           .then((r) => {
             window.location.reload();
           })

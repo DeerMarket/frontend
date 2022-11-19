@@ -46,7 +46,14 @@ export default function Stores() {
               mb: 3,
             }}
           >
-            <Heading as="h2">My stores</Heading>{" "}
+            <Heading
+              as="h1"
+              sx={{
+                variant: "pageHeading",
+              }}
+            >
+              My Stores
+            </Heading>{" "}
             <A href="/dashboard/stores/create" passHref>
               <Link>
                 <ButtonWithIcon>Create a Store</ButtonWithIcon>

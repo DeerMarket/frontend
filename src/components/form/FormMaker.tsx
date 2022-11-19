@@ -13,6 +13,8 @@ import {
 } from "theme-ui";
 import { useVerify } from "../../hooks/useVerify";
 import Loading from "../common/Loading";
+import StoreAvatar from "../common/StoreAvatar";
+import StoreCover from "../common/StoreCover";
 
 import Logo from "../svg/logo";
 import NearIcon from "../svg/near";
@@ -108,6 +110,7 @@ export default function FormMaker({
 
     if (v?.pattern) {
       if (v.pattern == "near_account_id") {
+        d = d?.toLowerCase();
         if (!/^([a-z\d]+-)*[a-z\d]+$/.test(d)) {
           err =
             "Invalid NEAR account ID: must be 2-64 characters, a-z, 0-9, or '-'";
@@ -199,7 +202,6 @@ export default function FormMaker({
           maxWidth: "900px",
           p: 4,
           minHeight: [400, 400, 500, 600],
-          maxHeight: "100vh",
           display: "flex",
           flexDirection: "column",
           gap: 2,
@@ -354,28 +356,26 @@ export default function FormMaker({
                     gap: 2,
                   }}
                 >
-                  <Image
-                    src={data[steps[step].name]}
-                    sx={{
-                      maxWidth: "440px",
-                      maxHeight: "440px",
-                      objectFit:
-                        steps[step].options.variant == "avatar"
-                          ? "cover"
-                          : "contain",
-                      objectPosition: "center",
-                      borderRadius:
-                        steps[step].options.variant == "avatar" && 4,
-                      width: steps[step].options.variant == "avatar" && "200px",
-                      height:
-                        steps[step].options.variant == "avatar" && "200px",
-                      border:
-                        steps[step].options.variant == "avatar" && "1px solid",
-
-                      borderColor: "primary",
-                      mb: 3,
-                    }}
-                  />
+                  {steps[step].options.variant == "avatar" ? (
+                    <StoreAvatar image={data[steps[step].name]} />
+                  ) : steps[step].options.variant == "cover" ? (
+                    <StoreCover image={data[steps[step].name]} height={130} />
+                  ) : (
+                    <Image
+                      src={data[steps[step].name]}
+                      sx={{
+                        maxWidth: "440px",
+                        maxHeight: "440px",
+                        objectFit: "cover",
+                        objectPosition: "center",
+                        borderRadius: 20,
+                        width: "200px",
+                        height: "200px",
+                        mb: 3,
+                        border: "1px solid #eee",
+                      }}
+                    />
+                  )}
                   <Input
                     variant="input.default"
                     type="text"

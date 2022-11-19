@@ -40,7 +40,7 @@ export const useAction = () => {
         ],
       })
       .catch((err) => {
-        alert("Failed to send transaction: " + err);
+        // alert("Failed to send transaction: " + err);
         console.log("Failed to send transaction: " + err);
         throw err;
       });

@@ -146,7 +146,7 @@
       "subtitle": "This will be displayed everywhere your store is mentioned",
       "type": "image",
       "options": {
-        "variant": "logo"
+        "variant": "avatar"
       },
       "validation": {
         "required": false

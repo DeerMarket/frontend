@@ -40,7 +40,14 @@ export default function Orders() {
           mb: 4,
         }}
       >
-        <Heading as="h2">My orders</Heading>
+        <Heading
+          as="h1"
+          sx={{
+            variant: "pageHeading",
+          }}
+        >
+          My orders
+        </Heading>
         <A href="/stores" passHref>
           <Link>
             <ButtonWithIcon>Explore Stores</ButtonWithIcon>
@@ -107,7 +114,7 @@ function OrderList({ orders }: any) {
                 flex: 1,
               }}
             >
-              <StoreAvatar image={order?.item?.images[0]} size={90} />
+              <StoreAvatar image={order?.item?.images?.[0]} size={90} />
               <Box ml={2}>
                 <Heading as="h4" variant="account" mt={0}>
                   {order?.store?.id}

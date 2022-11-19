@@ -23,6 +23,7 @@ const Home: NextPage = () => {
       >
         <Heading
           as="h3"
+          mb={3}
           sx={{
             mt: "auto",
             mb: 0,
@@ -62,7 +63,7 @@ const Home: NextPage = () => {
             </Button>
           </Link>
 
-          <Link href="/dashboard" passHref>
+          <Link href="/dashboard/stores" passHref>
             <Button as="a" variant="outline">
               Create Store
             </Button>
@@ -119,7 +120,7 @@ const Home: NextPage = () => {
           <Flex
             sx={{
               gap: 4,
-              flexDirection: ["column", "column", "column", "row", "row"],
+              flexDirection: "row",
               flexWrap: "wrap",
               alignContent: "center",
               justifyContent: "center",
@@ -129,38 +130,65 @@ const Home: NextPage = () => {
             <Box
               variant="box.light"
               sx={{
-                p: 3,
-                textAlign: "left",
+                p: 4,
+                width: ["100%", "100%", "40%", "30%"],
+                textAlign: "center",
               }}
             >
-              <Heading as="h3">Sell Anything</Heading>
-              <Paragraph sx={{ maxWidth: 300 }}>
-                You can sell anything you want. Physical or digital goods. You
-                can even sell services.
+              <Heading
+                as="h3"
+                sx={{
+                  fontSize: [2, 2, 2, 3, 3],
+                }}
+                mb={3}
+              >
+                Buy/Sell Anything
+              </Heading>
+              <Paragraph mb={0}>
+                Physical or digital items. You can sell anything on deer even
+                your services.
               </Paragraph>
             </Box>
             <Box
               variant="box.light"
               sx={{
-                p: 3,
-                textAlign: "left",
+                p: 4,
+                width: ["100%", "100%", "40%", "30%"],
+                textAlign: "center",
               }}
             >
-              <Heading as="h3">100% Ownership</Heading>
-              <Paragraph sx={{ maxWidth: 300 }}>
-                You own your store. You can do whatever you want with it. We
-                have no control over your store.
+              <Heading
+                as="h3"
+                sx={{
+                  fontSize: [2, 2, 2, 3, 3],
+                }}
+                mb={3}
+              >
+                100% Decentralized
+              </Heading>
+              <Paragraph mb={0}>
+                Deer is built on NEAR blockchain and only uses decentralized
+                technologies to operate.
               </Paragraph>
             </Box>
             <Box
               variant="box.light"
               sx={{
-                p: 3,
-                textAlign: "left",
+                p: 4,
+                width: ["100%", "100%", "40%", "30%"],
+                textAlign: "center",
               }}
             >
-              <Heading as="h3">Arbitration &amp; Escrow</Heading>
-              <Paragraph sx={{ maxWidth: 300 }}>
+              <Heading
+                as="h3"
+                sx={{
+                  fontSize: [2, 2, 2, 3, 3],
+                }}
+                mb={3}
+              >
+                Arbitration &amp; Escrow
+              </Heading>
+              <Paragraph mb={0}>
                 We have built in arbitration and escrow features to help you
                 resolve disputes with your customers.
               </Paragraph>
@@ -168,40 +196,67 @@ const Home: NextPage = () => {
             <Box
               variant="box.light"
               sx={{
-                p: 3,
-                textAlign: "left",
+                p: 4,
+                width: ["100%", "100%", "40%", "30%"],
+                textAlign: "center",
               }}
             >
-              <Heading as="h3">Arbitration &amp; Escrow</Heading>
-              <Paragraph sx={{ maxWidth: 300 }}>
-                We have built in arbitration and escrow features to help you
-                resolve disputes with your customers.
+              <Heading
+                as="h3"
+                sx={{
+                  fontSize: [2, 2, 2, 3, 3],
+                }}
+                mb={3}
+              >
+                Trustless escrow
+              </Heading>
+              <Paragraph mb={0}>
+                We secure your trades and funds with a trustless contract. And
+                you can review the code yourself to know exactly how it works.
               </Paragraph>
             </Box>
             <Box
               variant="box.light"
               sx={{
-                p: 3,
-                textAlign: "left",
+                p: 4,
+                width: ["100%", "100%", "40%", "30%"],
+                textAlign: "center",
               }}
             >
-              <Heading as="h3">Arbitration &amp; Escrow</Heading>
-              <Paragraph sx={{ maxWidth: 300 }}>
-                We have built in arbitration and escrow features to help you
-                resolve disputes with your customers.
+              <Heading
+                as="h3"
+                sx={{
+                  fontSize: [2, 2, 2, 3, 3],
+                }}
+                mb={3}
+              >
+                Fair Dispute Resolution
+              </Heading>
+              <Paragraph mb={0}>
+                In the event of a dispute, we use a decentralized voting system
+                to ensure that the outcome is fair and unbiased.
               </Paragraph>
             </Box>
             <Box
               variant="box.light"
               sx={{
-                p: 3,
-                textAlign: "left",
+                p: 4,
+                width: ["100%", "100%", "40%", "30%"],
+                textAlign: "center",
               }}
             >
-              <Heading as="h3">Arbitration &amp; Escrow</Heading>
-              <Paragraph sx={{ maxWidth: 300 }}>
-                We have built in arbitration and escrow features to help you
-                resolve disputes with your customers.
+              <Heading
+                as="h3"
+                sx={{
+                  fontSize: [2, 2, 2, 3, 3],
+                }}
+                mb={3}
+              >
+                Less Fees. Faster Transactions.
+              </Heading>
+              <Paragraph mb={0}>
+                The process of buying and selling on deer is cheaper and faster
+                than any other Web2 marketplace.
               </Paragraph>
             </Box>
           </Flex>

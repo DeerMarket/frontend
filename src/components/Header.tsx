@@ -79,12 +79,7 @@ export default function Header({ variant = "default", ...rest }) {
             </Link>
           ) : (
             <NavLink>
-              <Button
-                variant="smallCTA"
-                bg="black"
-                color="white"
-                onClick={handleConnect}
-              >
+              <Button variant="connect" onClick={handleConnect}>
                 Connect Wallet
               </Button>
             </NavLink>
@@ -137,12 +132,7 @@ export default function Header({ variant = "default", ...rest }) {
                   py: 3,
                 }}
               >
-                <Button
-                  variant="smallCTA"
-                  bg="black"
-                  color="white"
-                  onClick={handleConnect}
-                >
+                <Button variant="connect" onClick={handleConnect}>
                   Connect Wallet
                 </Button>
               </NavLink>

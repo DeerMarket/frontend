@@ -18,10 +18,12 @@ export default function PageHeader({
       variant="background.bottom.0"
     >
       <Container>
-        <Heading as="h1" variant="pageHeading">
+        <Heading as="h1" variant="pageHeading" mb={3}>
           {title}
         </Heading>
-        <Paragraph variant="pageSubHeading">{subtitle}</Paragraph>
+        <Paragraph variant="pageSubHeading" mb={0}>
+          {subtitle}
+        </Paragraph>
         {children}
       </Container>
     </Box>
