@@ -104,7 +104,7 @@ export default function FormMaker({
         err = `Maximum is ${v.max}`;
       }
     }
-    console.log("validating", d);
+    // console.log("validating", d);
 
     if (v?.pattern) {
       if (v.pattern == "near_account_id") {
