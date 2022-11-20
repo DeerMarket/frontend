@@ -111,9 +111,9 @@ export default function FormMaker({
     if (v?.pattern) {
       if (v.pattern == "near_account_id") {
         d = d?.toLowerCase();
-        if (!/^([a-z\d]+-)*[a-z\d]+$/.test(d)) {
+        if (!/^[a-z0-9]+$/i.test(d)) {
           err =
-            "Invalid NEAR account ID: must be 2-64 characters, a-z, 0-9, or '-'";
+            "Invalid NEAR account ID: must be 3-64 characters, letters and numbers only";
         }
       } else if (v.pattern == "email") {
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d)) {
