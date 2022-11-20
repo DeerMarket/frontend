@@ -18,11 +18,6 @@ export default function Update() {
 
   const { transactionHashes } = router.query;
 
-  if (transactionHashes) {
-    router.push(`/dashboard/stores?transactionHashes=${transactionHashes}`);
-    return null;
-  }
-
   useEffect(() => {
     const getStore = async () => {
       const metadata = await get_store_metadata(id as string);
@@ -33,6 +28,11 @@ export default function Update() {
       getStore();
     }
   }, [id]);
+
+  if (transactionHashes) {
+    router.push(`/dashboard/stores?transactionHashes=${transactionHashes}`);
+    return null;
+  }
 
   const handleSubmit = async (d: any) => {
     setIsLoading(true);
