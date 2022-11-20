@@ -3,12 +3,13 @@ import { utils } from "near-api-js";
 import { NextPageContext } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Container, Heading, Paragraph, Text } from "theme-ui";
 import Price from "../../../../components/common/Price";
 import StoreAvatar from "../../../../components/common/StoreAvatar";
 import StoreCover from "../../../../components/common/StoreCover";
 import DefaultLayout from "../../../../components/layouts/Default";
+import TransactionStatus from "../../../../components/popups/TransactionStatus";
 import StoreCard from "../../../../components/sections/StoreCard";
 import SwiperGallery from "../../../../components/sections/SwiperGallery";
 import client from "../../../../configs/apollo-client";
@@ -17,12 +18,44 @@ import { useAction } from "../../../../hooks/useAction";
 import { useData } from "../../../../hooks/useData";
 
 export default function ItemPage({ data }: any) {
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { item, store } = data;
-  const { account } = useData();
-
+  const { account, getTx } = useData();
   const { item_buy } = useAction();
+
+  const [loading, setLoading] = useState(false);
+  const [txPopup, setTxPopup] = useState({
+    show: false,
+    success: false,
+    loading: false,
+  });
+
+  const { transactionHashes } = router.query;
+  const { item, store } = data;
+
+  useEffect(() => {
+    if (transactionHashes) {
+      setTxPopup({
+        show: true,
+        success: false,
+        loading: true,
+      });
+      getTx(transactionHashes as string).then((tx: any) => {
+        if (tx?.status?.SuccessValue) {
+          setTxPopup({
+            show: true,
+            success: true,
+            loading: false,
+          });
+        } else {
+          setTxPopup({
+            show: true,
+            success: false,
+            loading: false,
+          });
+        }
+      });
+    }
+  }, [transactionHashes]);
 
   const handleBuy = async () => {
     setLoading(true);
@@ -32,7 +65,7 @@ export default function ItemPage({ data }: any) {
         item.itemID,
         item.price
       );
-      window.location.href = "/dashboard";
+      window.location.href = "/dashboard/orders";
       setLoading(false);
     } catch (error) {
       alert("Error: " + error);
@@ -43,6 +76,33 @@ export default function ItemPage({ data }: any) {
 
   return (
     <DefaultLayout loading={loading}>
+      <TransactionStatus
+        show={txPopup.show}
+        success={txPopup.success}
+        loading={txPopup.loading}
+        successTitle="Order Successful"
+        successMessage="Your successfully bought this item."
+        successConfirmText="View Orders"
+        failureTitle="Order Failed"
+        failureMessage="Your order failed."
+        onSuccessConfirm={() => {
+          router.push("/dashboard/orders");
+        }}
+        onFailConfirm={() => {
+          setTxPopup({
+            show: false,
+            success: false,
+            loading: false,
+          });
+        }}
+        onClose={() => {
+          setTxPopup({
+            show: false,
+            success: false,
+            loading: false,
+          });
+        }}
+      />
       <Container pb={4} pt={[1, 1, 4]}>
         <Box
           sx={{
@@ -81,7 +141,7 @@ export default function ItemPage({ data }: any) {
                 amount={utils.format.formatNearAmount(item?.price, 2)}
                 size={26}
               />
-              {store?.owner?.id == account?.account_id ? null : (
+              {store?.owner?.id == account?.account_id || !account ? null : (
                 <>
                   <Button onClick={handleBuy}>Order Now</Button>
                   <Paragraph>
@@ -90,6 +150,16 @@ export default function ItemPage({ data }: any) {
                   </Paragraph>
                 </>
               )}
+              {account == null ? (
+                <>
+                  <Button onClick={handleBuy} variant="connect">
+                    Connect Wallet
+                  </Button>
+                  <Paragraph>
+                    Please connect your wallet to order this item.
+                  </Paragraph>
+                </>
+              ) : null}
             </Box>
             <Heading as="h4" variant="sectionHeading" mb={3}>
               Store Information

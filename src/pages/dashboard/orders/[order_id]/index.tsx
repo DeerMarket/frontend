@@ -79,7 +79,7 @@ export default function ManageOrder() {
         title: "Order Shipped",
         description: "Waiting for you to receive the item",
         icon: "2",
-        active: order?.status == "Shipped",
+        active: order?.status != "Pending",
         color: "green",
       },
       {

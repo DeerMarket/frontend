@@ -11,7 +11,7 @@ export default function StoreAvatar({
   return (
     <Box
       sx={{
-        backgroundColor: "muted",
+        backgroundColor: image ? "transparent" : "muted",
         height: [size],
         width: [size],
         borderRadius: size < 100 ? 20 : 27,

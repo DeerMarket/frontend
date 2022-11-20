@@ -16,6 +16,13 @@ export default function Update() {
   const { update_store_metadata } = useAction();
   const { get_store_metadata } = useData();
 
+  const { transactionHashes } = router.query;
+
+  if (transactionHashes) {
+    router.push(`/dashboard/stores?transactionHashes=${transactionHashes}`);
+    return null;
+  }
+
   useEffect(() => {
     const getStore = async () => {
       const metadata = await get_store_metadata(id as string);

@@ -17,6 +17,13 @@ export default function Create() {
 
   const { dispute_create } = useAction();
 
+  const { transactionHashes } = router.query;
+
+  if (transactionHashes) {
+    router.push(`/dashboard/orders`);
+    return null;
+  }
+
   const handleSubmit = async (d: any) => {
     setIsLoading(true);
 

@@ -48,6 +48,13 @@ export default function Store() {
     }
   }, [id]);
 
+  const { transactionHashes } = router.query;
+
+  if (transactionHashes) {
+    router.push(`/dashboard/stores?transactionHashes=${transactionHashes}`);
+    return null;
+  }
+
   async function handleDeleteStore() {
     await delete_store(id as string);
     setPopup(false);

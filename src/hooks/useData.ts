@@ -57,12 +57,21 @@ export const useData = () => {
       }));
   };
 
+  const getTx = async (txHash: string) => {
+    const { network } = selector.options;
+    const provider = new providers.JsonRpcProvider({ url: network.nodeUrl });
+    console.log(txHash);
+
+    return provider.txStatus(txHash, contractsConfig.store_factory.contractId);
+  };
+
   /** Return object */
   return {
     // common
     account,
     functionView,
     viewAccount,
+    getTx,
 
     // store factory
     get_stores_by_creator: async (creator_id: string) => {

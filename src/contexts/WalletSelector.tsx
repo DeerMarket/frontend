@@ -46,14 +46,29 @@ export const WalletSelectorContextProvider = ({ children }: any) => {
   const accountId =
     accounts.find((account) => account.active)?.accountId || null;
 
+  const successUrl =
+    typeof window !== "undefined"
+      ? window.location.hostname
+      : "https://deermarket.org";
+  const failureUrl =
+    typeof window !== "undefined"
+      ? window.location.hostname
+      : "https://deermarket.org";
+
   const init = useCallback(async () => {
     const _selector = await setupWalletSelector({
       network: "testnet",
       debug: true,
       modules: [
         ...(await setupDefaultWallets()),
-        setupNearWallet(),
-        setupMyNearWallet(),
+        setupNearWallet({
+          // successUrl: successUrl,
+          // failureUrl: failureUrl,
+        }),
+        setupMyNearWallet({
+          // successUrl,
+          // failureUrl,
+        }),
         setupSender(),
         setupLedger(),
         setupHereWallet(),

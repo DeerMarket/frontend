@@ -92,11 +92,13 @@ export default function Store({ data }: any) {
                 <Heading as="h5">Tags</Heading>
                 <Paragraph mb={0}>
                   {data?.store?.tags?.length > 0
-                    ? data?.store?.tags?.map((tag: any) => (
-                        <Link key={tag.id} href={`/search?query=${tag.id}`}>
-                          {tag.name + " "}
-                        </Link>
-                      ))
+                    ? data?.store?.tags?.map(
+                        (tag: any, i: any) =>
+                          // <Link key={tag.id} href={`/search?query=${tag.id}`}>
+                          tag.name +
+                          (i < data?.store?.tags?.length - 1 ? ", " : "")
+                        // </Link>
+                      )
                     : "No tags"}
                 </Paragraph>
               </Box>

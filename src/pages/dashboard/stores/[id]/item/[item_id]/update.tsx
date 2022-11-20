@@ -34,6 +34,13 @@ export default function Update() {
     }
   }, [id]);
 
+  const { transactionHashes } = router.query;
+
+  if (transactionHashes) {
+    router.push(`/dashboard/stores?transactionHashes=${transactionHashes}`);
+    return null;
+  }
+
   const handleSubmit = async (d: any) => {
     setIsLoading(true);
     await item_update(id as string, { item_id, ...d });

@@ -54,6 +54,7 @@ export const useAction = () => {
       wallet
         .signOut()
         .then(() => {
+          localStorage.clear();
           window.location.href = "/";
         })
         .catch((err) => {
@@ -89,7 +90,7 @@ export const useAction = () => {
       tags?: string[];
     }) => {
       const args = {
-        owner_id: accountId!,
+        owner_id: accountId!.toLowerCase(),
         metadata: {
           name,
           category: parseInt(category as string),
@@ -108,7 +109,7 @@ export const useAction = () => {
       return functionCall({
         contractId: contractsConfig.store_factory.contractId,
         methodName: "create",
-        args: { name: id, args: argsBase64 },
+        args: { name: id.toLowerCase(), args: argsBase64 },
         amount: "3000000000000000000000000",
       });
     },

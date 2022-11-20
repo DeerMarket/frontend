@@ -9,16 +9,80 @@ import { useData } from "../../../hooks/useData";
 import { useEffect, useState } from "react";
 import StoreAvatar from "../../../components/common/StoreAvatar";
 import StoreCard from "../../../components/sections/StoreCard";
+import Router from "next/router";
+import TransactionStatus from "../../../components/popups/TransactionStatus";
+import { contractsConfig } from "../../../configs/contracts";
 
 export default function Stores() {
   const [isLoading, setIsLoading] = useState(true);
   const [stores, setStores] = useState([]);
 
-  const { get_stores_by_creator, account, get_store_metadata } = useData();
+  const { get_stores_by_creator, account, get_store_metadata, getTx } =
+    useData();
+
+  const [txPopup, setTxPopup] = useState({
+    show: false,
+    success: false,
+    loading: false,
+  });
+  const [txStoreId, setTxStoreId] = useState("");
+  const [txMethod, setTxMethod] = useState("");
+  const [txEvent, setTxEvent] = useState({});
+
+  const { transactionHashes } = Router.query;
+
+  useEffect(() => {
+    if (transactionHashes) {
+      setTxPopup({
+        show: true,
+        success: false,
+        loading: true,
+      });
+      getTx(transactionHashes as string).then((tx: any) => {
+        let fn = tx?.transaction?.actions?.[0]?.FunctionCall;
+        setTxMethod(fn.method_name);
+
+        if (fn.method_name === "create_store") {
+          let txArgs = fn?.args;
+          txArgs = JSON.parse(Buffer.from(txArgs, "base64").toString("ascii"));
+          setTxStoreId(txArgs.name);
+        }
+
+        if (
+          fn.method_name === "item_create" ||
+          fn.method_name === "item_update" ||
+          fn.method_name === "item_delete" ||
+          fn.method_name === "update_store_metadata"
+        ) {
+          let event = JSON.parse(
+            tx?.receipts_outcome?.[0]?.outcome?.logs?.[0].substr(11)
+          );
+          setTxEvent(event);
+          let storeId = tx?.transaction?.receiver_id;
+          setTxStoreId(storeId);
+        }
+
+        if (tx?.status?.SuccessValue !== undefined) {
+          setTxPopup({
+            show: true,
+            success: true,
+            loading: false,
+          });
+        } else {
+          setTxPopup({
+            show: true,
+            success: false,
+            loading: false,
+          });
+        }
+      });
+    }
+  }, [transactionHashes]);
 
   useEffect(() => {
     const getStores = async () => {
       const stores = await get_stores_by_creator(account?.account_id!);
+
       let storeMetadata: any = [];
       for (let i = 0; i < stores.length; i++) {
         const metadata = await get_store_metadata(stores[i]);
@@ -36,8 +100,69 @@ export default function Stores() {
     }
   }, [account?.account_id]);
 
+  let successTitle, successMessage, failureTitle, failureMessage;
+
+  if (txMethod === "create") {
+    successTitle = "Your store was created successfully!";
+    successMessage = "You can now start adding products to your store.";
+    failureTitle = "Store Creation Failed";
+    failureMessage =
+      "Something went wrong while creating your store. Please try again.";
+  } else if (txMethod === "item_create") {
+    successTitle = "Item published successfully!";
+    successMessage = "You can now start selling your item.";
+    failureTitle = "Item Creation Failed";
+    failureMessage =
+      "Something went wrong while creating your item. Please try again.";
+  } else if (txMethod === "item_update") {
+    successTitle = "Item updated successfully!";
+    successMessage = "";
+    failureTitle = "Item Update Failed";
+    failureMessage =
+      "Something went wrong while updating your item. Please try again.";
+  } else if (txMethod === "update_store_metadata") {
+    successTitle = "Store updated successfully!";
+    successMessage = "";
+    failureTitle = "Store Update Failed";
+    failureMessage =
+      "Something went wrong while updating your store. Please try again.";
+  } else if (txMethod === "item_delete") {
+    successTitle = "Item deleted successfully!";
+    successMessage = "";
+    failureTitle = "Item Delete Failed";
+    failureMessage =
+      "Something went wrong while deleting your item. Please try again.";
+  }
+
   return (
     <DashboardLayout tab="stores" loading={isLoading}>
+      <TransactionStatus
+        show={txPopup.show}
+        success={txPopup.success}
+        loading={txPopup.loading}
+        successTitle={successTitle}
+        successMessage={successMessage}
+        successConfirmText={"Go to your store"}
+        failureTitle={failureTitle}
+        failureMessage={failureMessage}
+        onSuccessConfirm={() => {
+          Router.push(`/s/${txStoreId}`);
+        }}
+        onFailConfirm={() => {
+          setTxPopup({
+            show: false,
+            success: false,
+            loading: false,
+          });
+        }}
+        onClose={() => {
+          setTxPopup({
+            show: false,
+            success: false,
+            loading: false,
+          });
+        }}
+      />
       {stores?.length > 0 && (
         <>
           <Flex
