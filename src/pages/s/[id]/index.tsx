@@ -52,52 +52,63 @@ export default function Store({ data }: any) {
               sx={{
                 minWidth: 300,
                 flex: 1,
+                display: "flex",
+                justifyContent: "space-between",
+                gap: 3,
               }}
             >
-              <Heading as="h4" variant="account">
-                {data?.store?.id}
-              </Heading>
-              <Heading as="h3" variant="pageHeading">
-                {data?.store?.name}
-              </Heading>
               <Box
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
+                  flex: 2,
                 }}
               >
-                <Box sx={{ flex: 2 }}>
-                  <Heading as="h5">Owner</Heading>
-                  <Paragraph>
-                    <Text variant="account">{data?.store?.owner?.id}</Text>
-                  </Paragraph>
-                  <Heading as="h5">Description</Heading>
-                  <Paragraph>
-                    {data?.store?.description || "No description provided"}
-                  </Paragraph>
-                </Box>
-                <Box sx={{ flex: 1 }}>
-                  <Heading as="h5">Created at</Heading>
-                  <Paragraph>
-                    {new Date(Number(data?.store?.createdAt)).toLocaleString()}
-                  </Paragraph>
-                  <Heading as="h5">Updated at</Heading>
-                  <Paragraph>
-                    {new Date(Number(data?.store?.updatedAt)).toLocaleString()}
-                  </Paragraph>
-                  <Heading as="h5">Tags</Heading>
-                  <Paragraph>
-                    {data?.store?.tags?.length > 0
-                      ? data?.store?.tags?.map((tag: any) => (
-                          <Link key={tag.id} href={`/search?query=${tag.id}`}>
-                            {tag.name + " "}
-                          </Link>
-                        ))
-                      : "No tags"}
-                  </Paragraph>
-                </Box>
+                <Heading as="h4" variant="account">
+                  {data?.store?.id}
+                </Heading>
+                <Heading as="h3" variant="pageHeading">
+                  {data?.store?.name}
+                </Heading>
+                <Heading as="h5" mt={3}>
+                  Owner
+                </Heading>
+                <Paragraph>
+                  <Text variant="account">{data?.store?.owner?.id}</Text>
+                </Paragraph>
+              </Box>
+              <Box
+                sx={{
+                  gap: 3,
+                  flex: 1,
+                }}
+              >
+                <Heading as="h5">Created at</Heading>
+                <Paragraph>
+                  {new Date(Number(data?.store?.createdAt)).toLocaleString()}
+                </Paragraph>
+                <Heading as="h5">Updated at</Heading>
+                <Paragraph>
+                  {new Date(Number(data?.store?.updatedAt)).toLocaleString()}
+                </Paragraph>
+                <Heading as="h5">Tags</Heading>
+                <Paragraph mb={0}>
+                  {data?.store?.tags?.length > 0
+                    ? data?.store?.tags?.map((tag: any) => (
+                        <Link key={tag.id} href={`/search?query=${tag.id}`}>
+                          {tag.name + " "}
+                        </Link>
+                      ))
+                    : "No tags"}
+                </Paragraph>
               </Box>
             </Box>
+          </Box>
+          <Box>
+            <Heading as="h5" mt={0}>
+              Description
+            </Heading>
+            <Paragraph>
+              {data?.store?.description || "No description provided"}
+            </Paragraph>
           </Box>
         </Container>
       </Box>
@@ -246,6 +257,18 @@ export default function Store({ data }: any) {
               </Link>
             </A>
           ))}
+          {data?.store?.items.length === 0 && (
+            <Heading
+              as="h3"
+              sx={{
+                textAlign: "center",
+                mx: "auto",
+                my: 4,
+              }}
+            >
+              This store has no items
+            </Heading>
+          )}
         </Box>
       </Container>
     </DefaultLayout>

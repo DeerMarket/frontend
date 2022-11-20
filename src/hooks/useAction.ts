@@ -232,12 +232,12 @@ export const useAction = () => {
       const args = {
         item_id: item_id,
       };
-
+      let storage_estimate_cost = BigInt(10_000_000_000_000_000_000_000);
       return functionCall({
         contractId: store_id,
         methodName: "item_buy",
         args,
-        amount: amount,
+        amount: (BigInt(amount) + storage_estimate_cost).toString(),
       });
     },
 
