@@ -70,7 +70,7 @@ export default function FormMaker({
     if (step > 0) {
       setStep(step - 1);
     } else {
-      Router.push("/dashboard");
+      Router.back();
     }
   };
 

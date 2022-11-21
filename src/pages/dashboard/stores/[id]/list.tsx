@@ -28,13 +28,13 @@ export default function List() {
   if (transactionHashes) {
     router.push(`/dashboard/stores?transactionHashes=${transactionHashes}`);
     return null;
+  } else {
+    return (
+      <FormMaker
+        form={item_list_form}
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
+      ></FormMaker>
+    );
   }
-
-  return (
-    <FormMaker
-      form={item_list_form}
-      onSubmit={handleSubmit}
-      isLoading={isLoading}
-    ></FormMaker>
-  );
 }

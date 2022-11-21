@@ -10,22 +10,23 @@ export default function Create() {
   const [isLoading, setIsLoading] = useState(false);
   const { transactionHashes } = Router.query;
 
-  if (transactionHashes) {
-    Router.push(`/dashboard/stores?transactionHashes=${transactionHashes}`);
-    return null;
-  }
-
   const handleSubmit = async (d: any) => {
     setIsLoading(true);
     await create_store(d);
     setIsLoading(false);
     window.location.href = "/dashboard/stores";
   };
-  return (
-    <FormMaker
-      form={store_create_form}
-      onSubmit={handleSubmit}
-      isLoading={isLoading}
-    ></FormMaker>
-  );
+
+  if (transactionHashes) {
+    Router.push(`/dashboard/stores?transactionHashes=${transactionHashes}`);
+    return null;
+  } else {
+    return (
+      <FormMaker
+        form={store_create_form}
+        onSubmit={handleSubmit}
+        isLoading={isLoading}
+      ></FormMaker>
+    );
+  }
 }

@@ -175,7 +175,11 @@ export default function Store({ data }: any) {
                   Website:{" "}
                 </Text>
                 <Link
-                  href={data?.store?.website}
+                  href={
+                    !/^https?:\/\//i.test(data?.store?.website)
+                      ? "http://" + data?.store?.website
+                      : data?.store?.website
+                  }
                   target="_blank"
                   sx={{
                     color: "inherit",

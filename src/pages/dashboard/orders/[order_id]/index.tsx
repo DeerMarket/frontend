@@ -357,7 +357,7 @@ function OrderActions({ order, owner, account, order_id, store_id }: any) {
     });
   };
   const handleStartDispute = () => {
-    Router.push(Router.asPath + "/dispute");
+    Router.push(Router.asPath.split(/[?#]/)[0] + "/dispute");
   };
   const handleViewDispute = () => {
     Router.push("/disputes/");

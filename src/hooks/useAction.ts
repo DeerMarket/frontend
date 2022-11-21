@@ -173,7 +173,7 @@ export const useAction = () => {
         },
       };
 
-      let storage_estimate_cost = BigInt(50_000_000_000_000_000_000_000);
+      let storage_estimate_cost = BigInt(51_000_000_000_000_000_000_000);
 
       return functionCall({
         contractId: store_id,

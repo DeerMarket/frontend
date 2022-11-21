@@ -122,10 +122,18 @@ export default function ItemPage({ data }: any) {
               {item?.title}
             </Heading>
 
-            <Heading variant="sectionHeading" as="h3">
-              Description &amp; Details
+            <Heading variant="sectionHeading" as="h3" mb={3}>
+              About this item
             </Heading>
-            <Paragraph>{item?.description || "No description"}</Paragraph>
+            <Paragraph
+              sx={{
+                whiteSpace: "pre-line",
+              }}
+            >
+              {item?.description
+                ? item?.description?.replace(/\n\s*\n\s*\n/g, "\n\n")
+                : "No description"}
+            </Paragraph>
           </Box>
           <Box>
             <Box

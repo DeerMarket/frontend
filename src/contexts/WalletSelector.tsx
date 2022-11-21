@@ -69,9 +69,9 @@ export const WalletSelectorContextProvider = ({ children }: any) => {
           // successUrl,
           // failureUrl,
         }),
-        setupSender(),
+        // setupSender(),
         setupLedger(),
-        setupHereWallet(),
+        // setupHereWallet(),
       ],
     });
     const _modal = setupModal(_selector, {
