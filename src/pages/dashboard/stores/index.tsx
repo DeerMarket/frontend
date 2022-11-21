@@ -42,7 +42,7 @@ export default function Stores() {
         let fn = tx?.transaction?.actions?.[0]?.FunctionCall;
         setTxMethod(fn.method_name);
 
-        if (fn.method_name === "create_store") {
+        if (fn.method_name === "create") {
           let txArgs = fn?.args;
           txArgs = JSON.parse(Buffer.from(txArgs, "base64").toString("ascii"));
           setTxStoreId(txArgs.name);
@@ -146,7 +146,7 @@ export default function Stores() {
         failureTitle={failureTitle}
         failureMessage={failureMessage}
         onSuccessConfirm={() => {
-          Router.push(`/s/${txStoreId}`);
+          Router.push(txStoreId != "" ? `/s/${txStoreId}` : "/stores");
         }}
         onFailConfirm={() => {
           setTxPopup({
@@ -168,7 +168,7 @@ export default function Stores() {
           <Flex
             sx={{
               justifyContent: "space-between",
-              mb: 3,
+              mb: 4,
             }}
           >
             <Heading
@@ -177,7 +177,7 @@ export default function Stores() {
                 variant: "pageHeading",
               }}
             >
-              My Stores
+              Your Stores
             </Heading>{" "}
             <A href="/dashboard/stores/create" passHref>
               <Link>
@@ -214,7 +214,9 @@ function StoreCardA({ store }: any) {
     <Flex
       sx={{
         flexDirection: "column",
-        pr: 3,
+        pr: 4,
+        pl: 3,
+        py: 3,
         gap: 2,
 
         variant: "box.card",

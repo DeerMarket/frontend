@@ -10,11 +10,14 @@ import StoreAvatar from "../../../components/common/StoreAvatar";
 import Price from "../../../components/common/Price";
 import { utils } from "near-api-js";
 import Status from "../../../components/common/Status";
+import Tabs from "../../../components/common/Tabs";
 
 export default function Orders() {
   const [isLoading, setIsLoading] = useState(true);
   const [bought, setBought] = useState([]);
   const [sold, setSold] = useState([]);
+
+  const [tab, setTab] = useState("bought");
 
   const { account } = useData();
   const { get_orders_by_buyer, get_orders_by_seller } = useGraph();
@@ -46,42 +49,54 @@ export default function Orders() {
             variant: "pageHeading",
           }}
         >
-          My orders
+          Your Orders
         </Heading>
-        <A href="/stores" passHref>
-          <Link>
-            <ButtonWithIcon>Explore Stores</ButtonWithIcon>
-          </Link>
-        </A>
+        <Tabs
+          tabs={[
+            {
+              id: "bought",
+              name: "As Buyer",
+              onClick: () => setTab("bought"),
+              active: tab === "bought",
+              note: bought?.length,
+            },
+            {
+              id: "sold",
+              name: "As Seller",
+              onClick: () => setTab("sold"),
+              active: tab === "sold",
+              note: sold?.length,
+            },
+          ]}
+        />
       </Flex>
-      <Heading as="h2">Bought</Heading>
-      {bought?.length < 1 ? (
-        <Paragraph>
-          No orders yet. <A href="/stores">Explore stores</A> to buy something.
-        </Paragraph>
-      ) : (
-        <Flex sx={{ flexDirection: "column", gap: 3, mt: 3 }}>
-          <OrderList orders={bought} />
-        </Flex>
-      )}
-      <Heading as="h2" mt={4}>
-        Sold
-      </Heading>
-      {sold?.length < 1 ? (
-        <Paragraph>
-          No orders yet. When someone buys your products, you&apos;ll see them
-          here.
-        </Paragraph>
-      ) : (
-        <Flex sx={{ flexDirection: "column", gap: 3, mt: 3 }}>
-          <OrderList orders={sold} />
-        </Flex>
-      )}
+      {tab === "bought" &&
+        (bought?.length < 1 ? (
+          <Paragraph>
+            No orders yet. <A href="/stores">Explore stores</A> to buy
+            something.
+          </Paragraph>
+        ) : (
+          <Flex sx={{ flexDirection: "column", gap: 3, mt: 3 }}>
+            <OrderList orders={bought} tab={tab} />
+          </Flex>
+        ))}
+      {tab === "sold" &&
+        (sold?.length < 1 ? (
+          <Paragraph>
+            No orders yet. When someone buys your products, you&apos;ll see them
+            here.
+          </Paragraph>
+        ) : (
+          <Flex sx={{ flexDirection: "column", gap: 3, mt: 3 }}>
+            <OrderList orders={sold} tab={tab} />
+          </Flex>
+        ))}
     </DashboardLayout>
   );
 }
 
-function OrderList({ orders }: any) {
+function OrderList({ orders, tab }: any) {
   return (
     <>
       {orders?.map((order: any, i: any) => (
@@ -102,7 +117,7 @@ function OrderList({ orders }: any) {
               },
               mx: ["auto", "auto", 0],
               minWidth: ["340px"],
-              // flexDirection: ["column", "column", "row"],
+              width: "100%",
             }}
           >
             <Flex
@@ -132,33 +147,37 @@ function OrderList({ orders }: any) {
                 gap: 3,
                 ml: ["auto", "auto", 0],
                 flex: 1,
+                textAlign: "left",
               }}
             >
-              <Box sx={{ ml: [0, 0, "auto"] }}>
+              <Box sx={{ ml: [0, 0] }}>
                 <Heading as="h5">Ordered at</Heading>
                 <Box>
                   {new Date(Number(order?.createdAt) * 1000).toLocaleString()}
                 </Box>
               </Box>
-              <Box sx={{ ml: [0, 0, "auto"] }}>
+              {tab === "bought" && (
+                <Box sx={{ mx: [0, 0, "auto"] }}>
+                  <Heading as="h5">Seller</Heading>
+                  <Paragraph variant="account">{order?.seller?.id}</Paragraph>
+                </Box>
+              )}
+              {tab === "sold" && (
+                <Box sx={{ mx: [0, 0, "auto"] }}>
+                  <Heading as="h5">Buyer</Heading>
+                  <Paragraph variant="account">{order?.buyer?.id}</Paragraph>
+                </Box>
+              )}
+              <Box
+                sx={{
+                  ml: [0, 0],
+                  mt: ["auto", "auto", 0],
+                  mr: [0, 0, 4],
+                  width: ["100%", "100%", 100],
+                }}
+              >
                 <Heading as="h5">Status</Heading>
                 <Status status={order?.status} />
-              </Box>
-              <Box sx={{ ml: [0, 0, "auto"], mt: ["auto", "auto", 0] }}>
-                <A
-                  href={`/dashboard/orders/${order?.orderID}@${order?.store?.id}`}
-                  passHref
-                >
-                  <Link>
-                    <ButtonWithIcon
-                      sx={{
-                        fontSize: 1,
-                      }}
-                    >
-                      Manage Order
-                    </ButtonWithIcon>
-                  </Link>
-                </A>
               </Box>
             </Flex>
           </Flex>

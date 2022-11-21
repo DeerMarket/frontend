@@ -26,6 +26,12 @@ export const useGraph = () => {
               store {
                 id
               }
+              buyer {
+                id
+              }
+              seller {
+                id
+              }
               price
               status
               createdAt
@@ -55,6 +61,12 @@ export const useGraph = () => {
                 title
               }
               store {
+                id
+              }
+              buyer {
+                id
+              }
+              seller {
                 id
               }
               price

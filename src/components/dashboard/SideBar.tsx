@@ -35,7 +35,7 @@ export default function SideBar({ tab, ...rest }: any) {
       ),
     },
     {
-      name: "My Orders",
+      name: "Orders",
       href: "/dashboard/orders",
       active: tab === "orders",
       icon: (
@@ -56,7 +56,7 @@ export default function SideBar({ tab, ...rest }: any) {
       ),
     },
     {
-      name: "My Stores",
+      name: "Stores",
       href: "/dashboard/stores",
       active: tab === "stores",
       icon: (

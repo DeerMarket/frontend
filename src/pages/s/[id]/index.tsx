@@ -24,6 +24,10 @@ export default function Store({ data }: any) {
   const router = useRouter();
   const { id } = router.query;
 
+  // replace multi break lines with single break line
+  let description = data?.store?.description?.replace(/\n\s*\n\s*\n/g, "\n\n");
+  let terms = data?.store?.terms?.replace(/\n\s*\n\s*\n/g, "\n\n");
+
   return (
     <DefaultLayout>
       <Box>
@@ -108,8 +112,14 @@ export default function Store({ data }: any) {
             <Heading as="h5" mt={0}>
               Description
             </Heading>
-            <Paragraph>
-              {data?.store?.description || "No description provided"}
+            <Paragraph
+              sx={{
+                whiteSpace: "pre-line",
+                maxHeight: 100,
+                overflowY: "auto",
+              }}
+            >
+              {description || "No description provided"}
             </Paragraph>
           </Box>
         </Container>
@@ -233,8 +243,15 @@ export default function Store({ data }: any) {
             <Heading as="h3" variant="sidebarHeading">
               Store Terms
             </Heading>
-            <Paragraph px={2}>
-              {data?.store?.terms || "No terms provided"}
+            <Paragraph
+              px={2}
+              sx={{
+                whiteSpace: "pre-line",
+                maxHeight: 800,
+                overflowY: "auto",
+              }}
+            >
+              {terms || "No terms provided"}
             </Paragraph>
           </Box>
         </Box>

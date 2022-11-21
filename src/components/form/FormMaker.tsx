@@ -70,7 +70,7 @@ export default function FormMaker({
     if (step > 0) {
       setStep(step - 1);
     } else {
-      Router.back();
+      Router.push("/dashboard");
     }
   };
 
@@ -237,7 +237,14 @@ export default function FormMaker({
               }}
             >
               <Heading mb={3}>{steps[step]?.title || ""}</Heading>
-              <Paragraph mb={4}>{steps[step]?.subtitle || ""}</Paragraph>
+              <Paragraph
+                mb={4}
+                sx={{
+                  maxWidth: "600px",
+                }}
+              >
+                {steps[step]?.subtitle || ""}
+              </Paragraph>
 
               {steps[step].type === "text" && (
                 <Input
@@ -267,7 +274,11 @@ export default function FormMaker({
                   key={steps[step].name}
                   variant="input.default"
                   placeholder={steps[step].options.label}
-                  sx={{ width: "100%", maxWidth: "540px" }}
+                  sx={{
+                    width: "100%",
+                    maxWidth: "540px",
+                    whiteSpace: "pre-wrap",
+                  }}
                   onChange={(e) => {
                     setData({
                       ...data,

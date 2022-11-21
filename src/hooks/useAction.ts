@@ -173,10 +173,13 @@ export const useAction = () => {
         },
       };
 
+      let storage_estimate_cost = BigInt(50_000_000_000_000_000_000_000);
+
       return functionCall({
         contractId: store_id,
         methodName: "item_create",
         args,
+        amount: storage_estimate_cost.toString(),
       });
     },
 
@@ -259,6 +262,7 @@ export const useAction = () => {
         order_id: order_id,
       };
 
+      let storage_estimate_cost = BigInt(10_000_000_000_000_000_000_000);
       return functionCall({
         contractId: store_id,
         methodName: "order_complete",
