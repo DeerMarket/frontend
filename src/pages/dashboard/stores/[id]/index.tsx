@@ -4,21 +4,9 @@ import StoreAvatar from "../../../../components/common/StoreAvatar";
 import StoreCover from "../../../../components/common/StoreCover";
 import DashboardLayout from "../../../../components/layouts/Dashboard";
 import { useData } from "../../../../hooks/useData";
-import {
-  Avatar,
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Image,
-  Link,
-  Paragraph,
-  Text,
-} from "theme-ui";
+import { Box, Flex, Heading, Link, Paragraph } from "theme-ui";
 import A from "next/link";
 import ButtonWithIcon from "../../../../components/common/ButtonWithIcon";
-import Price from "../../../../components/common/Price";
-import { utils } from "near-api-js";
 import ConfirmPopup from "../../../../components/popups/ConfirmDeletePopup";
 import { useAction } from "../../../../hooks/useAction";
 import ItemCard from "../../../../components/sections/ItemCard";

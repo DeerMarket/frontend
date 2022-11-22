@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Box, Button, Container, Heading, Paragraph, Text } from "theme-ui";
 import Price from "../../../../components/common/Price";
-import StoreAvatar from "../../../../components/common/StoreAvatar";
 import StoreCover from "../../../../components/common/StoreCover";
 import DefaultLayout from "../../../../components/layouts/Default";
 import TransactionStatus from "../../../../components/popups/TransactionStatus";
@@ -18,8 +17,6 @@ import { useAction } from "../../../../hooks/useAction";
 import { useData } from "../../../../hooks/useData";
 
 export default function ItemPage({ data }: any) {
-  console.log(data);
-
   const router = useRouter();
   const { account, getTx } = useData();
   const { item_buy } = useAction();

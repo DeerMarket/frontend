@@ -77,13 +77,11 @@ export default function Dispute() {
     get_dispute(dispute_id as string)
       .then((res) => {
         setDispute(res);
-        console.log(res);
 
         get_store_metadata(res.store_id).then((res) => {
           setStore(res);
         });
         get_item(res?.store_id, res?.item_id).then((res) => {
-          console.log(res);
           setItem(res);
         });
         setLoading(false);
