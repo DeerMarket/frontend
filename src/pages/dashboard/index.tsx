@@ -80,7 +80,7 @@ export default function Dashboard() {
           <BigTotal
             title="Active Orders"
             total={
-              !stats
+              stats
                 ? isNaN(active_orders)
                   ? "0"
                   : active_orders.toString()
@@ -101,8 +101,8 @@ export default function Dashboard() {
           />
           <BigTotal
             title="Total Sales"
-            total={!stats ? total_sales.toString() : "..."}
-            currency={!stats ? "near" : ""}
+            total={stats ? total_sales.toString() : "..."}
+            currency={stats ? "near" : ""}
             icon={
               <Lottie
                 loop={false}
