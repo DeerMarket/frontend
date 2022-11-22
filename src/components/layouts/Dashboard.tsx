@@ -34,13 +34,14 @@ export default function DefaultLayout({
           position: "relative",
           minHeight: "100vh",
           variant: "background.background",
+          height: "100%",
+          pt: 4,
         }}
         {...rest}
       >
         <Container
           sx={{
             py: [40, 40, 72],
-            mt: 4,
             minHeight: ["auto", "auto", "100vh"],
             display: "flex",
             flexDirection: ["column", "column", "row"],

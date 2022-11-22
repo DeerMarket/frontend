@@ -75,8 +75,10 @@ export default function Dashboard() {
                   height: 120,
                   transform: "scale(1.5) translateY(-10px)",
                 }}
+
               />
             }
+          
           />
           <BigTotal
             title="Active Orders"
