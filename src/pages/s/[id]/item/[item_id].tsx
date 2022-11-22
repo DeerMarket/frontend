@@ -159,11 +159,15 @@ export default function ItemPage({ data }: any) {
                 </>
               )}
               {store?.owner?.id == account?.account_id && (
-                <Link href={`/dashboard/stores/${store?.id +"."+ contractsConfig.store_factory.contractId}`}>
-                    <Button>Manage Item</Button>
+                <Link
+                  href={`/dashboard/stores/${
+                    store?.id + "." + contractsConfig.store_factory.contractId
+                  }`}
+                >
+                  <Button>Manage Item</Button>
                 </Link>
               )}
-              
+
               {account == null ? (
                 <>
                   <Button onClick={handleBuy} variant="connect">
@@ -221,33 +225,41 @@ export default function ItemPage({ data }: any) {
                 {data?.store?.terms || "No terms and conditions"}
               </Paragraph>
             </Box>
-            
+
             <Heading as="h4" variant="sectionHeading" mb={3} mt={4}>
               Other Items
             </Heading>
-            <Box sx={{
-              width: "100%",
-              gap: 4,
-              display: "flex",
-              flexDirection: "column",
-            }}>
-              {data?.store?.items?.length > 0 ? data?.store?.items?.map((item: any) => (
-                <Link href={`/s/${data?.store?.id}/${item?.itemID}`} passHref>
-                  <Box >
-                    <ItemCard
-                      item={{
-                        title: item?.title,
-                        price: item?.price,
-                        images: item?.images,
-                      }}
-                      sx={{
-                        minWidth: "100%",
-                      }}
-                      ratio={1.62}
-                    />
+            <Box
+              sx={{
+                width: "100%",
+                gap: 4,
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              {data?.store?.items?.length > 0 ? (
+                data?.store?.items?.map((item: any, i: any) => (
+                  <Link
+                    key={i}
+                    href={`/s/${data?.store?.id}/${item?.itemID}`}
+                    passHref
+                  >
+                    <Box>
+                      <ItemCard
+                        item={{
+                          title: item?.title,
+                          price: item?.price,
+                          images: item?.images,
+                        }}
+                        sx={{
+                          minWidth: "100%",
+                        }}
+                        ratio={1.62}
+                      />
                     </Box>
-                </Link>
-              )) : (
+                  </Link>
+                ))
+              ) : (
                 <Paragraph>No items found.</Paragraph>
               )}
             </Box>
@@ -257,7 +269,6 @@ export default function ItemPage({ data }: any) {
     </DefaultLayout>
   );
 }
-
 
 export async function getServerSideProps(context: NextPageContext) {
   let storeId = context.query.id || "";
@@ -298,7 +309,7 @@ export async function getServerSideProps(context: NextPageContext) {
             id
           }
           items(first: 6, where: { status: "Active", id_not: $id }) {
-            id 
+            id
             itemID
             price
             title
