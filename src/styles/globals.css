@@ -49,3 +49,8 @@ ol,
 ul {
   list-style: none;
 }
+
+
+#nprogress .bar {
+  background: var(--theme-ui-colors-primary)!important;
+}
