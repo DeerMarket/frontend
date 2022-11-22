@@ -359,7 +359,7 @@ function OrderActions({ order, owner, account, order_id, store_id }: any) {
     Router.push(Router.asPath.split(/[?#]/)[0] + "/dispute");
   };
   const handleViewDispute = () => {
-    Router.push("/disputes/");
+    Router.push("/disputes/"+order?.dispute_id);
   };
 
   let Buttons: React.ReactElement = <></>;
