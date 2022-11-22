@@ -19,7 +19,8 @@ export default function Store() {
   const [storeItems, setStoreItems] = useState<any>();
   const [popup, setPopup] = useState<string | false>(false);
 
-  const { get_store_metadata, get_store_items } = useData();
+  const { get_store_metadata, get_store_items, account, get_store_owner } =
+    useData();
   const { delete_store, item_delete } = useAction();
 
   useEffect(() => {
@@ -31,9 +32,18 @@ export default function Store() {
       const items = await get_store_items(id as string);
       setStoreItems(items);
     };
+    const getOwner = async () => {
+      const owner = await get_store_owner(id as string);
+      if (!account || owner !== account.account_id) {
+        router.push(`/dashboard/stores`);
+        return null;
+      }
+    };
+
     if (id) {
       getStore();
       getStoreItems();
+      getOwner();
     }
   }, [id]);
 
@@ -223,39 +233,39 @@ export default function Store() {
         </Flex>
       </Flex>
 
-        <Flex
-          sx={{
-            flexDirection: "row",
-            flexWrap: "wrap",
-            gap: 4,
-            py: 4,
-          }}
-        >
-          {storeItems?.map((item: any, i: any) => (
-            <ItemCard2
-              store_id={id}
-              item={item}
-              key={i}
-              handleDeleteItemPopup={() => {
-                setPopup("delete_item:" + item.id);
-              }}
-            />
-          ))}
-          {storeItems?.length === 0 && (
-            <Paragraph>You have no items in this store.</Paragraph>
-          )}
-          {popup && popup.startsWith("delete_item:") && (
-            <ConfirmPopup
-              confirmButtonText="Delete Item"
-              show={popup.startsWith("delete_item:")}
-              title="Confirm Delete Item"
-              onCancel={() => setPopup(false)}
-              onConfirm={() => {
-                handleDeleteItem(popup.split(":")[1]);
-              }}
-            />
-          )}
-        </Flex>
+      <Flex
+        sx={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          gap: 4,
+          py: 4,
+        }}
+      >
+        {storeItems?.map((item: any, i: any) => (
+          <ItemCard2
+            store_id={id}
+            item={item}
+            key={i}
+            handleDeleteItemPopup={() => {
+              setPopup("delete_item:" + item.id);
+            }}
+          />
+        ))}
+        {storeItems?.length === 0 && (
+          <Paragraph>You have no items in this store.</Paragraph>
+        )}
+        {popup && popup.startsWith("delete_item:") && (
+          <ConfirmPopup
+            confirmButtonText="Delete Item"
+            show={popup.startsWith("delete_item:")}
+            title="Confirm Delete Item"
+            onCancel={() => setPopup(false)}
+            onConfirm={() => {
+              handleDeleteItem(popup.split(":")[1]);
+            }}
+          />
+        )}
+      </Flex>
     </DashboardLayout>
   );
 }

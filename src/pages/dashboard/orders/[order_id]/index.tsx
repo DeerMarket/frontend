@@ -42,7 +42,6 @@ export default function ManageOrder() {
       get_store_owner(store_id)
         .then((r: string) => {
           setOwner(r);
-          console.log("owner", r);
         })
         .catch((e: any) => {
           console.error(e);
