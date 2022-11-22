@@ -178,6 +178,8 @@ export default function Dispute() {
           isSeller={isSeller}
           isBuyer={isBuyer}
           handleEvidence={handleEvidence}
+          seller={dispute?.seller_id}
+          buyer={dispute?.buyer_id}
         />
         {dispute?.status == "Voting" &&
           !alreadyVoted &&
@@ -364,7 +366,14 @@ const VotingBox = ({ votes, dispute, evidences }: any) => {
   );
 };
 
-const EvidenceBox = ({ evidences, isSeller, isBuyer, handleEvidence }: any) => {
+const EvidenceBox = ({
+  evidences,
+  isSeller,
+  isBuyer,
+  handleEvidence,
+  seller,
+  buyer,
+}: any) => {
   const [showEvidencePopup, setShowEvidencePopup] = useState(false);
 
   return (
@@ -413,6 +422,9 @@ const EvidenceBox = ({ evidences, isSeller, isBuyer, handleEvidence }: any) => {
             }}
           >
             Seller
+            <Heading ml={2} variant="account">
+              {seller}
+            </Heading>
           </Heading>
           {evidences?.seller?.length < 1 && (
             <Paragraph mb={"auto"} mt={3}>
@@ -484,6 +496,9 @@ const EvidenceBox = ({ evidences, isSeller, isBuyer, handleEvidence }: any) => {
             }}
           >
             Buyer
+            <Heading ml={2} variant="account">
+              {buyer}
+            </Heading>
           </Heading>
 
           {evidences?.buyer?.length < 1 && (
