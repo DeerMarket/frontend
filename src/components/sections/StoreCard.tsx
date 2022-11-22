@@ -99,16 +99,16 @@ export default function StoreCard({
                   <span> ({store.reviews || "0"})</span>
                 </Paragraph>
               )}
-              {store.items && (
+              {store.items ? (
                 <Paragraph variant="text.tiny">
-                  {store.items || "0"} Items
+                  {store.items} Items
                 </Paragraph>
-              )}
-              {store.sales && (
+              ): null}
+              {store.sales ? (
                 <Paragraph variant="text.tiny">
-                  {store.sales || "0"} Sales
+                  {store.sales} Sales
                 </Paragraph>
-              )}
+              ): null}
             </Box>
           </Box>
         )}
