@@ -14,19 +14,21 @@ export default function ButtonWithIcon({
       variant="primary"
       sx={{
         background: "primary",
-        paddingLeft: "1.2em",
-        paddingRight: "3.3em",
+        paddingLeft: children ? "1.2em" : 0,
+        paddingRight: children ? "3.3em" : "2.8em",
         display: "flex",
         alignItems: "center",
         position: "relative",
         height: "2.8em",
         border: "none",
 
+        ":hover": {},
         "&:hover .icon": {
-          width: "calc(100% - 0.6em)",
+          width: children ? "calc(100% - 0.6em)" : "2.2em",
+          transform: children ? "" : "scale(1.1)",
         },
         "&:hover .icon svg": {
-          transform: "translateX(0.1em)",
+          transform: children ? "translateX(0.1em)" : "",
         },
         "&:active .icon": {
           transform: "scale(0.95)",

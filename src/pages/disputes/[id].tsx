@@ -21,6 +21,7 @@ import VotingChart from "../../components/sections/VotingChart";
 import { useAction } from "../../hooks/useAction";
 import { useData } from "../../hooks/useData";
 import A from "next/link";
+import ItemCard from "../../components/sections/ItemCard";
 
 export default function Dispute() {
   const router = useRouter();
@@ -31,6 +32,7 @@ export default function Dispute() {
   const [evidences, setEvidences] = useState<any>(null);
   const [votes, setVotes] = useState<any>(null);
   const [store, setStore] = useState<any>(null);
+  const [item, setItem] = useState<any>(null);
   const [isWhitelisted, setIsWhitelisted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -41,6 +43,7 @@ export default function Dispute() {
     get_votes,
     can_vote,
     get_store_metadata,
+    get_item,
     account,
   } = useData();
   const { add_evidence, vote, whitelist_me } = useAction();
@@ -74,8 +77,14 @@ export default function Dispute() {
     get_dispute(dispute_id as string)
       .then((res) => {
         setDispute(res);
+        console.log(res);
+
         get_store_metadata(res.store_id).then((res) => {
           setStore(res);
+        });
+        get_item(res?.store_id, res?.item_id).then((res) => {
+          console.log(res);
+          setItem(res);
         });
         setLoading(false);
       })
@@ -127,34 +136,81 @@ export default function Dispute() {
             mb: 4,
           }}
         >
-          <Heading
-            as="h4"
-            variant="tiny"
+          <Box
             sx={{
-              px: 4,
-              pt: 4,
+              display: "flex",
+              flexDirection: ["column", "column", "column", "row"],
             }}
           >
-            Store
-          </Heading>
-          <A href={`/s/${dispute?.store_id}`} passHref>
-            <Box>
-              <StoreCard
-                store={{
-                  id: dispute?.store_id,
-                  name: store?.name,
-                  image: store?.logo,
-                }}
-                showExtra={false}
+            <Box
+              sx={{
+                flex: 1,
+              }}
+            >
+              <Heading
+                as="h4"
+                variant="tiny"
                 sx={{
-                  variant: "none",
-                  p: 4,
-                  pt: 2,
-                  cursor: "pointer",
+                  px: 4,
+                  pt: 4,
                 }}
-              />
+              >
+                Item Disputed
+              </Heading>
+              <A
+                href={`/s/${dispute?.store_id}/item/${dispute?.item_id}`}
+                passHref
+              >
+                <Box
+                  sx={{
+                    width: "100%",
+                    p: 4,
+                  }}
+                >
+                  <ItemCard
+                    item={{
+                      title: item?.metadata?.title,
+                      price: item?.price,
+                      images: item?.metadata?.images,
+                    }}
+                    horizontal={true}
+                  />
+                </Box>
+              </A>
             </Box>
-          </A>
+            <Box
+              sx={{
+                flex: 1,
+              }}
+            >
+              <Heading
+                as="h4"
+                variant="tiny"
+                sx={{
+                  px: 4,
+                  pt: 4,
+                }}
+              >
+                Store
+              </Heading>
+              <A href={`/s/${dispute?.store_id}`} passHref>
+                <Box p={4}>
+                  <StoreCard
+                    store={{
+                      id: dispute?.store_id,
+                      name: store?.name,
+                      image: store?.logo,
+                    }}
+                    showExtra={false}
+                    sx={{
+                      variant: "none",
+                      cursor: "pointer",
+                    }}
+                  />
+                </Box>
+              </A>
+            </Box>
+          </Box>
           <DisputeCard
             dispute={{
               ...dispute,

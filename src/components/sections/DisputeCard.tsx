@@ -15,6 +15,9 @@ export default function DisputeCard({
     store?: string;
     endsAt?: string;
     prize?: string | number;
+    seller_id?: string;
+    buyer_id?: string;
+    required_votes?: number;
   };
   [key: string]: any;
 }) {
@@ -22,11 +25,6 @@ export default function DisputeCard({
     dispute?.description && dispute?.description?.length > 1000
       ? dispute?.description?.slice(0, 1000) + "..."
       : dispute?.description;
-
-  let title =
-    dispute?.title && dispute?.title?.length > 40
-      ? dispute?.title?.slice(0, 40) + "..."
-      : dispute?.title;
 
   let time = {
     title: "",
@@ -72,52 +70,16 @@ export default function DisputeCard({
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
             flexDirection: ["column", "column", "row"],
-          }}
-        >
-          <Box>
-            <Heading as="h4" variant="tiny">
-              title
-            </Heading>
-            <Heading as="h3" variant="cardHeading" mb={4}>
-              {title}
-            </Heading>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: ["flex-start", "flex-start", "flex-end"],
-            }}
-          >
-            <Heading as="h4" variant="tiny">
-              {time.title}
-            </Heading>
-            <Heading
-              as="h3"
-              mb={4}
-              sx={{
-                color: time.color,
-              }}
-            >
-              {time.value}
-            </Heading>
-          </Box>
-        </Box>
-
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: ["column", "column", "row"],
-            gap: 4,
+            gap: [3, 3, 4, 5],
+            mb: 4,
           }}
         >
           <Box>
             <Heading as="h4" variant="tiny">
               store
             </Heading>
-            <Heading as="h3" variant="account" mt={2} mb={4}>
+            <Heading as="h3" variant="account" mt={2}>
               {dispute?.store}
             </Heading>
           </Box>
@@ -125,8 +87,24 @@ export default function DisputeCard({
             <Heading as="h4" variant="tiny">
               disputer
             </Heading>
-            <Heading as="h3" variant="account" mt={2} mb={4}>
+            <Heading as="h3" variant="account" mt={2}>
               {dispute?.disputer}
+            </Heading>
+          </Box>
+          <Box>
+            <Heading as="h4" variant="tiny">
+              seller
+            </Heading>
+            <Heading as="h3" variant="account" mt={2}>
+              {dispute?.seller_id}
+            </Heading>
+          </Box>
+          <Box>
+            <Heading as="h4" variant="tiny">
+              buyer
+            </Heading>
+            <Heading as="h3" variant="account" mt={2}>
+              {dispute?.buyer_id}
             </Heading>
           </Box>
         </Box>
@@ -136,10 +114,30 @@ export default function DisputeCard({
         <Paragraph mt={1} mb={4}>
           {description ? description : "No description provided"}
         </Paragraph>
-        <Heading as="h4" variant="tiny">
-          shared prize pool
-        </Heading>
-        <Price amount={dispute?.prize} />
+        <Box
+          sx={{
+            display: "flex",
+            gap: [3, 3, 4, 5],
+          }}
+        >
+          <Box>
+            <Heading as="h4" variant="tiny">
+              shared prize pool
+            </Heading>
+            <Price amount={dispute?.prize} />
+          </Box>
+          <Box>
+            <Heading as="h4" variant="tiny">
+              one share
+            </Heading>
+            <Price
+              amount={(
+                Number(dispute?.prize || 0) /
+                Number(dispute?.required_votes || 0)
+              ).toFixed(2)}
+            />
+          </Box>
+        </Box>
       </Box>
     </A>
   );

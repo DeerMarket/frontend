@@ -21,6 +21,7 @@ import Price from "../../../../components/common/Price";
 import { utils } from "near-api-js";
 import ConfirmPopup from "../../../../components/popups/ConfirmDeletePopup";
 import { useAction } from "../../../../hooks/useAction";
+import ItemCard from "../../../../components/sections/ItemCard";
 
 export default function Store() {
   const router = useRouter();
@@ -77,12 +78,15 @@ export default function Store() {
           alignItems: "center",
           gap: 2,
           p: 3,
+          variant: "box.card",
+          borderTopLeftRadius: 0,
+          borderTopRightRadius: 0,
         }}
       >
         <Flex
           sx={{
-            flexDirection: "row",
-            alignItems: "center",
+            flexDirection: ["column", "column", "column", "row"],
+            alignItems: "left",
             gap: 4,
             cursor: "pointer",
           }}
@@ -105,8 +109,9 @@ export default function Store() {
 
         <Flex
           sx={{
-            alignItems: "center",
             gap: 3,
+            flexDirection: ["column", "column", "column", "row"],
+            alignItems: "flex-end",
           }}
         >
           <ButtonWithIcon
@@ -231,16 +236,16 @@ export default function Store() {
       </Flex>
 
       <Box sx={{ p: 4 }}>
-        <Heading as="h2">Items</Heading>
         <Flex
           sx={{
-            flexDirection: "column",
-            gap: 3,
+            flexDirection: "row",
+            flexWrap: "wrap",
+            gap: 5,
             py: 3,
           }}
         >
           {storeItems?.map((item: any, i: any) => (
-            <ItemCard
+            <ItemCard2
               store_id={id}
               item={item}
               key={i}
@@ -269,47 +274,26 @@ export default function Store() {
   );
 }
 
-function ItemCard({ store_id, item, handleDeleteItemPopup }: any) {
+function ItemCard2({ store_id, item, handleDeleteItemPopup }: any) {
   return (
     <Flex
       sx={{
-        flexDirection: "row",
+        flexDirection: "column",
         gap: 3,
-        variant: "box.card",
-        p: 3,
+        // variant: "box.card",
+        width: "100%",
       }}
     >
-      <Image
-        src={item?.metadata?.images?.[0]}
-        sx={{
-          width: 150,
-          height: 100,
-          objectFit: "cover",
-          borderRadius: 3,
-        }}
-      />
       <Flex
         sx={{
-          flexDirection: "column",
-          gap: 1,
-          maxWidth: 500,
-        }}
-      >
-        <Heading as="h2">{item?.metadata?.title}</Heading>
-        <Price
-          amount={utils.format.formatNearAmount(
-            BigInt(item?.price).toString(),
-            2
-          )}
-        />
-      </Flex>
-      <Flex
-        sx={{
-          ml: "auto",
-          my: "auto",
           gap: 3,
+          alignItems: "center",
+          ml: 3,
         }}
       >
+        <Heading as="h3" mr={"auto"}>
+          item#{item?.id}
+        </Heading>
         <ButtonWithIcon
           icon={
             <svg
@@ -332,9 +316,7 @@ function ItemCard({ store_id, item, handleDeleteItemPopup }: any) {
             },
           }}
           onClick={() => handleDeleteItemPopup(item?.id)}
-        >
-          Delete Item
-        </ButtonWithIcon>
+        ></ButtonWithIcon>
         <A
           href={`/dashboard/stores/${store_id}/item/${item?.id}/update`}
           passHref
@@ -354,29 +336,35 @@ function ItemCard({ store_id, item, handleDeleteItemPopup }: any) {
                 >
                   <path
                     d="M258.461,39.842c0-10.643-4.144-20.647-11.67-28.172c-7.524-7.524-17.529-11.669-28.171-11.669
-		c-10.643,0-20.647,4.145-28.172,11.669l-11.95,11.95l-0.04-0.04l-1.115,1.194L118.617,83.5c-0.799,0.801-1.62,1.69-2.44,2.643
-		c-2.708,3.148-1.309,5.422-0.233,6.497l50.11,50.11c0.933,0.933,1.899,1.406,2.872,1.406c1.337,0,2.272-0.86,2.892-1.43
-		c0.093-0.086,0.18-0.166,0.26-0.234c1.048-0.891,2.019-1.782,2.885-2.648l58.7-58.7l1.206-1.154l-0.026-0.026l11.95-11.949
-		C254.317,60.489,258.461,50.484,258.461,39.842z"
+  c-10.643,0-20.647,4.145-28.172,11.669l-11.95,11.95l-0.04-0.04l-1.115,1.194L118.617,83.5c-0.799,0.801-1.62,1.69-2.44,2.643
+  c-2.708,3.148-1.309,5.422-0.233,6.497l50.11,50.11c0.933,0.933,1.899,1.406,2.872,1.406c1.337,0,2.272-0.86,2.892-1.43
+  c0.093-0.086,0.18-0.166,0.26-0.234c1.048-0.891,2.019-1.782,2.885-2.648l58.7-58.7l1.206-1.154l-0.026-0.026l11.95-11.949
+  C254.317,60.489,258.461,50.484,258.461,39.842z"
                   />
                   <path
                     d="M97.903,117.119c-0.923-0.923-2.144-1.431-3.438-1.431c-1.339,0-2.636,0.566-3.556,1.555l-71.564,76.819
-		c-1.578,1.692-3.526,4.831-4.345,6.996l-3.714,9.832c-0.92,2.438-0.198,5.789,1.644,7.631l0.719,0.719L0.323,254.522
-		c-0.579,1.534-0.271,2.478,0.089,2.999c0.419,0.605,1.112,0.94,1.953,0.94c0.481,0,1.012-0.108,1.576-0.321l35.28-13.327
-		l0.719,0.719c1.258,1.258,3.296,2.04,5.319,2.04c0.838,0,1.615-0.134,2.312-0.396l9.832-3.714c2.163-0.817,5.302-2.766,6.997-4.344
-		l76.818-71.564c0.979-0.912,1.531-2.145,1.555-3.471c0.023-1.326-0.484-2.577-1.431-3.523L97.903,117.119z"
+  c-1.578,1.692-3.526,4.831-4.345,6.996l-3.714,9.832c-0.92,2.438-0.198,5.789,1.644,7.631l0.719,0.719L0.323,254.522
+  c-0.579,1.534-0.271,2.478,0.089,2.999c0.419,0.605,1.112,0.94,1.953,0.94c0.481,0,1.012-0.108,1.576-0.321l35.28-13.327
+  l0.719,0.719c1.258,1.258,3.296,2.04,5.319,2.04c0.838,0,1.615-0.134,2.312-0.396l9.832-3.714c2.163-0.817,5.302-2.766,6.997-4.344
+  l76.818-71.564c0.979-0.912,1.531-2.145,1.555-3.471c0.023-1.326-0.484-2.577-1.431-3.523L97.903,117.119z"
                   />
                 </svg>
               }
               sx={{
                 fontSize: 1,
               }}
-            >
-              Update Item
-            </ButtonWithIcon>
+            ></ButtonWithIcon>
           </Link>
         </A>
       </Flex>
+      <ItemCard
+        item={{
+          title: item?.metadata?.title,
+          images: item?.metadata?.images,
+          price: item?.price,
+        }}
+        horizontal={true}
+      />
     </Flex>
   );
 }

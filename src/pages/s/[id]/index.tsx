@@ -19,6 +19,7 @@ import { gql } from "@apollo/client";
 import { utils } from "near-api-js";
 import StoreAvatar from "../../../components/common/StoreAvatar";
 import StoreCover from "../../../components/common/StoreCover";
+import ItemCard from "../../../components/sections/ItemCard";
 
 export default function Store({ data }: any) {
   const router = useRouter();
@@ -269,14 +270,14 @@ export default function Store({ data }: any) {
           }}
         >
           {data?.store?.items.map((item: any, i: any) => (
-            <A href={`/s/${id}/item/${item.id}`} key={i} passHref>
+            <A href={`/s/${id}/item/${item.itemID}`} key={i} passHref>
               <Link
                 sx={{
                   display: "contents",
                   color: "inherit",
                 }}
               >
-                <ItemCard data={item} />
+                <ItemCard item={item} />
               </Link>
             </A>
           ))}
@@ -295,63 +296,6 @@ export default function Store({ data }: any) {
         </Box>
       </Container>
     </DefaultLayout>
-  );
-}
-
-function ItemCard({ data }: any) {
-  return (
-    <Box
-      sx={{
-        width: ["100%", "100%", "45%", "30%", "22.5%"],
-        // p: 3,
-        cursor: "pointer",
-        display: "flex",
-        flexDirection: "column",
-        textAlign: "left",
-        justifyContent: "center",
-        variant: "box.card",
-        overflow: "hidden",
-
-        ":hover": {
-          variant: "box.cardHover",
-        },
-      }}
-    >
-      <AspectRatio
-        ratio={1.25}
-        sx={{
-          width: "100%",
-          height: "100%",
-          mb: 2,
-          backgroundColor: "muted",
-          backgroundImage: `url(${data?.images?.[0]})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          borderRadius: "inherit",
-        }}
-      />
-      <Box
-        px={3}
-        py={3}
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          flex: 1,
-        }}
-      >
-        <Heading
-          as="h4"
-          sx={{
-            fontWeight: "normal",
-            pb: 2,
-            mb: "auto",
-          }}
-        >
-          {data?.title}
-        </Heading>
-        <Price amount={utils.format.formatNearAmount(data?.price, 2)} />
-      </Box>
-    </Box>
   );
 }
 
@@ -388,6 +332,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
           items(where: { status: "Active" }) {
             id
+            itemID
             price
             status
             title

@@ -12,7 +12,7 @@ const accentColors = {
   blue: "#5F8AFA",
   green: "#2fd5a9",
   yellow: "#FFC860",
-  red: "#f97979",
+  red: "#df4545",
   aqua: "#4FD1D9",
   purple: "#6B6EF9",
   lilac: "#A463B0",
