@@ -171,7 +171,7 @@ export default function ItemPage({ data }: any) {
               {account == null ? (
                 <>
                   <Button onClick={handleBuy} variant="connect">
-                    Connect Wallet
+                    Connect Wallet to Order
                   </Button>
                   <Paragraph>
                     Please connect your wallet to order this item.

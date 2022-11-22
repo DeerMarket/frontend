@@ -271,6 +271,7 @@ export default function Dispute() {
         {dispute?.status == "Voting" &&
           !alreadyVoted &&
           !isBuyer &&
+          account &&
           !isSeller &&
           !isWhitelisted && (
             <NotWhitelisted handleWhitelist={handleWhitelist} />

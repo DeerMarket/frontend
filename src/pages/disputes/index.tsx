@@ -18,7 +18,7 @@ export default function Disputes({}) {
   const [tab, setTab] = useState("open");
 
   const { get_disputes, can_vote, account } = useData();
-  const { whitelist_me } = useAction();
+  const { whitelist_me, login } = useAction();
 
   useEffect(() => {
     setIsLoading(true);
@@ -148,13 +148,19 @@ export default function Disputes({}) {
               whitelisted member of the community. If you are not a member, you
               can apply to join the community by clicking the button below.
             </Paragraph>
-            <Button
-              variant="primary"
-              sx={{ width: "100%" }}
-              onClick={handleWhitelist}
-            >
-              Apply to join
-            </Button>
+            {account ? (
+              <Button
+                variant="primary"
+                sx={{ width: "100%" }}
+                onClick={handleWhitelist}
+              >
+                Apply to join
+              </Button>
+            ) : (
+              <Button variant="connect" sx={{ width: "100%" }} onClick={login}>
+                Connect Wallet to Apply
+              </Button>
+            )}
             <Paragraph variant="sidebarText" mt={2}>
               The platform is currently in testnet, so you will be instantly
               whitelisted.
