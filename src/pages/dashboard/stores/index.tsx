@@ -100,7 +100,7 @@ export default function Stores() {
     }
   }, [account?.account_id]);
 
-  let successTitle, successMessage, failureTitle, failureMessage;
+  let successTitle, successMessage, failureTitle, failureMessage, onSuccessConfirm;
 
   if (txMethod === "create") {
     successTitle = "Your store was created successfully!";
@@ -145,8 +145,8 @@ export default function Stores() {
         successConfirmText={"Go to your store"}
         failureTitle={failureTitle}
         failureMessage={failureMessage}
-        onSuccessConfirm={() => {
-          Router.push(txStoreId != "" ? `/s/${txStoreId}` : "/stores");
+        onSuccessConfirm={onSuccessConfirm ? onSuccessConfirm : () => {
+          Router.push(`/dashboard/stores/${txStoreId}.${contractsConfig.store_factory.contractId}`)
         }}
         onFailConfirm={() => {
           setTxPopup({
