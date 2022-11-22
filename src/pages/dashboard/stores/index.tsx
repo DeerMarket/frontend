@@ -147,9 +147,9 @@ export default function Stores() {
         failureMessage={failureMessage}
         onSuccessConfirm={onSuccessConfirm ? onSuccessConfirm : () => {
           if(txStoreId.split(".").length > 0){
-            Router.push(`/stores/${txStoreId.split(".")[0]}.${contractsConfig.store_factory.contractId}`);
+            Router.push(`/dashboard/stores/${txStoreId.split(".")[0]}.${contractsConfig.store_factory.contractId}`);
           }else{
-            Router.push(`/stores/${txStoreId}.${contractsConfig.store_factory.contractId}`);
+            Router.push(`/dashboard/stores/${txStoreId}.${contractsConfig.store_factory.contractId}`);
           }
         }}
         onFailConfirm={() => {
