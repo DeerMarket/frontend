@@ -58,7 +58,7 @@ export const WalletSelectorContextProvider = ({ children }: any) => {
   const init = useCallback(async () => {
     const _selector = await setupWalletSelector({
       network: "testnet",
-      debug: true,
+      // debug: true,
       modules: [
         ...(await setupDefaultWallets()),
         setupNearWallet({

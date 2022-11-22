@@ -1,25 +1,17 @@
-import A from "next/link";
-import { Box, Button, Container, Heading, Link, Paragraph } from "theme-ui";
+import { Box, Button, Container, Heading, Paragraph } from "theme-ui";
 import DefaultLayout from "../../components/layouts/Default";
 import PageHeader from "../../components/sections/PageHeader";
 
-import { gql } from "@apollo/client";
-import client from "../../configs/apollo-client";
-import { NextPageContext } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Loading from "../../components/common/Loading";
-import StoreAvatar from "../../components/common/StoreAvatar";
 import Tabs from "../../components/common/Tabs";
-import Price from "../../components/common/Price";
 import DisputeCard from "../../components/sections/DisputeCard";
 import { useData } from "../../hooks/useData";
 import { utils } from "near-api-js";
 import { useAction } from "../../hooks/useAction";
 
 export default function Disputes({}) {
-  const router = useRouter();
-
   const [isLoading, setIsLoading] = useState(false);
   const [canVote, setCanVote] = useState(false);
   const [disputes, setDisputes] = useState([]);
@@ -41,7 +33,6 @@ export default function Disputes({}) {
   useEffect(() => {
     can_vote(account?.account_id || "")
       .then((res: boolean) => {
-        console.log("can_vote", res);
         setCanVote(res);
       })
       .catch((err) => {
