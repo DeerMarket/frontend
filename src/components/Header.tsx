@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Box, Button, Container, Flex, NavLink } from "theme-ui";
+import { Box, Button, Container, Flex, NavLink, Paragraph } from "theme-ui";
 import { useAction } from "../hooks/useAction";
 import { useData } from "../hooks/useData";
 import Logo from "./svg/logo";
@@ -75,7 +75,9 @@ export default function Header({ variant = "default", ...rest }) {
         >
           {account ? (
             <Link href="/dashboard" passHref>
-              <NavLink p={2}>Dashboard</NavLink>
+              <NavLink p={2}>
+                Dashboard (<Paragraph variant="account">{account?.account_id}</Paragraph>)
+              </NavLink>
             </Link>
           ) : (
             <NavLink>
@@ -124,7 +126,7 @@ export default function Header({ variant = "default", ...rest }) {
 
             {account ? (
               <Link href="/dashboard" passHref>
-                <NavLink p={2}>Dashboard</NavLink>
+                <NavLink p={2}>Dashboard (<Paragraph variant="account">{account?.account_id}</Paragraph>)</NavLink>
               </Link>
             ) : (
               <NavLink

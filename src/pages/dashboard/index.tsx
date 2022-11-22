@@ -46,6 +46,7 @@ export default function Dashboard() {
     Number(utils.format.formatNearAmount(stats?.total_sales || "0", 2))
   );
 
+  
   return (
     <DashboardLayout tab="overview">
       <Heading as="h1" variant="pageHeading" mb={4}>
