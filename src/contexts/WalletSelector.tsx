@@ -47,9 +47,9 @@ export const WalletSelectorContextProvider = ({ children }: any) => {
     accounts.find((account) => account.active)?.accountId || null;
 
   const successUrl =
-    typeof window !== "undefined"
+    (typeof window !== "undefined"
       ? window.location.hostname
-      : "https://deermarket.org";
+      : "https://deermarket.org") + "/dashboard";
   const failureUrl =
     typeof window !== "undefined"
       ? window.location.hostname
@@ -62,12 +62,12 @@ export const WalletSelectorContextProvider = ({ children }: any) => {
       modules: [
         ...(await setupDefaultWallets()),
         setupNearWallet({
-          // successUrl: successUrl,
-          // failureUrl: failureUrl,
+          successUrl,
+          failureUrl,
         }),
         setupMyNearWallet({
-          // successUrl,
-          // failureUrl,
+          successUrl,
+          failureUrl,
         }),
         // setupSender(),
         setupLedger(),

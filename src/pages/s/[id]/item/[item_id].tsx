@@ -9,6 +9,7 @@ import Price from "../../../../components/common/Price";
 import StoreCover from "../../../../components/common/StoreCover";
 import DefaultLayout from "../../../../components/layouts/Default";
 import TransactionStatus from "../../../../components/popups/TransactionStatus";
+import ItemCard from "../../../../components/sections/ItemCard";
 import StoreCard from "../../../../components/sections/StoreCard";
 import SwiperGallery from "../../../../components/sections/SwiperGallery";
 import client from "../../../../configs/apollo-client";
@@ -157,6 +158,12 @@ export default function ItemPage({ data }: any) {
                   </Paragraph>
                 </>
               )}
+              {store?.owner?.id == account?.account_id && (
+                <Link href={`/dashboard/stores/${store?.id +"."+ contractsConfig.store_factory.contractId}`}>
+                    <Button>Manage Item</Button>
+                </Link>
+              )}
+              
               {account == null ? (
                 <>
                   <Button onClick={handleBuy} variant="connect">
@@ -214,6 +221,36 @@ export default function ItemPage({ data }: any) {
                 {data?.store?.terms || "No terms and conditions"}
               </Paragraph>
             </Box>
+            
+            <Heading as="h4" variant="sectionHeading" mb={3} mt={4}>
+              Other Items
+            </Heading>
+            <Box sx={{
+              width: "100%",
+              gap: 4,
+              display: "flex",
+              flexDirection: "column",
+            }}>
+              {data?.store?.items?.length > 0 ? data?.store?.items?.map((item: any) => (
+                <Link href={`/s/${data?.store?.id}/${item?.itemID}`} passHref>
+                  <Box >
+                    <ItemCard
+                      item={{
+                        title: item?.title,
+                        price: item?.price,
+                        images: item?.images,
+                      }}
+                      sx={{
+                        minWidth: "100%",
+                      }}
+                      ratio={1.62}
+                    />
+                    </Box>
+                </Link>
+              )) : (
+                <Paragraph>No items found.</Paragraph>
+              )}
+            </Box>
           </Box>
         </Box>
       </Container>
@@ -221,24 +258,6 @@ export default function ItemPage({ data }: any) {
   );
 }
 
-function cyrb53(str: string, seed: number = 0): number {
-  let h1: number = 0xdeadbeef ^ seed,
-    h2: number = 0x41c6ce57 ^ seed;
-  for (let i = 0, ch: number; i < str.length; i++) {
-    ch = str.charCodeAt(i);
-    h1 = Math.imul(h1 ^ ch, 2654435761) as number;
-    h2 = Math.imul(h2 ^ ch, 1597334677) as number;
-  }
-
-  h1 =
-    (Math.imul(h1 ^ (h1 >>> 16), 2246822507) as number) ^
-    (Math.imul(h2 ^ (h2 >>> 13), 3266489909) as number);
-  h2 =
-    (Math.imul(h2 ^ (h2 >>> 16), 2246822507) as number) ^
-    (Math.imul(h1 ^ (h1 >>> 13), 3266489909) as number);
-
-  return 4294967296 * (2097151 & h2) + (h1 >>> 0);
-}
 
 export async function getServerSideProps(context: NextPageContext) {
   let storeId = context.query.id || "";
@@ -277,6 +296,13 @@ export async function getServerSideProps(context: NextPageContext) {
           terms
           owner {
             id
+          }
+          items(first: 6, where: { status: "Active", id_not: $id }) {
+            id 
+            itemID
+            price
+            title
+            images
           }
         }
       }

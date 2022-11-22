@@ -18,6 +18,7 @@ export default function StoreAvatar({
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        minWidth: [size],
       }}
     />
   );

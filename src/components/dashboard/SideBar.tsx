@@ -81,7 +81,7 @@ export default function SideBar({ tab, ...rest }: any) {
         overflow: "hidden",
         minWidth: "100px",
         alignItems: "center",
-        variant: "box.card",
+        variant: "box.dashboardCard",
         flexDirection: ["row", "row", "column"],
         width: ["100%", "100%", "100px"],
         height: ["100px", "100px", "calc(100vh - 240px)"],

@@ -5,6 +5,7 @@ import Price from "../common/Price";
 export default function ItemCard({
   item,
   horizontal,
+  ratio,
   ...rest
 }: {
   item: {
@@ -13,6 +14,7 @@ export default function ItemCard({
     price?: string;
   };
   horizontal?: boolean;
+  ratio?: number;
   [key: string]: any;
 }) {
   let title =
@@ -45,7 +47,8 @@ export default function ItemCard({
         }}
       >
         <AspectRatio
-          ratio={1.25}
+          ratio={ratio? ratio :1.25}
+
           sx={{
             width: "100%",
             height: "100%",

@@ -101,5 +101,26 @@ export const useGraph = () => {
         },
       });
     },
+
+    // dashboard
+    get_user_overview: async (user_id: string) => {
+      return await client.query({
+        query: gql`
+          query GetUserOverview($accountId: String!) {
+            user(id: $accountId) {
+              total_sell_orders
+              total_buy_orders
+              total_active_sell_orders
+              total_active_buy_orders
+              total_stores
+              total_sales
+            }
+          }
+        `,
+        variables: {
+          accountId: user_id,
+        },
+      });
+    },
   };
 };

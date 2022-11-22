@@ -13,12 +13,13 @@ export default function StoreCard({
     image?: string;
     rating?: number;
     reviews?: number;
-    products?: number;
+    items?: number;
     sales?: number;
   };
   showExtra?: boolean;
   [key: string]: any;
 }) {
+  
   let description =
     store?.description && store?.description?.length > 130
       ? store?.description?.slice(0, 130) + "..."
@@ -50,21 +51,16 @@ export default function StoreCard({
         <Heading as="h4" variant="account" mr={"auto"} mt={0} mb={1}>
           {store.id}
         </Heading>
-        <Heading as="h3" variant="cardHeading">
+        <Heading as="h3" variant="cardHeading" mb={0}>
           {name}
         </Heading>
-        {description && (
-          <Paragraph mb={"auto"} mt={2}>
-            {description}
-          </Paragraph>
-        )}
         {showExtra && (
           <Box
             sx={{
               display: "flex",
               justifyContent: "space-between",
               alignItems: "center",
-              mt: 3,
+              mt: 2,
             }}
           >
             <Box
@@ -103,9 +99,9 @@ export default function StoreCard({
                   <span> ({store.reviews || "0"})</span>
                 </Paragraph>
               )}
-              {store.products && (
+              {store.items && (
                 <Paragraph variant="text.tiny">
-                  {store.products || "0"} Products
+                  {store.items || "0"} Items
                 </Paragraph>
               )}
               {store.sales && (
@@ -115,6 +111,11 @@ export default function StoreCard({
               )}
             </Box>
           </Box>
+        )}
+        {description && (
+          <Paragraph mb={"auto"} mt={3}>
+            {description}
+          </Paragraph>
         )}
       </Box>
     </Box>

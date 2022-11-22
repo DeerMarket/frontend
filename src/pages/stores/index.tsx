@@ -42,6 +42,7 @@ export default function Stores({ data }: any) {
     "Courses",
   ];
 
+  
   return (
     <DefaultLayout>
       <PageHeader
@@ -154,10 +155,10 @@ export default function Stores({ data }: any) {
                       image: s?.logo,
                       // rating: 4.5,
                       // reviews: 100,
-                      products: 3,
-                      sales: 300,
+                      items: s?.total_items,
+                      sales: s?.total_orders,
                     }}
-                    showExtra={false}
+                    showExtra={true}
                     sx={{
                       cursor: "pointer",
                       variant: "box.card",
@@ -186,12 +187,16 @@ export async function getServerSideProps(context: NextPageContext) {
           name
           description
           logo
+          total_items
+          total_orders
         }
         stores @include(if: $getAll) {
           id
           name
           description
           logo
+          total_items
+          total_orders
         }
       }
     `,

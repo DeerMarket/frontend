@@ -223,13 +223,12 @@ export default function Store() {
         </Flex>
       </Flex>
 
-      <Box sx={{ p: 4 }}>
         <Flex
           sx={{
             flexDirection: "row",
             flexWrap: "wrap",
-            gap: 5,
-            py: 3,
+            gap: 4,
+            py: 4,
           }}
         >
           {storeItems?.map((item: any, i: any) => (
@@ -257,7 +256,6 @@ export default function Store() {
             />
           )}
         </Flex>
-      </Box>
     </DashboardLayout>
   );
 }

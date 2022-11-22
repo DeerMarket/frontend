@@ -44,11 +44,12 @@ export default function DefaultLayout({
             minHeight: ["auto", "auto", "100vh"],
             display: "flex",
             flexDirection: ["column", "column", "row"],
+            pr: [3, 3, 90],
           }}
         >
           <Box
             sx={{
-              maxWidth: ["100vw", "100vw", 135],
+              maxWidth: ["100vw", "100vw", 200],
               width: "100%",
               height: "100%",
               flex: 1,

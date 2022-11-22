@@ -284,6 +284,17 @@ const box = {
     borderColor: alpha("primary", 0.3),
     boxShadow: `0 0 40px 20px var(--theme-ui-colors-shadow)`,
   },
+  dashboardCard: {
+    background: "white",
+    boxShadow: `0 0 15px 0px var(--theme-ui-colors-shadow)`,
+    borderRadius: 10,
+    border: "1px solid",
+    borderColor: alpha("primary", 0.1),
+    transition: "all 0.4s ease-in-out",
+  },
+  dashboardCardHover: {
+    boxShadow: `0 0 40px 20px var(--theme-ui-colors-shadow)`,
+  },
   light: {
     background: alpha("white", 0.78),
     boxShadow: `0 0 15px 0px var(--theme-ui-colors-shadow)`,
