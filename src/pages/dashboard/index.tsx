@@ -46,7 +46,6 @@ export default function Dashboard() {
     Number(utils.format.formatNearAmount(stats?.total_sales || "0", 2))
   );
 
-  
   return (
     <DashboardLayout tab="overview">
       <Heading as="h1" variant="pageHeading" mb={4}>
@@ -75,14 +74,18 @@ export default function Dashboard() {
                   height: 120,
                   transform: "scale(1.5) translateY(-10px)",
                 }}
-
               />
             }
-          
           />
           <BigTotal
             title="Active Orders"
-            total={!isNaN(active_orders) ? active_orders.toString() : "..."}
+            total={
+              !stats
+                ? isNaN(active_orders)
+                  ? "0"
+                  : active_orders.toString()
+                : "..."
+            }
             icon={
               <Lottie
                 loop={false}
@@ -98,8 +101,8 @@ export default function Dashboard() {
           />
           <BigTotal
             title="Total Sales"
-            total={total_sales !=undefined ? total_sales.toString() : "..."}
-            currency={total_sales !=undefined ? "near": ""}
+            total={!stats ? total_sales.toString() : "..."}
+            currency={!stats ? "near" : ""}
             icon={
               <Lottie
                 loop={false}
