@@ -1,9 +1,11 @@
 import { Box, Heading, Paragraph } from "theme-ui";
 import Price from "../common/Price";
 import A from "next/link";
+import DisputeStamp from "../common/DisputeStamp";
 
 export default function DisputeCard({
   dispute,
+  showStamp = false,
   ...rest
 }: {
   dispute: {
@@ -18,7 +20,9 @@ export default function DisputeCard({
     seller_id?: string;
     buyer_id?: string;
     required_votes?: number;
+    status?: string;
   };
+  showStamp?: boolean;
   [key: string]: any;
 }) {
   let description =
@@ -64,9 +68,21 @@ export default function DisputeCard({
         sx={{
           width: "100%",
           p: 4,
+          position: "relative",
         }}
         {...rest}
       >
+        {dispute?.status && showStamp && (
+          <DisputeStamp
+            status={dispute?.status}
+            sx={{
+              position: "absolute",
+              top: 2,
+              right: 2,
+              transform: "rotate(34deg)",
+            }}
+          />
+        )}
         {dispute?.title && (
           <Heading as="h3" mt={2} mb={4}>
             {dispute?.title}

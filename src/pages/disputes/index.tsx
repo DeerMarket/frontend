@@ -112,6 +112,7 @@ export default function Disputes({}) {
           {!isLoading &&
             disputes?.map((dispute: any, i: any) => (
               <DisputeCard
+                showStamp={true}
                 dispute={{
                   ...dispute,
                   title: "Dispute #" + dispute?.id,

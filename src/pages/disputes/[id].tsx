@@ -22,6 +22,7 @@ import { useAction } from "../../hooks/useAction";
 import { useData } from "../../hooks/useData";
 import A from "next/link";
 import ItemCard from "../../components/sections/ItemCard";
+import DisputeStamp from "../../components/common/DisputeStamp";
 
 export default function Dispute() {
   const router = useRouter();
@@ -132,8 +133,20 @@ export default function Dispute() {
           sx={{
             variant: "box.card",
             mb: 4,
+            position: "relative",
           }}
         >
+          {dispute?.status && (
+            <DisputeStamp
+              status={dispute?.status}
+              sx={{
+                position: "absolute",
+                top: 3,
+                right: 3,
+                transform: "rotate(34deg) scale(1.2)",
+              }}
+            />
+          )}
           <Heading
             as="h4"
             variant="tiny"

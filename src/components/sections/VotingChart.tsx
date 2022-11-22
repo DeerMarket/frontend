@@ -15,7 +15,7 @@ export default function VotingChart({ buyer, seller, split }: any) {
     data.push({ title: "Seller", value: sellerPercent, color: "#f97979" });
   }
   if (splitPercent > 0) {
-    data.push({ title: "Split", value: splitPercent, color: "#cf8d04" });
+    data.push({ title: "Split", value: splitPercent, color: "#fdd46a" });
   }
 
   return (
@@ -39,20 +39,6 @@ export default function VotingChart({ buyer, seller, split }: any) {
           py: [0, 0, 3],
         }}
       >
-        <Box color="#2fd5a9">
-          <Heading
-            as="h4"
-            variant="tiny"
-            sx={{
-              fontWeight: 700,
-            }}
-          >
-            Buyer
-          </Heading>
-          <Heading as="h3" mb={2}>
-            {buyer}
-          </Heading>
-        </Box>
         <Box color="#f97979">
           <Heading
             as="h4"
@@ -65,6 +51,20 @@ export default function VotingChart({ buyer, seller, split }: any) {
           </Heading>
           <Heading as="h3" mb={2}>
             {seller}
+          </Heading>
+        </Box>
+        <Box color="#2fd5a9">
+          <Heading
+            as="h4"
+            variant="tiny"
+            sx={{
+              fontWeight: 700,
+            }}
+          >
+            Buyer
+          </Heading>
+          <Heading as="h3" mb={2}>
+            {buyer}
           </Heading>
         </Box>
         <Box color="#cf8d04">

@@ -14,6 +14,14 @@ export default function Status({ status }: { status: string }) {
     return <Box sx={{ color: "orange" }}>Disputed</Box>;
   } else if (status === "resolved") {
     return <Box sx={{ color: "green" }}>Resolved</Box>;
+  } else if (status === "sellerwon") {
+    return <Box sx={{ color: "red" }}>Seller Won</Box>;
+  } else if (status === "buyerwon") {
+    return <Box sx={{ color: "green" }}>Buyer Won</Box>;
+  } else if (status === "draw") {
+    return <Box sx={{ color: "orange" }}>Draw</Box>;
+  } else if (status === "voting") {
+    return <Box sx={{ color: "primary" }}>Voting</Box>;
   } else {
     return <Box>{status}</Box>;
   }
