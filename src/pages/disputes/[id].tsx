@@ -174,6 +174,7 @@ export default function Dispute() {
         </Box>
         <VotingBox votes={votes} dispute={dispute} evidences={evidences} />
         <EvidenceBox
+          canAdd={dispute?.status == "Voting" || dispute?.status == "Pending"}
           evidences={evidences}
           isSeller={isSeller}
           isBuyer={isBuyer}
@@ -367,6 +368,7 @@ const VotingBox = ({ votes, dispute, evidences }: any) => {
 };
 
 const EvidenceBox = ({
+  canAdd,
   evidences,
   isSeller,
   isBuyer,
@@ -456,7 +458,7 @@ const EvidenceBox = ({
               )}
             </Box>
           ))}
-          {isSeller && (
+          {canAdd && isSeller && (
             <Button
               sx={{
                 display: "block",
@@ -531,7 +533,7 @@ const EvidenceBox = ({
               )}
             </Box>
           ))}
-          {isBuyer && (
+          {canAdd && isBuyer && (
             <Button
               sx={{
                 display: "block",
