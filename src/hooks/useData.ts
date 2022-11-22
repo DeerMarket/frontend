@@ -123,10 +123,23 @@ export const useData = () => {
     },
 
     // disputes
-    get_disputes: async () => {
+    get_disputes: async ({
+      page,
+      limit,
+      openOnly,
+    }: {
+      page?: number;
+      limit?: number;
+      openOnly?: boolean;
+    }) => {
       return functionView({
         contractId: contractsConfig.dispute.contractId,
         methodName: "get_disputes",
+        args: {
+          from_index: page ? page * (limit || 50) : undefined,
+          limit: page ? limit || 50 : undefined,
+          status: openOnly ? "Voting" : undefined,
+        },
       });
     },
     get_dispute: async (dispute_id: string) => {

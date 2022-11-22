@@ -15,20 +15,25 @@ export default function Disputes({}) {
   const [isLoading, setIsLoading] = useState(false);
   const [canVote, setCanVote] = useState(false);
   const [disputes, setDisputes] = useState([]);
+  const [tab, setTab] = useState("open");
 
   const { get_disputes, can_vote, account } = useData();
   const { whitelist_me } = useAction();
 
   useEffect(() => {
-    get_disputes()
+    setIsLoading(true);
+    get_disputes({
+      openOnly: tab === "open",
+    })
       .then((res) => {
-        console.log("d", res);
         setDisputes(res);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
       });
-  }, []);
+  }, [tab]);
 
   useEffect(() => {
     can_vote(account?.account_id || "")
@@ -78,16 +83,20 @@ export default function Disputes({}) {
           <Tabs
             tabs={[
               {
-                id: "open",
-                name: "Open",
-                onClick: () => {},
-                active: true,
+                id: "all",
+                name: "All",
+                onClick: () => {
+                  setTab("all");
+                },
+                active: tab === "all",
               },
               {
-                id: "archived",
-                name: "Archived",
-                onClick: () => {},
-                active: false,
+                id: "open",
+                name: "Active",
+                onClick: () => {
+                  setTab("open");
+                },
+                active: tab === "open",
               },
             ]}
             sx={{

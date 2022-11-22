@@ -134,6 +134,19 @@ export default function Dispute() {
             mb: 4,
           }}
         >
+          <Heading
+            as="h4"
+            variant="tiny"
+            sx={{
+              px: 4,
+              pt: 4,
+            }}
+          >
+            Title
+          </Heading>
+          <Heading as="h2" mx={4} mt={2}>
+            {"Dispute #" + dispute?.id}
+          </Heading>
           <Box
             sx={{
               display: "flex",
@@ -163,6 +176,7 @@ export default function Dispute() {
                   sx={{
                     width: "100%",
                     p: 4,
+                    pt: 3,
                   }}
                 >
                   <ItemCard
@@ -212,7 +226,6 @@ export default function Dispute() {
           <DisputeCard
             dispute={{
               ...dispute,
-              title: "Dispute #" + dispute?.id,
               store: dispute?.store_id,
               prize:
                 dispute?.fee &&

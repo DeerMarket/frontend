@@ -67,12 +67,18 @@ export default function DisputeCard({
         }}
         {...rest}
       >
+        {dispute?.title && (
+          <Heading as="h3" mt={2} mb={4}>
+            {dispute?.title}
+          </Heading>
+        )}
         <Box
           sx={{
             display: "flex",
             flexDirection: ["column", "column", "row"],
-            gap: [3, 3, 4, 5],
+            gap: [3, 3, 3, 4],
             mb: 4,
+            flexWrap: "wrap",
           }}
         >
           <Box>
