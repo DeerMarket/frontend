@@ -72,7 +72,7 @@ export default function Disputes({}) {
   };
 
   return (
-    <DefaultLayout>
+    <DefaultLayout loading={isLoading}>
       <PageHeader
         title="Public Disputes"
         subtitle="Here you can find all the public disputes that are currently open. Help the community by voting on the best resolution and earn rewards for your help."

@@ -6,7 +6,7 @@ export default function FormLayout({ children, ...rest }: any) {
   return (
     <>
       <Head>
-        <title>DeerJobs - form</title>
+        <title>Deer - form</title>
         <meta name="description" content="DeerJobs form" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
