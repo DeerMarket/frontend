@@ -5,69 +5,68 @@
   },
   "steps": [
     {
-      "name": "id",
-      "title": "Store ID",
-      "subtitle": "Give your store a unique ID that will be used in the URL",
+      "name": "name",
+      "title": "Store Name",
+      "subtitle": "What would you like to name your store?",
       "type": "text",
       "options": {
-        "label": "Store ID",
+        "label": "Store name (max 80 characters)"
+      },
+      "validation": {
+        "required": true,
+        "min": 3,
+        "max": 80
+      }
+    },
+    {
+      "name": "id",
+      "title": "Store ID",
+      "subtitle": "Pick a permanent ID for your store.",
+      "type": "text",
+      "options": {
+        "label": "Store ID (max 21 characters)",
         "placeholder": ""
       },
       "validation": {
         "required": true,
         "min": 3,
-        "max": 100,
+        "max": 21,
         "pattern": "near_account_id",
         "useVerify": [["store_id_exists", false]]
       }
     },
     {
-      "name": "name",
-      "title": "What would you like to name your store?",
-      "subtitle": "This can be your name or your business name",
-      "type": "text",
-      "options": {
-        "label": "Store name",
-        "placeholder": ""
-      },
-      "validation": {
-        "required": true,
-        "min": 3,
-        "max": 100
-      }
-    },
-    {
       "name": "description",
-      "title": "Describe your store in a few words",
-      "subtitle": "This will be shown on the store page",
+      "title": "Store Description",
+      "subtitle": "Describe your store in a few words.",
       "type": "textarea",
       "options": {
-        "label": "Store description",
+        "label": "Store description (max 700 characters)",
         "placeholder": ""
       },
       "validation": {
         "required": false,
-        "max": 1000
+        "max": 700
       }
     },
     {
       "name": "terms",
-      "title": "Your Store Terms and Conditions",
-      "subtitle": "Write your conditions and terms that your customers will agree to when they buy from your store",
+      "title": "Store Terms and Conditions",
+      "subtitle": "Let your customers know what they can expect from your store.",
       "type": "textarea",
       "options": {
-        "label": "Store terms",
+        "label": "Store terms and conditions (max 700 characters)",
         "placeholder": ""
       },
       "validation": {
         "required": false,
-        "max": 1000
+        "max": 700
       }
     },
     {
       "name": "category",
-      "title": "What are you planning to sell?",
-      "subtitle": "Picking a category will help customers find your store",
+      "title": "Category",
+      "subtitle": "Choose the category most relevant to your store.",
       "type": "select",
       "options": [
         {
@@ -103,23 +102,24 @@
     },
     {
       "name": "tags",
-      "title": "What are some tags that describe your store?",
-      "subtitle": "These will help customers find your store. Maximum 5 tags",
+      "title": "Tags & Keywords",
+      "subtitle": "Help buyers find your store by adding relevant tags. (max 5)",
       "type": "array",
       "options": {
         "label": "Store tags",
-        "placeholder": "Add a tag"
+        "placeholder": "Add a tag (max 15 characters)"
       },
       "validation": {
         "required": false,
         "min": 0,
-        "max": 5
+        "max": 5,
+        "maxLength": 15
       }
     },
     {
       "name": "contact",
       "title": "Store Contact",
-      "subtitle": "How can customers reach out to you?",
+      "subtitle": "This is important! Buyers will use this to contact you.",
       "type": "fields",
       "validation": {
         "required": false
@@ -139,7 +139,7 @@
           "name": "phone",
           "label": "Phone",
           "type": "tel",
-          "placeholder": "+1 123 456 7890",
+          "placeholder": "+1 555 555 5555",
           "validation": {
             "required": false,
             "pattern": "phone"
@@ -149,7 +149,7 @@
           "name": "website",
           "label": "Website",
           "type": "url",
-          "placeholder": "https://example.com",
+          "placeholder": "www.example.com",
           "validation": {
             "required": false,
             "pattern": "url"
@@ -159,8 +159,8 @@
     },
     {
       "name": "logo",
-      "title": "A direct URL to your store logo",
-      "subtitle": "This will be displayed everywhere your store is mentioned",
+      "title": "Store Logo",
+      "subtitle": "Show your brand with a custom logo.",
       "type": "image",
       "options": {
         "variant": "avatar"
@@ -171,8 +171,8 @@
     },
     {
       "name": "cover",
-      "title": "A direct URL to your store cover image",
-      "subtitle": "This will be displayed on the store page",
+      "title": "Store Cover",
+      "subtitle": "Customize your store with a cover image.",
       "type": "image",
       "options": {
         "variant": "cover"

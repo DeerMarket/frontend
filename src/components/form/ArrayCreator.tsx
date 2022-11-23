@@ -6,17 +6,31 @@ export default function ArrayCreator({
   onChange,
   placeholder,
   max,
+  maxLength,
+  setError,
 }: {
   value: string[];
   onChange: (value: string[]) => void;
   placeholder: string;
   max?: number;
+  maxLength?: number;
+  setError?: (error: string) => void;
 }) {
   const [inputValue, setInputValue] = React.useState("");
 
   const handleAdd = () => {
     if (inputValue === "") return;
-    if (max && value.length >= max) return;
+    if (max && value.length >= max) {
+      setError && setError(`You can only add up to ${max} items`);
+      return;
+    };
+    if (maxLength && inputValue.length > maxLength) {
+      setError && setError(`Item is too long. Max ${maxLength} characters.`);
+      return;
+    } else {
+      setError && setError("");
+    }
+    
     onChange([...value, inputValue]);
     setInputValue("");
   };
@@ -46,7 +60,11 @@ export default function ArrayCreator({
             flex: 1,
           }}
           value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={(e) => {
+            if (maxLength && e.target.value.length > maxLength) return;
+            
+            setInputValue(e.target.value)
+          }}
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               handleAdd();

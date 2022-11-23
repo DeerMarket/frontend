@@ -1,45 +1,45 @@
 {
   "config": {
     "hideLogo": true,
-    "submitText": "List Item"
+    "submitText": "Publish Item"
   },
   "steps": [
     {
       "name": "title",
-      "title": "What are you selling?",
-      "subtitle": "Give your item a descriptive title",
+      "title": "Item Title",
+      "subtitle": "Let the buyers know the product or service you are offering",
       "type": "text",
       "options": {
-        "label": "Item Title",
-        "placeholder": ""
+        "label": "Enter the title of your item (max 80 characters)"
       },
       "validation": {
         "required": true,
-        "min": 3,
-        "max": 100
+        "min": 13,
+        "max": 80
       }
     },
     {
       "name": "description",
       "title": "Description & Details",
-      "subtitle": "Describe what the user will receive in detail",
+      "subtitle": "Describe what you are selling. Be as detailed as possible so buyers will know exactly what they are getting.",
       "type": "textarea",
       "options": {
-        "label": "Description",
+        "label": "Enter a description of your item (between 100 and 1500 characters)",
         "placeholder": ""
       },
       "validation": {
         "required": false,
-        "max": 2000
+        "min": 100,
+        "max": 1500
       }
     },
     {
       "name": "price",
-      "title": "Price",
+      "title": "Pricing",
       "subtitle": "Set the price for your item",
       "type": "price",
       "options": {
-        "label": "Price",
+        "label": "NEAR",
         "placeholder": ""
       },
       "validation": {
@@ -49,29 +49,14 @@
       }
     },
     {
-      "name": "tags",
-      "title": "Give your item some tags",
-      "subtitle": "These will help customers find your item. Maximum 5 tags",
-      "type": "array",
-      "options": {
-        "label": "Store tags",
-        "placeholder": "Add a tag"
-      },
-      "validation": {
-        "required": false,
-        "min": 0,
-        "max": 5
-      }
-    },
-    {
       "name": "images",
-      "title": "Upload Images",
-      "subtitle": "Show off your item with images",
+      "title": "Item Gallery",
+      "subtitle": "Showcase Your Item With Images (max 4)",
       "type": "images",
       "options": {},
       "validation": {
         "min": 0,
-        "max": 6,
+        "max": 4,
         "required": false
       }
     }

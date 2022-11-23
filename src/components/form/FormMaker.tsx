@@ -2,10 +2,9 @@ import Router from "next/router";
 import { useEffect, useState } from "react";
 import {
   Box,
-  Button,
   Flex,
   Heading,
-  Image,
+  Image as ThemeImage,
   Input,
   Label,
   Paragraph,
@@ -21,6 +20,7 @@ import NearIcon from "../svg/near";
 import ArrayCreator from "./ArrayCreator";
 import FormButton from "./FormButton";
 import LabeledInput from "./LabeledInput";
+import MultiImageUpload from "./MultiImageUpload";
 import TextChoices from "./TextChoices";
 
 export default function FormMaker({
@@ -367,12 +367,37 @@ export default function FormMaker({
                     gap: 2,
                   }}
                 >
+                  <Input
+                    variant="input.default"
+                    type="text"
+                    placeholder={"Add a direct link to your image"}
+                    sx={{ maxWidth: "100%", width: "540px", mb: 3 }}
+                    onChange={(e: any) => {
+                      if (e.target.value.length > 1000) {
+                        setError("Image URL is too long. Max 1000 characters.");
+                        return;
+                      }
+                      const img = new Image();
+                      img.src = e.target.value;
+                      setData({
+                        ...data,
+                        [steps[step].name]: e.target.value,
+                      });
+                      img.onload = () => {
+                        setError("");
+                      };
+                      img.onerror = () => {
+                        setError("Invalid image URL");
+                      };
+                    }}
+                    value={data[steps[step].name] || ""}
+                  />
                   {steps[step].options.variant == "avatar" ? (
                     <StoreAvatar image={data[steps[step].name]} />
                   ) : steps[step].options.variant == "cover" ? (
                     <StoreCover image={data[steps[step].name]} height={130} />
                   ) : (
-                    <Image
+                    <ThemeImage
                       src={data[steps[step].name]}
                       sx={{
                         maxWidth: "440px",
@@ -382,156 +407,26 @@ export default function FormMaker({
                         borderRadius: 20,
                         width: "200px",
                         height: "200px",
-                        mb: 3,
                         border: "1px solid #eee",
                       }}
                     />
                   )}
-                  <Input
-                    variant="input.default"
-                    type="text"
-                    placeholder={"Image URL"}
-                    sx={{ width: "100%", maxWidth: "540px" }}
-                    onChange={(e: any) => {
-                      setData({
-                        ...data,
-                        [steps[step].name]: e.target.value,
-                      });
-                    }}
-                    value={data[steps[step].name] || ""}
-                  />
-
-                  <Paragraph
-                    sx={{ color: "yellow", textAlign: "center", my: 3 }}
-                  >
-                    Note: We will support uploading images soon.
-                  </Paragraph>
                 </Box>
               )}
 
               {steps[step].type === "images" && (
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: 2,
+                <MultiImageUpload
+                  onChange={(arr: any) => {
+                    setData({
+                      ...data,
+                      [steps[step].name]: arr,
+                    });
                   }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 2,
-                      flexWrap: "wrap",
-                      maxWidth: "540px",
-                    }}
-                  >
-                    {data[steps[step].name]?.map((d: any, i: number) => (
-                      <Box
-                        key={i}
-                        sx={{
-                          position: "relative",
-                          width: "160px",
-                          height: "120px",
-                          border: "1px solid",
-                          borderColor: "primary",
-                        }}
-                      >
-                        <Image
-                          src={d}
-                          sx={{
-                            objectFit: "cover",
-                            objectPosition: "center",
-                            borderRadius: 4,
-                            width: "100%",
-                            height: "100%",
-                          }}
-                        />
-                        <Button
-                          sx={{
-                            position: "absolute",
-                            top: 2,
-                            right: 2,
-                            zIndex: 1,
-                            height: 30,
-                            width: 30,
-                            borderRadius: 100,
-                            bg: "red",
-                            p: 0,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                          }}
-                          onClick={() => {
-                            setData({
-                              ...data,
-                              [steps[step].name]: data[steps[step].name].filter(
-                                (d: any, j: number) => j !== i
-                              ),
-                            });
-                          }}
-                        >
-                          <svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 12 12"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M11.25 1.25L1.25 11.25"
-                              stroke="#F2F2F2"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                            <path
-                              d="M1.25 1.25L11.25 11.25"
-                              stroke="#F2F2F2"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </Button>
-                      </Box>
-                    ))}
-                  </Box>
-                  <Textarea
-                    variant="input.default"
-                    placeholder={"1 Image URL per line"}
-                    sx={{
-                      height: 120,
-                      width: 500,
-                      fontSize: "12px!important",
-                    }}
-                    onChange={(e: any) => {
-                      setData({
-                        ...data,
-                        [steps[step].name]: e.target.value
-                          .split("\n")
-                          .filter((d: any) => d),
-                      });
-                    }}
-                    value={data[steps[step].name]?.join("\n")}
-                    onKeyDown={(e: any) => {
-                      if (e.key === "Enter") {
-                        e.preventDefault();
-                        // insert new line
-                        setData({
-                          ...data,
-                          [steps[step].name]: [...data[steps[step].name], ""],
-                        });
-                      }
-                    }}
-                  />
-                  <Paragraph
-                    sx={{ color: "yellow", textAlign: "center", my: 3 }}
-                  >
-                    Note: We will support uploading images soon.
-                  </Paragraph>
-                </Box>
+                  value={data[steps[step].name] || []}
+                  placeholder={steps[step].options.placeholder}
+                  max={steps[step].validation.max}
+                  setError={setError}
+                />
               )}
 
               {steps[step].type === "array" && (
@@ -545,6 +440,8 @@ export default function FormMaker({
                   value={data[steps[step].name] || []}
                   placeholder={steps[step].options.placeholder}
                   max={steps[step].validation.max}
+                  maxLength={steps[step].validation.maxLength}
+                  setError={setError}
                 />
               )}
             </Box>
