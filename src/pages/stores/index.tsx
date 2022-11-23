@@ -204,7 +204,7 @@ export async function getServerSideProps(context: NextPageContext) {
   const { data } = await client.query({
     query: gql`
       query GetStoresByCategory($category: String, $getAll: Boolean) {
-        stores(where: { category_contains: $category }, first: ${limit}, skip: ${
+        stores(where: { category_contains: $category }, orderBy: total_orders, orderDirection:desc, first: ${limit}, skip: ${
       (page - 1) * limit
     }) @skip(if: $getAll) {
           id
@@ -214,7 +214,7 @@ export async function getServerSideProps(context: NextPageContext) {
           total_items
           total_orders
         }
-        stores(first: ${limit}, skip: ${
+        stores(orderBy: total_orders, orderDirection:desc, first: ${limit}, skip: ${
       (page - 1) * limit
     }) @include(if: $getAll) {
           id
@@ -225,14 +225,12 @@ export async function getServerSideProps(context: NextPageContext) {
           total_orders
         }
         # check if there are more stores to load
-        more: stores(where: { category_contains: $category }, first: ${limit}, skip: ${
+        more: stores(where: { category_contains: $category }, orderBy: total_orders, orderDirection:desc, first: ${limit}, skip: ${
       page * limit
     }) @skip(if: $getAll) {
           id
         }
-        more: stores(first: ${limit}, skip: ${
-      page * limit
-    }) @include(if: $getAll) {
+        more: stores(orderBy: total_orders, orderDirection:desc, first: ${limit}, skip: ${page * limit}) @include(if: $getAll) {
           id
         }
       }
