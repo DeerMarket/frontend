@@ -45,12 +45,12 @@ export default function ItemCard({
     >
       <Box
         sx={{
-          width: horizontal ? ["100%","160px"] : "100%",
+          width: horizontal ? ["100%", "160px"] : "100%",
         }}
-      >
+        >
         <AspectRatio
           ratio={ratio? ratio :1.25}
-
+          
           sx={{
             width: "100%",
             height: "100%",

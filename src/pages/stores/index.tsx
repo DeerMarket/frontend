@@ -21,7 +21,6 @@ export default function Stores({ data, hasMore }: any) {
   const { page: page1 } = router.query;
   let page = page1 ? Number(page1) : 1;
 
-  // new post loaded
   useEffect(() => {
     setIsLoading(false);
   }, [data]);

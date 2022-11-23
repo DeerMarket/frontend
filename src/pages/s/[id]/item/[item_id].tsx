@@ -251,10 +251,8 @@ export default function ItemPage({ data }: any) {
                           price: item?.price,
                           images: item?.images,
                         }}
-                        sx={{
-                          minWidth: "100%",
-                        }}
-                        ratio={1.62}
+                        horizontal={true}
+                        ratio={1.3}
                       />
                     </Box>
                   </Link>

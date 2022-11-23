@@ -1,29 +1,28 @@
 import { NextPageContext } from "next";
-import Image from "next/image";
 import A from "next/link";
 import { useRouter } from "next/router";
-import {
-  AspectRatio,
-  Box,
-  Button,
-  Container,
-  Heading,
-  Link,
-  Paragraph,
-  Text,
-} from "theme-ui";
-import Price from "../../../components/common/Price";
+import { Box, Container, Heading, Link, Paragraph, Text } from "theme-ui";
 import DefaultLayout from "../../../components/layouts/Default";
 import client from "../../../configs/apollo-client";
 import { gql } from "@apollo/client";
-import { utils } from "near-api-js";
 import StoreAvatar from "../../../components/common/StoreAvatar";
 import StoreCover from "../../../components/common/StoreCover";
 import ItemCard from "../../../components/sections/ItemCard";
+import Pagination from "../../../components/common/Pagination";
+import { useEffect, useState } from "react";
+import Loading from "../../../components/common/Loading";
 
-export default function Store({ data }: any) {
+export default function Store({ data, hasMore }: any) {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, page: page1 } = router.query;
+
+  let page = page1 ? Number(page1) : 1;
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [data]);
 
   // replace multi break lines with single break line
   let description = data?.store?.description?.replace(/\n\s*\n\s*\n/g, "\n\n");
@@ -31,7 +30,7 @@ export default function Store({ data }: any) {
 
   return (
     <DefaultLayout>
-      <Box>
+      <Box mt={3}>
         {data?.store?.cover && (
           <StoreCover image={data?.store?.cover} height={160} />
         )}
@@ -262,26 +261,37 @@ export default function Store({ data }: any) {
         </Box>
         <Box
           sx={{
-            display: "flex",
-            flexWrap: "wrap",
             mb: "auto",
-            gap: 4,
             pb: 4,
+            minHeight: "60vh",
+            display: "flex",
+            flexDirection: "column",
           }}
         >
-          {data?.store?.items.map((item: any, i: any) => (
-            <A href={`/s/${id}/item/${item.itemID}`} key={i} passHref>
-              <Link
-                sx={{
-                  display: "contents",
-                  color: "inherit",
-                }}
-              >
-                <ItemCard item={item} />
-              </Link>
-            </A>
-          ))}
-          {data?.store?.items.length === 0 && (
+          {isLoading && <Loading sx={{ mx: "auto" }} />}
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              alignItems: "flex-start",
+              gap: 4,
+            }}
+          >
+            {!isLoading &&
+              data?.store?.items.map((item: any, i: any) => (
+                <A href={`/s/${id}/item/${item.itemID}`} key={i} passHref>
+                  <Link
+                    sx={{
+                      display: "contents",
+                      color: "inherit",
+                    }}
+                  >
+                    <ItemCard item={item} />
+                  </Link>
+                </A>
+              ))}
+          </Box>
+          {!isLoading && data?.store?.items.length === 0 && (
             <Heading
               as="h3"
               sx={{
@@ -290,8 +300,26 @@ export default function Store({ data }: any) {
                 my: 4,
               }}
             >
-              This store has no items
+              No items
             </Heading>
+          )}
+          {!isLoading && (
+            <Pagination
+              hasMore={hasMore}
+              hasPrev={page > 1}
+              onNext={() => {
+                setIsLoading(true);
+                router.replace({
+                  query: { ...router.query, page: (page + 1).toString() },
+                });
+              }}
+              onPrev={() => {
+                setIsLoading(true);
+                router.replace({
+                  query: { ...router.query, page: (page - 1).toString() },
+                });
+              }}
+            />
           )}
         </Box>
       </Container>
@@ -301,6 +329,8 @@ export default function Store({ data }: any) {
 
 export async function getServerSideProps(context: NextPageContext) {
   let id = context.query.id || "";
+  let page = Number(context.query.page) || 1;
+  let limit = 10;
 
   // remove store suffix if it exists
   if (typeof id === "string" && id.split(".").length > 1) {
@@ -330,7 +360,7 @@ export async function getServerSideProps(context: NextPageContext) {
           createdAt
           updatedAt
 
-          items(where: { status: "Active" }) {
+          items(first: ${limit}, skip: ${(page - 1) * limit}) {
             id
             itemID
             price
@@ -344,6 +374,10 @@ export async function getServerSideProps(context: NextPageContext) {
             }
             createdAt
             updatedAt
+          }
+
+          more: items(first: 1, skip: ${page * limit}) {
+            id
           }
         }
       }
@@ -361,6 +395,7 @@ export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
       data: data,
+      hasMore: data?.store?.more?.length > 0,
     },
   };
 }
