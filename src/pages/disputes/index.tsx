@@ -10,19 +10,25 @@ import DisputeCard from "../../components/sections/DisputeCard";
 import { useData } from "../../hooks/useData";
 import { utils } from "near-api-js";
 import { useAction } from "../../hooks/useAction";
+import Pagination from "../../components/common/Pagination";
 
 export default function Disputes({}) {
   const [isLoading, setIsLoading] = useState(false);
   const [canVote, setCanVote] = useState(false);
   const [disputes, setDisputes] = useState([]);
   const [tab, setTab] = useState("open");
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
 
   const { get_disputes, can_vote, account } = useData();
   const { whitelist_me, login } = useAction();
+  const router = useRouter();
 
   useEffect(() => {
     setIsLoading(true);
     get_disputes({
+      page: page - 1,
+      limit: 10,
       openOnly: tab === "open",
     })
       .then((res) => {
@@ -33,7 +39,19 @@ export default function Disputes({}) {
         console.log(err);
         setIsLoading(false);
       });
-  }, [tab]);
+    // TODO: is this the best way to paginate?
+    get_disputes({
+      page: page,
+      limit: 10,
+      openOnly: tab === "open",
+    })
+      .then((res) => {
+        setHasMore(res.length > 0);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [tab, page]);
 
   useEffect(() => {
     can_vote(account?.account_id || "")
@@ -75,7 +93,7 @@ export default function Disputes({}) {
             display: "flex",
             flexDirection: "column",
             gap: 4,
-            minHeight: 400,
+            minHeight: "60vh",
             alignItems: "center",
             pb: 5,
           }}
@@ -105,7 +123,7 @@ export default function Disputes({}) {
           />
           {isLoading && <Loading sx={{ my: "auto" }} />}
           {!isLoading && disputes?.length < 1 && (
-            <Heading as="h3" variant="cardHeading" my={"auto"}>
+            <Heading as="h3" variant="cardHeading" my={4}>
               No disputes found
             </Heading>
           )}
@@ -132,6 +150,18 @@ export default function Disputes({}) {
                 }}
               />
             ))}
+          {!isLoading && (
+            <Pagination
+              hasMore={hasMore}
+              hasPrev={page > 1}
+              onNext={() => {
+                setPage(page + 1);
+              }}
+              onPrev={() => {
+                setPage(page - 1);
+              }}
+            />
+          )}
         </Box>
         {!canVote && (
           <Box

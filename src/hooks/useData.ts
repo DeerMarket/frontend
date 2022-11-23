@@ -136,8 +136,8 @@ export const useData = () => {
         contractId: contractsConfig.dispute.contractId,
         methodName: "get_disputes",
         args: {
-          from_index: page ? page * (limit || 50) : undefined,
-          limit: page ? limit || 50 : undefined,
+          from_index: page != undefined ? page * (limit || 50) : undefined,
+          limit: page != undefined ? limit || 50 : undefined,
           status: openOnly ? "Voting" : undefined,
         },
       });
