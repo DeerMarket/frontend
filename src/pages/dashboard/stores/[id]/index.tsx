@@ -4,7 +4,7 @@ import StoreAvatar from "../../../../components/common/StoreAvatar";
 import StoreCover from "../../../../components/common/StoreCover";
 import DashboardLayout from "../../../../components/layouts/Dashboard";
 import { useData } from "../../../../hooks/useData";
-import { Box, Flex, Heading, Link, Paragraph } from "theme-ui";
+import { Flex, Heading, Link, Paragraph } from "theme-ui";
 import A from "next/link";
 import ButtonWithIcon from "../../../../components/common/ButtonWithIcon";
 import ConfirmPopup from "../../../../components/popups/ConfirmDeletePopup";
@@ -23,7 +23,13 @@ export default function Store() {
     useData();
   const { delete_store, item_delete } = useAction();
 
+  const { transactionHashes } = router.query;
+
   useEffect(() => {
+    if (transactionHashes) {
+      router.push(`/dashboard/stores?transactionHashes=${transactionHashes}`);
+      return;
+    }
     const getStore = async () => {
       const metadata = await get_store_metadata(id as string);
       setStore(metadata);
@@ -45,14 +51,7 @@ export default function Store() {
       getStoreItems();
       getOwner();
     }
-  }, [id]);
-
-  const { transactionHashes } = router.query;
-
-  if (transactionHashes) {
-    router.push(`/dashboard/stores?transactionHashes=${transactionHashes}`);
-    return null;
-  }
+  }, [id, transactionHashes]);
 
   async function handleDeleteStore() {
     await delete_store(id as string);
@@ -114,33 +113,31 @@ export default function Store() {
             alignItems: "flex-end",
           }}
         >
-          {false && (
-            <ButtonWithIcon
-              icon={
-                <svg
-                  width="18px"
-                  height="18px"
-                  viewBox="0 0 18 18"
-                  xmlns="http://www.w3.org/2000/svg"
-                  sx={{
-                    fill: "red",
-                  }}
-                >
-                  <path d="M13 18H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v9a2 2 0 0 1-2 2zm3-15a1 1 0 0 1-1 1H3a1 1 0 0 1 0-2h3V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1h3a1 1 0 0 1 1 1z" />
-                </svg>
-              }
-              sx={{
-                fontSize: 1,
+          <ButtonWithIcon
+            icon={
+              <svg
+                width="18px"
+                height="18px"
+                viewBox="0 0 18 18"
+                xmlns="http://www.w3.org/2000/svg"
+                sx={{
+                  fill: "red",
+                }}
+              >
+                <path d="M13 18H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v9a2 2 0 0 1-2 2zm3-15a1 1 0 0 1-1 1H3a1 1 0 0 1 0-2h3V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1h3a1 1 0 0 1 1 1z" />
+              </svg>
+            }
+            sx={{
+              fontSize: 1,
+              backgroundColor: "red",
+              ":hover": {
                 backgroundColor: "red",
-                ":hover": {
-                  backgroundColor: "red",
-                },
-              }}
-              onClick={() => setPopup("delete_store")}
-            >
-              Delete Store
-            </ButtonWithIcon>
-          )}
+              },
+            }}
+            onClick={() => setPopup("delete_store")}
+          >
+            Delete Store
+          </ButtonWithIcon>
           <ConfirmPopup
             confirmButtonText="Delete Store"
             show={popup === "delete_store"}

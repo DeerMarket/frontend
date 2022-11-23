@@ -114,7 +114,11 @@ export const useAction = () => {
       });
     },
     delete_store: async (store_id: string) => {
-      alert("Not implemented yet");
+      return functionCall({
+        contractId: store_id,
+        methodName: "delete_self",
+        args: {},
+      });
     },
 
     // store

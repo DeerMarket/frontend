@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Flex, Heading, Link, Paragraph } from "theme-ui";
+import { Box, Flex, Heading, Link } from "theme-ui";
 import DashboardLayout from "../../../components/layouts/Dashboard";
 import A from "next/link";
 import ButtonWithIcon from "../../../components/common/ButtonWithIcon";
@@ -7,11 +7,10 @@ import Image from "next/image";
 import Rocket from "../../../assets/jpg/maker.gif";
 import { useData } from "../../../hooks/useData";
 import { useEffect, useState } from "react";
-import StoreAvatar from "../../../components/common/StoreAvatar";
 import StoreCard from "../../../components/sections/StoreCard";
-import Router from "next/router";
 import TransactionStatus from "../../../components/popups/TransactionStatus";
 import { contractsConfig } from "../../../configs/contracts";
+import { useRouter } from "next/router";
 
 export default function Stores() {
   const [isLoading, setIsLoading] = useState(true);
@@ -29,7 +28,8 @@ export default function Stores() {
   const [txMethod, setTxMethod] = useState("");
   const [txEvent, setTxEvent] = useState({});
 
-  const { transactionHashes } = Router.query;
+  const router = useRouter();
+  const { transactionHashes } = router.query;
 
   useEffect(() => {
     if (transactionHashes) {
@@ -76,6 +76,12 @@ export default function Stores() {
           });
         }
       });
+    } else {
+      setTxPopup({
+        show: false,
+        success: false,
+        loading: false,
+      });
     }
   }, [transactionHashes]);
 
@@ -100,7 +106,7 @@ export default function Stores() {
     }
   }, [account?.account_id]);
 
-  let successTitle, successMessage, failureTitle, failureMessage, onSuccessConfirm;
+  let successTitle, successMessage, failureTitle, failureMessage, onSuccessConfirm, successConfirmText;
 
   if (txMethod === "create") {
     successTitle = "Your store was created successfully!";
@@ -132,7 +138,18 @@ export default function Stores() {
     failureTitle = "Item Delete Failed";
     failureMessage =
       "Something went wrong while deleting your item. Please try again.";
+  } else if (txMethod === "delete_self") {
+    successTitle = "Store deleted successfully!";
+    successMessage = "Feel free to create a new store anytime.";
+    successConfirmText = "Close";
+    onSuccessConfirm = () => {
+      router.push("/dashboard/stores");
+    };
+    failureTitle = "Store Delete Failed";
+    failureMessage =
+      "Something went wrong while deleting your store. Please try again.";
   }
+
 
   return (
     <DashboardLayout tab="stores" loading={isLoading}>
@@ -142,14 +159,14 @@ export default function Stores() {
         loading={txPopup.loading}
         successTitle={successTitle}
         successMessage={successMessage}
-        successConfirmText={"Go to your store"}
+        successConfirmText={successConfirmText?successConfirmText:"Go to your store"}
         failureTitle={failureTitle}
         failureMessage={failureMessage}
         onSuccessConfirm={onSuccessConfirm ? onSuccessConfirm : () => {
           if(txStoreId.split(".").length > 0){
-            Router.push(`/dashboard/stores/${txStoreId.split(".")[0]}.${contractsConfig.store_factory.contractId}`);
+            router.push(`/dashboard/stores/${txStoreId.split(".")[0]}.${contractsConfig.store_factory.contractId}`);
           }else{
-            Router.push(`/dashboard/stores/${txStoreId}.${contractsConfig.store_factory.contractId}`);
+            router.push(`/dashboard/stores/${txStoreId}.${contractsConfig.store_factory.contractId}`);
           }
         }}
         onFailConfirm={() => {

@@ -7,9 +7,7 @@ import type { WalletSelectorModal } from "@near-wallet-selector/modal-ui";
 
 import { setupNearWallet } from "@near-wallet-selector/near-wallet";
 import { setupMyNearWallet } from "@near-wallet-selector/my-near-wallet";
-import { setupSender } from "@near-wallet-selector/sender";
 import { setupLedger } from "@near-wallet-selector/ledger";
-import { setupHereWallet } from "@near-wallet-selector/here-wallet";
 import { setupDefaultWallets } from "@near-wallet-selector/default-wallets";
 import { contractsConfig } from "../configs/contracts";
 import { AccountView } from "near-api-js/lib/providers/provider";
