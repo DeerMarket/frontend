@@ -62,8 +62,8 @@ export const WalletSelectorContextProvider = ({ children }: any) => {
       modules: [
         ...(await setupDefaultWallets()),
         setupNearWallet({
-          successUrl,
-          failureUrl,
+          // successUrl,
+          // failureUrl,
         }),
         setupMyNearWallet({
           successUrl,
