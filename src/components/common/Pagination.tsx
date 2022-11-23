@@ -1,23 +1,22 @@
 import { Box, Button } from "theme-ui";
 
 export default function Pagination({
-    hasMore,
-    hasPrev,
-    onNext,
-    onPrev,
+  hasMore,
+  hasPrev,
+  onNext,
+  onPrev,
 }: {
-    hasMore: boolean;
-    hasPrev: boolean;
-    onNext: () => void;
-    onPrev: () => void;
+  hasMore: boolean;
+  hasPrev: boolean;
+  onNext: () => void;
+  onPrev: () => void;
 }) {
+  if (!hasPrev && !hasMore) {
+    return null;
+  }
   return (
     <Box mt={"auto"} mx={"auto"}>
-      <Button
-        onClick={onPrev}
-        variant="previous"
-        disabled={!hasPrev}
-      >
+      <Button onClick={onPrev} variant="previous" disabled={!hasPrev}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
@@ -33,11 +32,7 @@ export default function Pagination({
         <span>Previous</span>
       </Button>
 
-      <Button
-        onClick={onNext}
-        variant="next"
-        disabled={!hasMore}
-      >
+      <Button onClick={onNext} variant="next" disabled={!hasMore}>
         <span>Next</span>
         <svg
           xmlns="http://www.w3.org/2000/svg"
