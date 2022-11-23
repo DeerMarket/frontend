@@ -6,6 +6,7 @@ export default function ItemCard({
   item,
   horizontal,
   ratio,
+  hover = true,
   ...rest
 }: {
   item: {
@@ -15,6 +16,7 @@ export default function ItemCard({
   };
   horizontal?: boolean;
   ratio?: number;
+  hover?: boolean;
   [key: string]: any;
 }) {
   let title =
@@ -26,24 +28,24 @@ export default function ItemCard({
       sx={{
         width: horizontal ? "100%" : ["100%", "100%", "45%", "30%", "22.5%"],
         // p: 3,
-        cursor: "pointer",
         display: "flex",
-        flexDirection: horizontal ? "row" : "column",
-        alignItems: horizontal ? "center" : "normal",
+        flexDirection: horizontal ? ["column", "row","row"] : "column",
+        alignItems: horizontal ? ["normal","center"] : "normal",
         textAlign: "left",
         justifyContent: "center",
         variant: "box.card",
         overflow: "hidden",
-
-        ":hover": {
+        
+        cursor: hover && "pointer",
+        ":hover": hover ? {
           variant: "box.cardHover",
-        },
+        }: {},
       }}
       {...rest}
     >
       <Box
         sx={{
-          width: horizontal ? "160px" : "100%",
+          width: horizontal ? ["100%","160px"] : "100%",
         }}
       >
         <AspectRatio

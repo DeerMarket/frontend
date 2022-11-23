@@ -81,29 +81,31 @@ export default function Store() {
           borderTopRightRadius: 0,
         }}
       >
-        <Flex
-          sx={{
-            flexDirection: ["column", "column", "column", "row"],
-            alignItems: "left",
-            gap: 4,
-            cursor: "pointer",
-          }}
-        >
-          <StoreAvatar image={store?.logo} size={99} />
+        <A href={`/s/${id}`}>
           <Flex
             sx={{
-              flexDirection: "column",
-              alignItems: "flex-start",
+              flexDirection: ["column", "column", "column", "row"],
+              alignItems: "left",
+              gap: 4,
+              cursor: "pointer",
             }}
           >
-            <Heading as="h4" variant="account">
-              {id}
-            </Heading>
-            <Heading as="h3" sx={{}}>
-              {store?.name}
-            </Heading>
+            <StoreAvatar image={store?.logo} size={99} />
+            <Flex
+              sx={{
+                flexDirection: "column",
+                alignItems: "flex-start",
+              }}
+            >
+              <Heading as="h4" variant="account">
+                {id}
+              </Heading>
+              <Heading as="h3" sx={{}}>
+                {store?.name}
+              </Heading>
+            </Flex>
           </Flex>
-        </Flex>
+        </A>
 
         <Flex
           sx={{
@@ -112,31 +114,33 @@ export default function Store() {
             alignItems: "flex-end",
           }}
         >
-          <ButtonWithIcon
-            icon={
-              <svg
-                width="18px"
-                height="18px"
-                viewBox="0 0 18 18"
-                xmlns="http://www.w3.org/2000/svg"
-                sx={{
-                  fill: "red",
-                }}
-              >
-                <path d="M13 18H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v9a2 2 0 0 1-2 2zm3-15a1 1 0 0 1-1 1H3a1 1 0 0 1 0-2h3V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1h3a1 1 0 0 1 1 1z" />
-              </svg>
-            }
-            sx={{
-              fontSize: 1,
-              backgroundColor: "red",
-              ":hover": {
+          {false && (
+            <ButtonWithIcon
+              icon={
+                <svg
+                  width="18px"
+                  height="18px"
+                  viewBox="0 0 18 18"
+                  xmlns="http://www.w3.org/2000/svg"
+                  sx={{
+                    fill: "red",
+                  }}
+                >
+                  <path d="M13 18H5a2 2 0 0 1-2-2V7a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v9a2 2 0 0 1-2 2zm3-15a1 1 0 0 1-1 1H3a1 1 0 0 1 0-2h3V1a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1h3a1 1 0 0 1 1 1z" />
+                </svg>
+              }
+              sx={{
+                fontSize: 1,
                 backgroundColor: "red",
-              },
-            }}
-            onClick={() => setPopup("delete_store")}
-          >
-            Delete Store
-          </ButtonWithIcon>
+                ":hover": {
+                  backgroundColor: "red",
+                },
+              }}
+              onClick={() => setPopup("delete_store")}
+            >
+              Delete Store
+            </ButtonWithIcon>
+          )}
           <ConfirmPopup
             confirmButtonText="Delete Store"
             show={popup === "delete_store"}
@@ -188,7 +192,7 @@ export default function Store() {
                   fontSize: 1,
                 }}
               >
-                Update Metadata
+                Edit Store
               </ButtonWithIcon>
             </Link>
           </A>
@@ -226,7 +230,7 @@ export default function Store() {
                   fontSize: 1,
                 }}
               >
-                List an Item
+                New Item
               </ButtonWithIcon>
             </Link>
           </A>
@@ -291,6 +295,7 @@ function ItemCard2({ store_id, item, handleDeleteItemPopup }: any) {
           item#{item?.id}
         </Heading>
         <ButtonWithIcon
+          title="Delete Item"
           icon={
             <svg
               width="18px"
@@ -319,6 +324,7 @@ function ItemCard2({ store_id, item, handleDeleteItemPopup }: any) {
         >
           <Link>
             <ButtonWithIcon
+              title="Edit Item"
               icon={
                 <svg
                   width="18"
@@ -352,6 +358,40 @@ function ItemCard2({ store_id, item, handleDeleteItemPopup }: any) {
             ></ButtonWithIcon>
           </Link>
         </A>
+        <A href={`/s/${store_id}/item/${item?.id}`} passHref>
+          <Link>
+            <ButtonWithIcon
+              title="View Item"
+              icon={
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 612 612"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  sx={{
+                    fill: "primary",
+                  }}
+                >
+                  <path
+                    d="M609.608,315.426c3.19-5.874,3.19-12.979,0-18.853c-58.464-107.643-172.5-180.72-303.607-180.72
+			S60.857,188.931,2.393,296.573c-3.19,5.874-3.19,12.979,0,18.853C60.858,423.069,174.892,496.147,306,496.147
+			S551.143,423.069,609.608,315.426z M306,451.855c-80.554,0-145.855-65.302-145.855-145.855S225.446,160.144,306,160.144
+			S451.856,225.446,451.856,306S386.554,451.855,306,451.855z"
+                  />
+                  <path
+                    d="M306,231.67c-6.136,0-12.095,0.749-17.798,2.15c5.841,6.76,9.383,15.563,9.383,25.198c0,21.3-17.267,38.568-38.568,38.568
+			c-9.635,0-18.438-3.541-25.198-9.383c-1.401,5.703-2.15,11.662-2.15,17.798c0,41.052,33.279,74.33,74.33,74.33
+			s74.33-33.279,74.33-74.33S347.052,231.67,306,231.67z"
+                  />
+                </svg>
+              }
+              sx={{
+                fontSize: 1,
+              }}
+            ></ButtonWithIcon>
+          </Link>
+        </A>
       </Flex>
       <ItemCard
         item={{
@@ -360,6 +400,7 @@ function ItemCard2({ store_id, item, handleDeleteItemPopup }: any) {
           price: item?.price,
         }}
         horizontal={true}
+        hover={false}
       />
     </Flex>
   );
