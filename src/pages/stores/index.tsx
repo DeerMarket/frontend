@@ -1,5 +1,5 @@
 import A from "next/link";
-import { Box, Button, Container, Heading, Link, Paragraph } from "theme-ui";
+import { Box, Button, Container, Heading, Link } from "theme-ui";
 import DefaultLayout from "../../components/layouts/Default";
 import PageHeader from "../../components/sections/PageHeader";
 
@@ -9,14 +9,17 @@ import { NextPageContext } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Loading from "../../components/common/Loading";
-import StoreAvatar from "../../components/common/StoreAvatar";
 import StoreCard from "../../components/sections/StoreCard";
+import Pagination from "../../components/common/Pagination";
 
-export default function Stores({ data }: any) {
+export default function Stores({ data, hasMore }: any) {
   const router = useRouter();
   const [cat, setCat] = useState<string | number>("all");
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const { page: page1 } = router.query;
+  let page = page1 ? Number(page1) : 1;
 
   // new post loaded
   useEffect(() => {
@@ -42,7 +45,6 @@ export default function Stores({ data }: any) {
     "Courses",
   ];
 
-  
   return (
     <DefaultLayout>
       <PageHeader
@@ -127,13 +129,13 @@ export default function Stores({ data }: any) {
             display: "flex",
             flexDirection: "column",
             gap: 4,
-            minHeight: 400,
+            minHeight: "60vh",
             alignItems: "center",
           }}
         >
           {isLoading && <Loading sx={{ my: "auto" }} />}
           {!isLoading && data.stores.length < 1 && (
-            <Heading as="h3" variant="cardHeading" my={"auto"}>
+            <Heading as="h3" variant="cardHeading" mt={4}>
               No stores found
             </Heading>
           )}
@@ -170,6 +172,25 @@ export default function Stores({ data }: any) {
                 </Link>
               </A>
             ))}
+
+          {!isLoading && (
+            <Pagination
+              hasMore={hasMore}
+              hasPrev={page > 1}
+              onNext={() => {
+                setIsLoading(true);
+                router.replace({
+                  query: { ...router.query, page: (page + 1).toString() },
+                });
+              }}
+              onPrev={() => {
+                setIsLoading(true);
+                router.replace({
+                  query: { ...router.query, page: (page - 1).toString() },
+                });
+              }}
+            />
+          )}
         </Box>
       </Container>
     </DefaultLayout>
@@ -178,11 +199,15 @@ export default function Stores({ data }: any) {
 
 export async function getServerSideProps(context: NextPageContext) {
   let category = context.query.category || "";
+  let page = Number(context.query.page) || 1;
+  let limit = 10;
 
   const { data } = await client.query({
     query: gql`
       query GetStoresByCategory($category: String, $getAll: Boolean) {
-        stores(where: { category_contains: $category }) @skip(if: $getAll) {
+        stores(where: { category_contains: $category }, first: ${limit}, skip: ${
+      (page - 1) * limit
+    }) @skip(if: $getAll) {
           id
           name
           description
@@ -190,13 +215,26 @@ export async function getServerSideProps(context: NextPageContext) {
           total_items
           total_orders
         }
-        stores @include(if: $getAll) {
+        stores(first: ${limit}, skip: ${
+      (page - 1) * limit
+    }) @include(if: $getAll) {
           id
           name
           description
           logo
           total_items
           total_orders
+        }
+        # check if there are more stores to load
+        more: stores(where: { category_contains: $category }, first: ${limit}, skip: ${
+      page * limit
+    }) @skip(if: $getAll) {
+          id
+        }
+        more: stores(first: ${limit}, skip: ${
+      page * limit
+    }) @include(if: $getAll) {
+          id
         }
       }
     `,
@@ -208,6 +246,7 @@ export async function getServerSideProps(context: NextPageContext) {
   return {
     props: {
       data: data,
+      hasMore: data.more.length > 0,
     },
   };
 }
