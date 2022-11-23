@@ -241,7 +241,7 @@ export default function ItemPage({ data }: any) {
                 data?.store?.items?.map((item: any, i: any) => (
                   <Link
                     key={i}
-                    href={`/s/${data?.store?.id}/${item?.itemID}`}
+                    href={`/s/${data?.store?.id}/item/${item?.itemID}`}
                     passHref
                   >
                     <Box>
