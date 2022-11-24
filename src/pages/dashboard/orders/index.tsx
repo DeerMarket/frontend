@@ -17,7 +17,12 @@ export default function Orders() {
   const [bought, setBought] = useState([]);
   const [sold, setSold] = useState([]);
 
-  const [tab, setTab] = useState("bought");
+  const [tab, setTab] = useState(
+    typeof window != undefined &&
+      window.localStorage.getItem("dashboard-orders-tab")
+      ? window.localStorage.getItem("dashboard-orders-tab")
+      : "bought"
+  );
 
   const { account } = useData();
   const { get_orders_by_buyer, get_orders_by_seller } = useGraph();
@@ -35,6 +40,11 @@ export default function Orders() {
     }
   }, [account?.account_id]);
 
+  const handleTab = (tab: string) => {
+    setTab(tab);
+    //
+    window.localStorage.setItem("dashboard-orders-tab", tab);
+  };
   return (
     <DashboardLayout tab="orders" loading={isLoading}>
       <Flex
@@ -56,14 +66,14 @@ export default function Orders() {
             {
               id: "bought",
               name: "As Buyer",
-              onClick: () => setTab("bought"),
+              onClick: () => handleTab("bought"),
               active: tab === "bought",
               note: bought?.length,
             },
             {
               id: "sold",
               name: "As Seller",
-              onClick: () => setTab("sold"),
+              onClick: () => handleTab("sold"),
               active: tab === "sold",
               note: sold?.length,
             },
