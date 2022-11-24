@@ -20,7 +20,7 @@ declare global {
   }
 }
 
-type Account = AccountView & {
+export type Account = AccountView & {
   account_id: string;
 };
 
