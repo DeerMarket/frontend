@@ -43,7 +43,6 @@ export default function Header({ variant = "default", ...rest }) {
         <Link href={"/"} passHref>
           <a>
             <Logo
-              variant={variant == "light" ? "full-white" : "default"}
               size={2}
             />
           </a>

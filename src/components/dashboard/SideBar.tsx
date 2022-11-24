@@ -105,7 +105,10 @@ export default function SideBar({ tab, ...rest }: any) {
 
                 transition: "all 0.2s ease",
 
-                bg: link.active ? "primary" : "none",
+                variant: link.active ? "gradient.primary" : "none",
+                "&": {
+                  variant: link.active ? "shadow.primary" : "none",
+                },
                 color: link.active ? "white" : "primary",
                 fill: link.active ? "white" : "primary",
 

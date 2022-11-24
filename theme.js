@@ -30,7 +30,7 @@ export const colors = {
   ...accentColors,
   ...brandColors,
   text: baseColors.black,
-  muted: lighten("primary", 0.48),
+  muted: "#eff7ff",
   background: baseColors.white,
   primaryHover: darken(brandColors.primary, 0.1),
   shadow: alpha(baseColors.black, 0.125),
@@ -92,7 +92,7 @@ const commonButtonStyles = {
   fontSize: [1, 1, 1, 2],
   fontWeight: 500,
   lineHeight: `inherit`,
-  transition: `all 0.1s ease-in-out`,
+  transition: `all 0.2s ease-in-out`,
   borderRadius: `100px`,
   border: `1px solid transparent`,
 };
@@ -103,8 +103,11 @@ export const buttons = {
     backgroundColor: `primary`,
     borderColor: `primary`,
     color: `white`,
+    variant: "gradient.primary",
+    boxShadow: "0 0 transparent",
     "&:hover": {
-      backgroundColor: `primaryHover`,
+      variant: "shadow.primary",
+      opacity: 0.9
     },
   },
 
@@ -344,6 +347,20 @@ const background = {
   },
 };
 
+const gradient = {
+  primary: {
+    backgroundColor: "primary",
+    background:
+      "linear-gradient(131deg,rgba(21,135,255,1)0%,rgba(0,0,170,1)100%)",
+  },
+};
+
+const shadow = {
+  primary: {
+    boxShadow: "rgb(0 77 255 / 50%) 0px 2px 16px",
+  },
+};
+
 const box = {
   card: {
     background: "white",
@@ -477,7 +494,7 @@ const text = {
     lineHeight: 1,
     borderRadius: 3,
     my: 2,
-    backgroundColor: lighten("primary", 0.5),
+    backgroundColor: "muted",
     display: "inline-block",
   },
 };
@@ -525,6 +542,8 @@ export const theme = makeTheme({
   input,
   box,
   background,
+  gradient,
+  shadow,
   links,
   text,
   styles,

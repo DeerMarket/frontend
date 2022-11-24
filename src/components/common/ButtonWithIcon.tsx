@@ -13,7 +13,7 @@ export default function ButtonWithIcon({
     <Button
       variant="primary"
       sx={{
-        background: "primary",
+        variant: "gradient.primary",
         paddingLeft: children ? "1.2em" : 0,
         paddingRight: children ? "3.3em" : "2.8em",
         display: "flex",
