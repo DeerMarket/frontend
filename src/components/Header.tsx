@@ -72,7 +72,7 @@ export default function Header({ variant = "default", ...rest }) {
             display: ["none", "none", "flex", "flex"],
           }}
         >
-          {Router.pathname != "/" && (
+          {account && Router.pathname != "/" && (
             <Link href="/dashboard/stores/create" passHref>
               <Button
                 as="a"
