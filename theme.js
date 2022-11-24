@@ -1,4 +1,4 @@
-import { makeTheme, makeColorsScale } from "@theme-ui/css/utils";
+import { makeTheme } from "@theme-ui/css/utils";
 import { darken, lighten, alpha } from "@theme-ui/color";
 
 // NEAR Brand From https://near.org/about/brand
@@ -20,7 +20,7 @@ const accentColors = {
 };
 // Our brand
 const brandColors = {
-  primary: "#0e59e2",
+  primary: "#1e43ff",
   secondary: "#fdd46a",
 };
 
@@ -32,7 +32,7 @@ export const colors = {
   text: baseColors.black,
   muted: "#eff7ff",
   background: baseColors.white,
-  primaryHover: darken(brandColors.primary, 0.1),
+  primaryHover: "#001a9e",
   shadow: alpha(baseColors.black, 0.125),
 };
 
@@ -107,7 +107,7 @@ export const buttons = {
     boxShadow: "0 0 transparent",
     "&:hover": {
       variant: "shadow.primary",
-      opacity: 0.9
+      opacity: 0.9,
     },
   },
 
@@ -350,8 +350,7 @@ const background = {
 const gradient = {
   primary: {
     backgroundColor: "primary",
-    background:
-      "linear-gradient(131deg,rgba(21,135,255,1)0%,rgba(0,0,170,1)100%)",
+    background: `linear-gradient( 131deg,  ${colors.primary}cc 20%, ${colors.primaryHover} 110%)`,
   },
 };
 

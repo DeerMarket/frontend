@@ -104,6 +104,7 @@ export default function ConfirmDeletePopup({
             }
             sx={{
               fontSize: 1,
+              background: "none",
               backgroundColor: "red",
               ":hover": {
                 backgroundColor: "red",

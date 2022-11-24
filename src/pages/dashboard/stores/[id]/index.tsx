@@ -129,6 +129,7 @@ export default function Store() {
             }
             sx={{
               fontSize: 1,
+              background: "none",
               backgroundColor: "red",
               ":hover": {
                 backgroundColor: "red",
@@ -308,6 +309,7 @@ function ItemCard2({ store_id, item, handleDeleteItemPopup }: any) {
           }
           sx={{
             fontSize: 1,
+            background: "none",
             backgroundColor: "red",
             ":hover": {
               backgroundColor: "red",
