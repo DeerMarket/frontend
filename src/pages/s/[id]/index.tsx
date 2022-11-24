@@ -11,6 +11,8 @@ import ItemCard from "../../../components/sections/ItemCard";
 import Pagination from "../../../components/common/Pagination";
 import { useEffect, useState } from "react";
 import Loading from "../../../components/common/Loading";
+import Price from "../../../components/common/Price";
+import { utils } from "near-api-js";
 
 export default function Store({ data, hasMore }: any) {
   const router = useRouter();
@@ -32,95 +34,156 @@ export default function Store({ data, hasMore }: any) {
     <DefaultLayout>
       <Box mt={3}>
         {data?.store?.cover && (
-          <StoreCover image={data?.store?.cover} height={160} />
+          <StoreCover image={data?.store?.cover} height={260} />
         )}
         <Container
           sx={{
             display: "flex",
             flexDirection: "column",
-            p: 4,
-            pb: 0,
+            px: 4,
           }}
         >
           <Box
             sx={{
-              width: "100%",
               display: "flex",
-              gap: 3,
+              alignItems: "center",
+              mb: 3,
               flexWrap: "wrap",
+              mt: 2,
+              gap: 3,
             }}
           >
-            <StoreAvatar image={data?.store?.logo} />
+            <Box
+              sx={{
+                marginTop: "-6%",
+                border: "18px solid",
+                borderRadius: 50,
+                borderColor: "muted",
+                mr: 4,
+                ml: 0,
+              }}
+            >
+              <StoreAvatar image={data?.store?.logo} />
+            </Box>
+            <Box
+              sx={{
+                mr: "auto",
+                maxWidth: "45%"
+              }}
+            >
+              <Heading as="h4" variant="account" mb={2}>
+                {data?.store?.id}
+              </Heading>
+              <Heading as="h1" variant="pageHeading" mt={0}>
+                {data?.store?.name}
+              </Heading>
+            </Box>
 
             <Box
               sx={{
-                minWidth: 300,
-                flex: 1,
                 display: "flex",
+                flexWrap: "wrap",
+                gap: 5,
+                alignItems: "center",
                 justifyContent: "space-between",
-                gap: 3,
+                textAlign: "center",
+                ml: "auto"
               }}
             >
-              <Box
-                sx={{
-                  flex: 2,
-                }}
-              >
-                <Heading as="h4" variant="account">
-                  {data?.store?.id}
-                </Heading>
-                <Heading as="h3" variant="pageHeading">
-                  {data?.store?.name}
-                </Heading>
-                <Heading as="h5" mt={3}>
-                  Owner
-                </Heading>
-                <Paragraph>
-                  <Text variant="account">{data?.store?.owner?.id}</Text>
+              <Box>
+                <Heading as="h5">Items</Heading>
+                <Paragraph
+                  mb={0}
+                  mt={2}
+                  sx={{
+                    fontWeight: 700,
+                  }}
+                >
+                  {data?.store?.total_items}
                 </Paragraph>
               </Box>
-              <Box
-                sx={{
-                  gap: 3,
-                  flex: 1,
-                }}
-              >
-                <Heading as="h5">Created at</Heading>
-                <Paragraph>
-                  {new Date(Number(data?.store?.createdAt)).toLocaleString()}
+              <Box>
+                <Heading as="h5">Sales</Heading>
+                <Paragraph
+                  mb={0}
+                  mt={2}
+                  sx={{
+                    fontWeight: 700,
+                  }}
+                >
+                  {data?.store?.total_orders}
                 </Paragraph>
-                <Heading as="h5">Updated at</Heading>
-                <Paragraph>
-                  {new Date(Number(data?.store?.updatedAt)).toLocaleString()}
-                </Paragraph>
-                <Heading as="h5">Tags</Heading>
-                <Paragraph mb={0}>
-                  {data?.store?.tags?.length > 0
-                    ? data?.store?.tags?.map(
-                        (tag: any, i: any) =>
-                          // <Link key={tag.id} href={`/search?query=${tag.id}`}>
-                          tag.name +
-                          (i < data?.store?.tags?.length - 1 ? ", " : "")
-                        // </Link>
-                      )
-                    : "No tags"}
+              </Box>
+              <Box>
+                <Heading as="h5">Volume</Heading>
+                <Paragraph
+                  mb={0}
+                  mt={2}
+                  sx={{
+                    fontWeight: 700,
+                  }}
+                >
+                  <Price amount={utils.format.formatNearAmount(data?.store?.total_sales, 2)} />
                 </Paragraph>
               </Box>
             </Box>
           </Box>
-          <Box>
-            <Heading as="h5" mt={0}>
-              Description
-            </Heading>
-            <Paragraph
-              sx={{
-                whiteSpace: "pre-line",
-                maxHeight: 100,
-                overflowY: "auto",
-              }}
-            >
-              {description || "No description provided"}
-            </Paragraph>
+          <Heading as="h3" variant="tiny">
+            About
+          </Heading>
+          <Paragraph
+            sx={{
+              whiteSpace: "pre-line",
+              maxHeight: 100,
+              overflowY: "auto",
+              mb: 3,
+            }}
+          >
+            {description || "No description provided"}
+          </Paragraph>
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              minWidth: 300,
+              gap: 4,
+              alignItems: "center",
+              justifyContent: "space-between",
+              mb: 4,
+            }}
+          >
+            <Box>
+              <Heading as="h5">Owner</Heading>
+              <Paragraph mb={0}>
+                <Text variant="account">{data?.store?.owner?.id}</Text>
+              </Paragraph>
+            </Box>
+            <Box>
+              <Heading as="h5">Tags</Heading>
+              <Paragraph mb={0}>
+                {data?.store?.tags?.length > 0
+                  ? data?.store?.tags?.map(
+                      (tag: any, i: any) =>
+                        // <Link key={tag.id} href={`/search?query=${tag.id}`}>
+                        tag.name +
+                        (i < data?.store?.tags?.length - 1 ? ", " : "")
+                      // </Link>
+                    )
+                  : "No tags"}
+              </Paragraph>
+            </Box>
+            <Box>
+              <Heading as="h5">Created at</Heading>
+              <Paragraph mb={0}>
+                {new Date(Number(data?.store?.createdAt)).toLocaleString()}
+              </Paragraph>
+            </Box>
+            <Box>
+              <Heading as="h5">Updated at</Heading>
+              <Paragraph mb={0}>
+                {new Date(Number(data?.store?.updatedAt)).toLocaleString()}
+              </Paragraph>
+            </Box>
           </Box>
         </Container>
       </Box>
@@ -128,7 +191,7 @@ export default function Store({ data, hasMore }: any) {
       <Container
         sx={{
           display: "grid",
-          gridGap: 3,
+          gridGap: 4,
           gridTemplateColumns: "minmax(300px, 1fr) minmax(300px, 3fr)",
           "@media screen and (max-width: 700px)": {
             gridTemplateColumns: "1fr",
@@ -359,6 +422,9 @@ export async function getServerSideProps(context: NextPageContext) {
           }
           createdAt
           updatedAt
+          total_sales
+          total_items
+          total_orders
 
           items(first: ${limit}, skip: ${(page - 1) * limit}) {
             id
