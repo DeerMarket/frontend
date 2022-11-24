@@ -1,6 +1,7 @@
 /** @jsxImportSource theme-ui */
 
 import Link from "next/link";
+import Router from "next/router";
 import { useState } from "react";
 import { Box, Button, Container, Flex, NavLink, Paragraph } from "theme-ui";
 import { useAction } from "../hooks/useAction";
@@ -42,9 +43,7 @@ export default function Header({ variant = "default", ...rest }) {
       >
         <Link href={"/"} passHref>
           <a>
-            <Logo
-              size={2}
-            />
+            <Logo size={2} />
           </a>
         </Link>
 
@@ -73,6 +72,21 @@ export default function Header({ variant = "default", ...rest }) {
             display: ["none", "none", "flex", "flex"],
           }}
         >
+          {Router.pathname != "/" && (
+            <Link href="/dashboard/stores/create" passHref>
+              <Button
+                as="a"
+                sx={{
+                  my: "auto",
+                  mr: 3,
+                  display: ["none", "none", "none", "unset"],
+                }}
+                variant={"outline"}
+              >
+                Create Store
+              </Button>
+            </Link>
+          )}
           {account ? (
             <Link href="/dashboard" passHref>
               <NavLink title="dashboard">
@@ -115,6 +129,9 @@ export default function Header({ variant = "default", ...rest }) {
             </Link>
             <Link href="/disputes" passHref>
               <NavLink p={2}>Solve Disputes</NavLink>
+            </Link>
+            <Link href="/dashboard/stores/create" passHref>
+              <NavLink p={2}>Create a Store</NavLink>
             </Link>
 
             <hr
