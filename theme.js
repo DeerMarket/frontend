@@ -500,14 +500,14 @@ const text = {
   },
   h1: {
     ...commonHeadingStyles,
-    fontSize: [5, 5, 6, 6, 7],
+    fontSize: [5, 5, 5, 6, 6],
     fontWeight: 600,
     lineHeight: 1.3,
   },
   h2: {
     ...commonHeadingStyles,
-    fontSize: [4, 4, 5, 5, 6],
-    fontWeight: 800,
+    fontSize: [4, 4, 5, 5, 5],
+    fontWeight: 700,
     lineHeight: 1.3,
   },
 };

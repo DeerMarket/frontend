@@ -37,10 +37,10 @@ const Home: NextPage = () => {
 
         <Heading
           as="h1"
+          variant="h1"
           sx={{
-            fontSize: [5, 5, 5, 6, 6],
-            fontWeight: 600,
-            mb: 3,
+            mb: 2,
+            mt: 0,
           }}
         >
           Your Decentralized <span sx={{ color: "primary" }}>Marketplace</span>{" "}
