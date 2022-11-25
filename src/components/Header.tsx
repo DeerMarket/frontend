@@ -130,9 +130,11 @@ export default function Header({ variant = "default", ...rest }) {
             <Link href="/disputes" passHref>
               <NavLink p={2}>Solve Disputes</NavLink>
             </Link>
-            <Link href="/dashboard/stores/create" passHref>
-              <NavLink p={2}>Create a Store</NavLink>
-            </Link>
+            {account && Router.pathname != "/" && (
+              <Link href="/dashboard/stores/create" passHref>
+                <NavLink p={2}>Create a Store</NavLink>
+              </Link>
+            )}
 
             <hr
               sx={{
