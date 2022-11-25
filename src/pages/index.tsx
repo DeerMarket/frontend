@@ -60,7 +60,7 @@ const Home: NextPage = () => {
           experience in this new era for commerce! */}
           {/* Deer is an innovative, cutting-edge platform that allows you to buy and sell items with complete transparency. No more relying on third party platforms or trusting someone else's words - everything can be seen by everyone in real time! */}
           {/* DEER is a trustless, transparent and secure marketplace for the community. Where you can buy or sell items physically (in person) as well digitally with no need of an inconvenient third party! */}
-          We're changing the way people buy and sell items by creating a
+          We&apos;re changing the way people buy and sell items by creating a
           trustless, transparent marketplace with no need for third party
           interference. Join us on this journey!
         </Paragraph>
