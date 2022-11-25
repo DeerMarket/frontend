@@ -11,6 +11,7 @@ import StoreCard from "../../../components/sections/StoreCard";
 import TransactionStatus from "../../../components/popups/TransactionStatus";
 import { contractsConfig } from "../../../configs/contracts";
 import { useRouter } from "next/router";
+import MediaWithCredit from "../../../components/common/MediaWithCredit";
 
 export default function Stores() {
   const [isLoading, setIsLoading] = useState(true);
@@ -331,30 +332,15 @@ function NoStore() {
       <Heading my={0} as="h1" sx={{}}>
         You don&apos;t have a store yet!
       </Heading>
-      <Image
-        src={Rocket}
+      <MediaWithCredit
+        image={Rocket}
         width={600}
         height={360}
         objectFit={"contain"}
         alt=""
+        creditLink="https://icons8.com/l/animations"
+        credit="Icons8"
       />
-      <span
-        sx={{
-          fontSize: "12px",
-          textAlign: "center",
-          opacity: 0.8,
-          mt: -30,
-        }}
-      >
-        Illustration by{" "}
-        <a
-          href="https://icons8.com/l/animations"
-          target={"_blank"}
-          rel={"noreferrer"}
-        >
-          Icons8
-        </a>
-      </span>
       <Heading
         mt={4}
         mb={3}
