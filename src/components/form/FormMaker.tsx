@@ -1,5 +1,5 @@
 import Router from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Flex,
@@ -69,6 +69,7 @@ export default function FormMaker({
   const handleBack = () => {
     if (step > 0) {
       setStep(step - 1);
+      setError("");
     } else {
       Router.back();
     }
@@ -148,16 +149,18 @@ export default function FormMaker({
     }
 
     if (v?.useVerify) {
-      await v.useVerify.forEach(async (v: [string, any]) => {
-        const [functionName, shouldReturn] = v;
-        if (!verify.hasOwnProperty(functionName))
-          return console.error("No such function in useVerify");
+      for await (const fv of v.useVerify as any[]) {
+        const [functionName, shouldReturn, errorMessage] = fv;
+        if (!verify.hasOwnProperty(functionName)) {
+          console.error("No such function in useVerify");
+          continue;
+        }
         // @ts-ignore
         const isValid = await verify[functionName](d);
         if (isValid != shouldReturn) {
-          err = "Invalid";
+          err = errorMessage || "Invalid";
         }
-      });
+      }
     }
 
     // handle multiple fields

@@ -32,7 +32,7 @@
         "min": 3,
         "max": 21,
         "pattern": "near_account_id",
-        "useVerify": [["store_id_exists", false]]
+        "useVerify": [["store_id_exists", false, "Store ID already exists"]]
       }
     },
     {
