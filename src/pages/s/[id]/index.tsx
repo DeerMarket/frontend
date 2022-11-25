@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import Loading from "../../../components/common/Loading";
 import Price from "../../../components/common/Price";
 import { utils } from "near-api-js";
+import { contractsConfig } from "../../../configs/contracts";
 
 export default function Store({ data, hasMore }: any) {
   const router = useRouter();
@@ -72,7 +73,7 @@ export default function Store({ data, hasMore }: any) {
               }}
             >
               <Heading as="h4" variant="account" mb={2}>
-                {data?.store?.id}
+                {data?.store?.id}.{contractsConfig.store_factory.contractId}
               </Heading>
               <Heading as="h1" variant="pageHeading" mt={0}>
                 {data?.store?.name}
