@@ -36,7 +36,7 @@ const Home: NextPage = () => {
           as="h1"
           sx={{
             fontSize: [5, 5, 5, 6, 6],
-            mt: 0,
+            mb: 3,
           }}
         >
           Your Decentralized <span sx={{ color: "primary" }}>Marketplace</span>{" "}
@@ -49,11 +49,17 @@ const Home: NextPage = () => {
             maxWidth: 800,
             px: 3,
             fontSize: [1, 1, 1, 2, 2],
+            lineHeight: 1.8,
           }}
         >
-          Using the power of the NEAR blockchain, we are building a trustless,
-          transparent, and secure marketplace for the community. Where you can
-          buy and sell items physically or digitally.
+          {/* Buy and sell items personally or digitally on our trustless
+          marketplace - it's up to each individual what they want their
+          experience in this new era for commerce! */}
+          {/* Deer is an innovative, cutting-edge platform that allows you to buy and sell items with complete transparency. No more relying on third party platforms or trusting someone else's words - everything can be seen by everyone in real time! */}
+          {/* DEER is a trustless, transparent and secure marketplace for the community. Where you can buy or sell items physically (in person) as well digitally with no need of an inconvenient third party! */}
+          We're changing the way people buy and sell items by creating a
+          trustless, transparent marketplace with no need for third party
+          interference. Join us on this journey!
         </Paragraph>
 
         <Flex sx={{ justifyContent: "center", gap: [3, 3, 3, 4, 4] }}>
@@ -114,8 +120,9 @@ const Home: NextPage = () => {
               mt: 3,
             }}
           >
-            Each store is a decentralized smart contract deployed on NEAR. This
-            means that each store is owned and operated by the store owner.
+            Each store is a decentralized smart contract on the NEAR blockchain.
+            This means that no one has the upper hand - everyone is fairly and
+            equally in control.
           </Paragraph>
           <Flex
             sx={{
