@@ -39,6 +39,7 @@ const Home: NextPage = () => {
           as="h1"
           sx={{
             fontSize: [5, 5, 5, 6, 6],
+            fontWeight: 600,
             mb: 3,
           }}
         >
