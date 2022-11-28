@@ -7,7 +7,7 @@ import DashboardLayout from "../../components/layouts/Dashboard";
 import { useData } from "../../hooks/useData";
 import { useGraph } from "../../hooks/useGraph";
 
-export default function Dashboard() {
+export default function Dashboard({ statusErrors }: any) {
   const { account } = useData();
   const { get_user_overview } = useGraph();
   const [stats, setStats] = useState<any>(null);
@@ -46,9 +46,8 @@ export default function Dashboard() {
     Number(utils.format.formatNearAmount(stats?.total_sales || "0", 2))
   );
 
-  
   return (
-    <DashboardLayout tab="overview">
+    <DashboardLayout tab="overview" statusErrors={statusErrors}>
       <Heading as="h1" variant="pageHeading" mb={4}>
         {message + ", " + account?.account_id + (account?.account_id && "!")}
       </Heading>

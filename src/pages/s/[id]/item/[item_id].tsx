@@ -17,7 +17,7 @@ import { contractsConfig } from "../../../../configs/contracts";
 import { useAction } from "../../../../hooks/useAction";
 import { useData } from "../../../../hooks/useData";
 
-export default function ItemPage({ data }: any) {
+export default function ItemPage({ data, statusErrors }: any) {
   const router = useRouter();
   const { account, getTx } = useData();
   const { item_buy } = useAction();
@@ -75,7 +75,7 @@ export default function ItemPage({ data }: any) {
   };
 
   return (
-    <DefaultLayout loading={loading}>
+    <DefaultLayout loading={loading} statusErrors={statusErrors}>
       <TransactionStatus
         show={txPopup.show}
         success={txPopup.success}

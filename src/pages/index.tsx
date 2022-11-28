@@ -8,9 +8,9 @@ import MediaWithCredit from "../components/common/MediaWithCredit";
 
 // TODO: Lazy load images and animations
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ statusErrors }: any) => {
   return (
-    <DefaultLayout headerVariant="dark">
+    <DefaultLayout headerVariant="dark" statusErrors={statusErrors}>
       <Container
         sx={{
           height: "85vh",
@@ -93,11 +93,11 @@ const Home: NextPage = () => {
       <Box
         sx={{
           variant: "background.mesh",
-          color: "black",
+          color: "white",
           mt: 3,
           pt: 5,
           mb: "-1px",
-          minHeight: "70vh",
+          minHeight: "80vh",
           borderTopLeftRadius: "15vw",
         }}
       >
@@ -290,7 +290,12 @@ const Home: NextPage = () => {
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              flexDirection: ["column-reverse", "column-reverse", "column-reverse", "row"],
+              flexDirection: [
+                "column-reverse",
+                "column-reverse",
+                "column-reverse",
+                "row",
+              ],
               alignItems: "center",
               gap: 4,
             }}
@@ -336,7 +341,12 @@ const Home: NextPage = () => {
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              flexDirection: ["column-reverse", "column-reverse", "column-reverse", "row-reverse"],
+              flexDirection: [
+                "column-reverse",
+                "column-reverse",
+                "column-reverse",
+                "row-reverse",
+              ],
               alignItems: "center",
               gap: 4,
             }}
@@ -356,9 +366,9 @@ const Home: NextPage = () => {
                 The Benefits for Buyers
               </Heading>
               <Paragraph mb={4}>
-                As a buyer, you can enjoy a wide variety of products and services
-                from sellers all over the world. And you can rest assured that
-                all your funds are secure.
+                As a buyer, you can enjoy a wide variety of products and
+                services from sellers all over the world. And you can rest
+                assured that all your funds are secure.
               </Paragraph>
               <List
                 items={[
@@ -382,7 +392,12 @@ const Home: NextPage = () => {
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              flexDirection: ["column-reverse", "column-reverse", "column-reverse", "row"],
+              flexDirection: [
+                "column-reverse",
+                "column-reverse",
+                "column-reverse",
+                "row",
+              ],
               alignItems: "center",
               gap: 4,
             }}
@@ -403,7 +418,7 @@ const Home: NextPage = () => {
               </Heading>
               <Paragraph mb={4}>
                 As a community member, you can enjoy helping to build a
-                decentralized marketplace that is fair and secure for everyone. 
+                decentralized marketplace that is fair and secure for everyone.
                 While also earning rewards for your contributions.
               </Paragraph>
               <List

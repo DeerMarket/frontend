@@ -12,7 +12,7 @@ import { utils } from "near-api-js";
 import { useAction } from "../../hooks/useAction";
 import Pagination from "../../components/common/Pagination";
 
-export default function Disputes({}) {
+export default function Disputes({statusErrors}:any) {
   const [isLoading, setIsLoading] = useState(false);
   const [canVote, setCanVote] = useState(false);
   const [disputes, setDisputes] = useState([]);
@@ -72,7 +72,7 @@ export default function Disputes({}) {
   };
 
   return (
-    <DefaultLayout loading={isLoading}>
+    <DefaultLayout loading={isLoading} statusErrors={statusErrors}>
       <PageHeader
         title="Public Disputes"
         subtitle="Here you can find all the public disputes that are currently open. Help the community by voting on the best resolution and earn rewards for your help."

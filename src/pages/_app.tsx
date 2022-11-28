@@ -9,14 +9,19 @@ import { WalletSelectorContextProvider } from "../contexts/WalletSelector";
 
 import "nprogress/nprogress.css";
 
-import NProgress from 'nprogress';
-import Router from 'next/router';
-import { useEffect } from "react";
-
-
+import NProgress from "nprogress";
+import Router from "next/router";
+import { useEffect, useState } from "react";
+import client, { TheGraphURI } from "../configs/apollo-client";
+import { gql } from "@apollo/client";
+import { getBlocks } from "../helpers/near";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  
+  const [statusErrors, setStatusErrors] = useState<any>({
+    graph: false,
+    near: false,
+  });
+
   useEffect(() => {
     const handleRouteStart = () => NProgress.start();
     const handleRouteDone = () => NProgress.done();
@@ -33,11 +38,56 @@ function MyApp({ Component, pageProps }: AppProps) {
     };
   }, []);
 
+  useEffect(() => {
+    async function graph_status() {
+      const graphmeta = await client.query({
+        query: gql`
+          query meta {
+            _meta {
+              block {
+                hash
+                timestamp
+                number
+              }
+              deployment
+              hasIndexingErrors
+            }
+          }
+        `,
+      });
+      const nearmeta = await getBlocks();
+
+      let lastGraphBlock = graphmeta.data._meta.block.number;
+      let lastNearBlock = nearmeta.header.height;
+
+      if (lastGraphBlock < lastNearBlock - 1000) {
+        setStatusErrors({
+          graph: (
+            <a
+              href={TheGraphURI}
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              The Graph indexer is stuck at block {lastGraphBlock}. Data may be
+              outdated until it catches up.
+            </a>
+          ),
+          near: false,
+        });
+      }
+    }
+    graph_status();
+  }, []);
+
   return (
     // @ts-ignore
     <ThemeProvider theme={theme}>
       <WalletSelectorContextProvider>
-        <Component {...pageProps} />
+        <Component {...pageProps} statusErrors={statusErrors} />
       </WalletSelectorContextProvider>
     </ThemeProvider>
   );

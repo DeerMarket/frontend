@@ -3,9 +3,9 @@ import Lottie from "react-lottie-player";
 import { Box, Button, Container, Heading } from "theme-ui";
 import DefaultLayout from "../components/layouts/Default";
 
-export default function FourOhFour() {
+export default function FourOhFour({ statusErrors }: any) {
   return (
-    <DefaultLayout>
+    <DefaultLayout statusErrors={statusErrors}>
       <Container
         sx={{
           display: "flex",

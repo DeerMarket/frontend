@@ -12,7 +12,7 @@ import { utils } from "near-api-js";
 import Status from "../../../components/common/Status";
 import Tabs from "../../../components/common/Tabs";
 
-export default function Orders() {
+export default function Orders({statusErrors}:any) {
   const [isLoading, setIsLoading] = useState(true);
   const [bought, setBought] = useState([]);
   const [sold, setSold] = useState([]);
@@ -46,7 +46,7 @@ export default function Orders() {
     window.localStorage.setItem("dashboard-orders-tab", tab);
   };
   return (
-    <DashboardLayout tab="orders" loading={isLoading}>
+    <DashboardLayout tab="orders" loading={isLoading} statusErrors={statusErrors}>
       <Flex
         sx={{
           justifyContent: "space-between",

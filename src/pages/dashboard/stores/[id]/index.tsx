@@ -11,7 +11,7 @@ import ConfirmPopup from "../../../../components/popups/ConfirmDeletePopup";
 import { useAction } from "../../../../hooks/useAction";
 import ItemCard from "../../../../components/sections/ItemCard";
 
-export default function Store() {
+export default function Store({statusErrors}:any) {
   const router = useRouter();
   const { id } = router.query;
 
@@ -66,6 +66,7 @@ export default function Store() {
     <DashboardLayout
       tab="stores"
       loading={store === undefined || storeItems === undefined}
+      statusErrors={statusErrors}
     >
       <StoreCover image={store?.cover} />
       <Flex

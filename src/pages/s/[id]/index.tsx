@@ -15,7 +15,7 @@ import Price from "../../../components/common/Price";
 import { utils } from "near-api-js";
 import { contractsConfig } from "../../../configs/contracts";
 
-export default function Store({ data, hasMore }: any) {
+export default function Store({ data, hasMore, statusErrors }: any) {
   const router = useRouter();
   const { id, page: page1 } = router.query;
 
@@ -32,8 +32,8 @@ export default function Store({ data, hasMore }: any) {
   let terms = data?.store?.terms?.replace(/\n\s*\n\s*\n/g, "\n\n");
 
   return (
-    <DefaultLayout>
-      <Box mt={3}>
+    <DefaultLayout statusErrors={statusErrors}>
+      <Box>
         {data?.store?.cover && (
           <StoreCover image={data?.store?.cover} height={260} />
         )}
@@ -69,7 +69,7 @@ export default function Store({ data, hasMore }: any) {
             <Box
               sx={{
                 mr: "auto",
-                maxWidth: "45%"
+                maxWidth: "45%",
               }}
             >
               <Heading as="h4" variant="account" mb={2}>
@@ -88,7 +88,7 @@ export default function Store({ data, hasMore }: any) {
                 alignItems: "center",
                 justifyContent: "space-between",
                 textAlign: "center",
-                ml: "auto"
+                ml: "auto",
               }}
             >
               <Box>
@@ -124,7 +124,12 @@ export default function Store({ data, hasMore }: any) {
                     fontWeight: 700,
                   }}
                 >
-                  <Price amount={utils.format.formatNearAmount(data?.store?.total_sales, 2)} />
+                  <Price
+                    amount={utils.format.formatNearAmount(
+                      data?.store?.total_sales,
+                      2
+                    )}
+                  />
                 </Paragraph>
               </Box>
             </Box>

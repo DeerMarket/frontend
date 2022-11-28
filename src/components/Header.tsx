@@ -2,14 +2,18 @@
 
 import Link from "next/link";
 import Router from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, Container, Flex, NavLink, Paragraph } from "theme-ui";
 import { useAction } from "../hooks/useAction";
 import { useData } from "../hooks/useData";
 import UserButton from "./sections/UserButton";
 import Logo from "./svg/logo";
 
-export default function Header({ variant = "default", ...rest }) {
+export default function Header({
+  variant = "default",
+  statusErrors,
+  ...rest
+}: any) {
   const { login } = useAction();
   const { account } = useData();
 
@@ -20,129 +24,111 @@ export default function Header({ variant = "default", ...rest }) {
     await login();
   };
 
+  console.log("account", statusErrors);
+  const allGood =
+    !statusErrors || (!statusErrors?.graph && !statusErrors?.near);
+
   return (
-    <Box
-      as="header"
-      {...rest}
-      sx={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 100,
-      }}
-    >
-      <Container
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          py: 3,
-          color: variant == "light" ? "white" : "primary",
-        }}
-        // variant="wide"
-      >
-        <Link href={"/"} passHref>
-          <a>
-            <Logo size={2} />
-          </a>
-        </Link>
-
-        {/* laptop navigation */}
-        <Flex
-          as="nav"
-          mr={"auto"}
-          ml={[1, 1, 1, 4]}
+    <>
+      {!allGood && (
+        <Box
           sx={{
-            display: ["none", "none", "flex", "flex"],
+            height: 20,
           }}
-        >
-          <Link href="/stores" passHref>
-            <NavLink mr={4} p={2}>
-              Explore Stores
-            </NavLink>
-          </Link>
-          <Link href="/disputes" passHref>
-            <NavLink p={2}>Solve Disputes</NavLink>
-          </Link>
-        </Flex>
-
-        <Flex
-          as="nav"
-          sx={{
-            display: ["none", "none", "flex", "flex"],
-          }}
-        >
-          {account && Router.pathname != "/" && (
-            <Link href="/dashboard/stores/create" passHref>
-              <Button
-                as="a"
-                sx={{
-                  my: "auto",
-                  mr: 3,
-                  display: ["none", "none", "none", "unset"],
-                }}
-                variant={"outline"}
-              >
-                Create Store
-              </Button>
-            </Link>
-          )}
-          {account ? (
-            <Link href="/dashboard" passHref>
-              <NavLink title="dashboard">
-                <UserButton account={account} />
-              </NavLink>
-            </Link>
-          ) : (
-            <NavLink>
-              <Button variant="connect" onClick={handleConnect}>
-                Connect Wallet
-              </Button>
-            </NavLink>
-          )}
-        </Flex>
-
-        {/* mobile navigation */}
-        <MobileNavButton
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          isOpened={isMenuOpen}
         />
-        {isMenuOpen && (
+      )}
+      <Box
+        as="header"
+        {...rest}
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 100,
+        }}
+      >
+        {!allGood && (
           <Flex
             sx={{
-              display: ["flex", "flex", "none", "none"],
-              position: "fixed",
-              py: 2,
-              top: 64,
-              variant: "box.card",
-              right: 0,
-              maxWidth: "500px",
+              justifyContent: "center",
+              alignItems: "center",
+              background: "white",
+              color: "red",
               width: "100%",
-              flexDirection: "column",
-              borderRadius: 0,
-              gap: 2,
-              textAlign: "center",
+              p: 2,
+            }}
+          >
+            <Flex
+              sx={{
+                minHeight: "15px",
+                minWidth: "15px",
+                borderRadius: "50%",
+                bg: "red",
+                mr: 2,
+              }}
+            ></Flex>
+            <Paragraph sx={{ color: "red", opacity: 1 }} variant="tiny">
+              {statusErrors?.graph || statusErrors?.near}
+            </Paragraph>
+          </Flex>
+        )}
+        <Container
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            pb: 3,
+            pt: allGood ? 3 : 0,
+            color: variant == "light" ? "white" : "primary",
+          }}
+          // variant="wide"
+        >
+          <Link href={"/"} passHref>
+            <a>
+              <Logo size={2} />
+            </a>
+          </Link>
+
+          {/* laptop navigation */}
+          <Flex
+            as="nav"
+            ml={[1, 1, 1, 4]}
+            sx={{
+              display: ["none", "none", "flex", "flex"],
             }}
           >
             <Link href="/stores" passHref>
-              <NavLink p={2}>Explore Stores</NavLink>
+              <NavLink mr={4} p={2}>
+                Explore Stores
+              </NavLink>
             </Link>
             <Link href="/disputes" passHref>
               <NavLink p={2}>Solve Disputes</NavLink>
             </Link>
+          </Flex>
+
+          <Flex
+            as="nav"
+            sx={{
+              display: ["none", "none", "flex", "flex"],
+              ml: "auto",
+            }}
+          >
             {account && Router.pathname != "/" && (
               <Link href="/dashboard/stores/create" passHref>
-                <NavLink p={2}>Create a Store</NavLink>
+                <Button
+                  as="a"
+                  sx={{
+                    my: "auto",
+                    mr: 3,
+                    display: ["none", "none", "none", "unset"],
+                  }}
+                  variant={"outline"}
+                >
+                  Create Store
+                </Button>
               </Link>
             )}
-
-            <hr
-              sx={{
-                opacity: 0.2,
-                mx: 3,
-              }}
-            />
-
             {account ? (
               <Link href="/dashboard" passHref>
                 <NavLink title="dashboard">
@@ -150,20 +136,77 @@ export default function Header({ variant = "default", ...rest }) {
                 </NavLink>
               </Link>
             ) : (
-              <NavLink
-                sx={{
-                  py: 3,
-                }}
-              >
+              <NavLink>
                 <Button variant="connect" onClick={handleConnect}>
                   Connect Wallet
                 </Button>
               </NavLink>
             )}
           </Flex>
-        )}
-      </Container>
-    </Box>
+
+          {/* mobile navigation */}
+          <MobileNavButton
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            isOpened={isMenuOpen}
+          />
+          {isMenuOpen && (
+            <Flex
+              sx={{
+                display: ["flex", "flex", "none", "none"],
+                position: "fixed",
+                py: 2,
+                top: 64,
+                variant: "box.card",
+                right: 0,
+                maxWidth: "500px",
+                width: "100%",
+                flexDirection: "column",
+                borderRadius: 0,
+                gap: 2,
+                textAlign: "center",
+              }}
+            >
+              <Link href="/stores" passHref>
+                <NavLink p={2}>Explore Stores</NavLink>
+              </Link>
+              <Link href="/disputes" passHref>
+                <NavLink p={2}>Solve Disputes</NavLink>
+              </Link>
+              {account && Router.pathname != "/" && (
+                <Link href="/dashboard/stores/create" passHref>
+                  <NavLink p={2}>Create a Store</NavLink>
+                </Link>
+              )}
+
+              <hr
+                sx={{
+                  opacity: 0.2,
+                  mx: 3,
+                }}
+              />
+
+              {account ? (
+                <Link href="/dashboard" passHref>
+                  <NavLink title="dashboard">
+                    <UserButton account={account} />
+                  </NavLink>
+                </Link>
+              ) : (
+                <NavLink
+                  sx={{
+                    py: 3,
+                  }}
+                >
+                  <Button variant="connect" onClick={handleConnect}>
+                    Connect Wallet
+                  </Button>
+                </NavLink>
+              )}
+            </Flex>
+          )}
+        </Container>
+      </Box>
+    </>
   );
 }
 

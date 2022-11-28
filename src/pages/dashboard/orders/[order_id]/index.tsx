@@ -12,7 +12,7 @@ import { useAction } from "../../../../hooks/useAction";
 import ConfirmBox from "../../../../components/popups/ConfirmBox";
 import Steps from "../../../../components/common/Steps";
 
-export default function ManageOrder() {
+export default function ManageOrder({ statusErrors }: any) {
   const router = useRouter();
   const { order_id } = router.query;
   let store_id =
@@ -131,7 +131,7 @@ export default function ManageOrder() {
   }
 
   return (
-    <DashboardLayout tab="orders" loading={loading}>
+    <DashboardLayout tab="orders" loading={loading} statusErrors={statusErrors}>
       <Flex
         sx={{
           justifyContent: "space-between",
@@ -359,7 +359,7 @@ function OrderActions({ order, owner, account, order_id, store_id }: any) {
     Router.push(Router.asPath.split(/[?#]/)[0] + "/dispute");
   };
   const handleViewDispute = () => {
-    Router.push("/disputes/"+order?.dispute_id);
+    Router.push("/disputes/" + order?.dispute_id);
   };
 
   let Buttons: React.ReactElement = <></>;

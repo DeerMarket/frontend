@@ -13,7 +13,7 @@ import { contractsConfig } from "../../../configs/contracts";
 import { useRouter } from "next/router";
 import MediaWithCredit from "../../../components/common/MediaWithCredit";
 
-export default function Stores() {
+export default function Stores({statusErrors}:any) {
   const [isLoading, setIsLoading] = useState(true);
   const [stores, setStores] = useState([]);
 
@@ -153,7 +153,7 @@ export default function Stores() {
 
 
   return (
-    <DashboardLayout tab="stores" loading={isLoading}>
+    <DashboardLayout tab="stores" loading={isLoading} statusErrors={statusErrors}>
       <TransactionStatus
         show={txPopup.show}
         success={txPopup.success}

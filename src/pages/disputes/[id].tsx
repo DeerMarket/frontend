@@ -24,7 +24,7 @@ import A from "next/link";
 import ItemCard from "../../components/sections/ItemCard";
 import DisputeStamp from "../../components/common/DisputeStamp";
 
-export default function Dispute() {
+export default function Dispute({statusErrors}:any) {
   const router = useRouter();
   const { id: dispute_id } = router.query;
 
@@ -123,7 +123,7 @@ export default function Dispute() {
     votes?.filter((v: any) => v.voter == account?.account_id).length > 0;
 
   return (
-    <DefaultLayout loading={loading}>
+    <DefaultLayout loading={loading} statusErrors={statusErrors}>
       <Container
         sx={{
           py: 4,

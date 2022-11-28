@@ -1,6 +1,6 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
 
-import { setupWalletSelector } from "@near-wallet-selector/core";
+import { NetworkId, setupWalletSelector } from "@near-wallet-selector/core";
 import { setupModal } from "@near-wallet-selector/modal-ui";
 import type { WalletSelector, AccountState } from "@near-wallet-selector/core";
 import type { WalletSelectorModal } from "@near-wallet-selector/modal-ui";
@@ -44,6 +44,11 @@ export const WalletSelectorContextProvider = ({ children }: any) => {
   const accountId =
     accounts.find((account) => account.active)?.accountId || null;
 
+  let networkId = process.env.NEXT_PUBLIC_NETWORK_ID as NetworkId;
+  if (networkId != "mainnet" && networkId != "testnet") {
+    networkId = "testnet";
+  }
+
   const successUrl =
     (typeof window !== "undefined"
       ? window.location.hostname
@@ -55,7 +60,7 @@ export const WalletSelectorContextProvider = ({ children }: any) => {
 
   const init = useCallback(async () => {
     const _selector = await setupWalletSelector({
-      network: "testnet",
+      network: networkId,
       // debug: true,
       modules: [
         ...(await setupDefaultWallets()),

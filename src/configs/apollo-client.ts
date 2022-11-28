@@ -11,4 +11,9 @@ const client = new ApolloClient({
   }),
 });
 
+export const TheGraphURI =
+  process.env.NODE_ENV === "development"
+    ? "https://thegraph.com/hosted-service/subgraph/dino-bear/deertest?selected=logs"
+    : "https://thegraph.com/hosted-service/subgraph/dino-bear/deer?selected=logs";
+
 export default client;

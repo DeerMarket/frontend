@@ -12,7 +12,7 @@ import Loading from "../../components/common/Loading";
 import StoreCard from "../../components/sections/StoreCard";
 import Pagination from "../../components/common/Pagination";
 
-export default function Stores({ data, hasMore }: any) {
+export default function Stores({ data, hasMore, statusErrors }: any) {
   const router = useRouter();
   const [cat, setCat] = useState<string | number>("all");
 
@@ -45,7 +45,7 @@ export default function Stores({ data, hasMore }: any) {
   ];
 
   return (
-    <DefaultLayout>
+    <DefaultLayout statusErrors={statusErrors}>
       <PageHeader
         title="Explore Stores"
         subtitle="Browse the top growing stores from our community. Find the best products and services for each category."
@@ -230,7 +230,9 @@ export async function getServerSideProps(context: NextPageContext) {
     }) @skip(if: $getAll) {
           id
         }
-        more: stores(orderBy: total_orders, orderDirection:desc, first: ${limit}, skip: ${page * limit}) @include(if: $getAll) {
+        more: stores(orderBy: total_orders, orderDirection:desc, first: ${limit}, skip: ${
+      page * limit
+    }) @include(if: $getAll) {
           id
         }
       }
