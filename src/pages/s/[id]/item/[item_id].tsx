@@ -103,7 +103,7 @@ export default function ItemPage({ data, statusErrors }: any) {
           });
         }}
       />
-      <Container pb={4} pt={[1, 1, 4]}>
+      <Container pb={4} pt={[1, 1, 3]}>
         <Box
           sx={{
             display: "grid",

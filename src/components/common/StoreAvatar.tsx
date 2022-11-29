@@ -6,19 +6,19 @@ export default function StoreAvatar({
   size = 144,
 }: {
   image?: string;
-  size?: number;
+  size?: number | number[];
 }) {
   return (
     <Box
       sx={{
         backgroundColor: image ? "transparent" : "muted",
-        height: [size],
-        width: [size],
-        borderRadius: size < 100 ? 20 : 27,
+        height: size,
+        width: size,
+        borderRadius: "33%",
         backgroundImage: `url(${image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        minWidth: [size],
+        minWidth: size,
       }}
     />
   );

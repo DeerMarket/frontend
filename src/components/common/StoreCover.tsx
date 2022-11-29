@@ -6,7 +6,7 @@ export default function StoreCover({
   height = 144,
 }: {
   image?: string;
-  height?: number;
+  height?: number | number[];
 }) {
   return (
     <Box

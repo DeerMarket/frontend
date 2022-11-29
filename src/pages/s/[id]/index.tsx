@@ -35,7 +35,7 @@ export default function Store({ data, hasMore, statusErrors }: any) {
     <DefaultLayout statusErrors={statusErrors}>
       <Box>
         {data?.store?.cover && (
-          <StoreCover image={data?.store?.cover} height={260} />
+          <StoreCover image={data?.store?.cover} height={[140, 140, 260]} />
         )}
         <Container
           sx={{
@@ -56,15 +56,16 @@ export default function Store({ data, hasMore, statusErrors }: any) {
           >
             <Box
               sx={{
-                marginTop: "-6%",
-                border: "18px solid",
-                borderRadius: 50,
-                borderColor: "muted",
-                mr: 4,
+                marginTop: ["-50px", "-50px", "-90px"],
+                border: "10px solid",
+                borderRadius: "37%",
+                borderColor: "white",
+                backgroundColor: "muted",
+                mr: [1, 1, 4],
                 ml: 0,
               }}
             >
-              <StoreAvatar image={data?.store?.logo} />
+              <StoreAvatar image={data?.store?.logo} size={[90, 90, 140]} />
             </Box>
             <Box
               sx={{
@@ -83,12 +84,14 @@ export default function Store({ data, hasMore, statusErrors }: any) {
             <Box
               sx={{
                 display: "flex",
-                flexWrap: "wrap",
-                gap: 5,
+                // flexWrap: "wrap",
+                gap: [4, 4, 4, 5],
                 alignItems: "center",
                 justifyContent: "space-between",
                 textAlign: "center",
                 ml: "auto",
+                mr: ["auto", "auto", "auto", 0],
+                mt: [3, 3, 0],
               }}
             >
               <Box>
@@ -142,7 +145,7 @@ export default function Store({ data, hasMore, statusErrors }: any) {
               whiteSpace: "pre-line",
               maxHeight: 100,
               overflowY: "auto",
-              mb: 3,
+              mb: 4,
             }}
           >
             {description || "No description provided"}
@@ -164,7 +167,11 @@ export default function Store({ data, hasMore, statusErrors }: any) {
                 <Text variant="account">{data?.store?.owner?.id}</Text>
               </Paragraph>
             </Box>
-            <Box>
+            <Box
+              sx={{
+                minWidth: [300, 300, "none", "none"],
+              }}
+            >
               <Heading as="h5">Tags</Heading>
               <Paragraph mb={0}>
                 {data?.store?.tags?.length > 0

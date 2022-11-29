@@ -62,6 +62,7 @@ export default function SwiperGallery({ slides }: { slides?: string[] }) {
             "--swiper-navigation-color": "#fff",
             "--swiper-pagination-color": "#fff",
             width: "100%",
+            height: [60, 60, 70, 100],
           }}
           className="gigSwiperThumb"
         >
@@ -74,7 +75,8 @@ export default function SwiperGallery({ slides }: { slides?: string[] }) {
                     display: "block",
                     width: "100%",
                     objectFit: "cover",
-                    height: 100,
+                    objectPosition: "center center",
+                    height: "100%",
                   }}
                 />
               </SwiperSlide>

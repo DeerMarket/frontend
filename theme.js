@@ -101,7 +101,7 @@ export const buttons = {
   primary: {
     ...commonButtonStyles,
     backgroundColor: `primary`,
-    borderColor: `primary`,
+    borderColor: `transparent`,
     color: `white`,
     variant: "gradient.primary",
     boxShadow: "0 0 transparent",
