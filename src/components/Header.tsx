@@ -24,7 +24,6 @@ export default function Header({
     await login();
   };
 
-  console.log("account", statusErrors);
   const allGood =
     !statusErrors || (!statusErrors?.graph && !statusErrors?.near);
 

@@ -5,6 +5,8 @@ export default function Logo({ variant = "default", size = 3 }) {
   if (variant == "full-white") {
     color1 = "#FFFFFF";
     color2 = "#FFFFFF";
+  } else if (variant == "white") {
+    color2 = "#FFFFFF";
   }
 
   let width = 100 + size * 20;

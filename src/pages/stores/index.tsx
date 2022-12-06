@@ -1,5 +1,5 @@
 import A from "next/link";
-import { Box, Button, Container, Heading, Link } from "theme-ui";
+import { Box, Button, Container, Heading, Input, Link } from "theme-ui";
 import DefaultLayout from "../../components/layouts/Default";
 import PageHeader from "../../components/sections/PageHeader";
 
@@ -11,12 +11,17 @@ import { useEffect, useState } from "react";
 import Loading from "../../components/common/Loading";
 import StoreCard from "../../components/sections/StoreCard";
 import Pagination from "../../components/common/Pagination";
+import { useGraph } from "../../hooks/useGraph";
+import LabeledInput from "../../components/form/LabeledInput";
 
 export default function Stores({ data, hasMore, statusErrors }: any) {
   const router = useRouter();
   const [cat, setCat] = useState<string | number>("all");
+  const [search, setSearch] = useState<string>("");
+  const [stores, setStores] = useState<any>(data?.stores);
 
   const [isLoading, setIsLoading] = useState(false);
+  const { search_stores } = useGraph();
 
   const { page: page1 } = router.query;
   let page = page1 ? Number(page1) : 1;
@@ -24,6 +29,19 @@ export default function Stores({ data, hasMore, statusErrors }: any) {
   useEffect(() => {
     setIsLoading(false);
   }, [data]);
+
+  useEffect(() => {
+    if (search.length < 2) return;
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      let query = search.trim().replace(/ /g, ":*|") + ":*";
+      search_stores(0, 15, query).then((res) => {
+        setStores(res.data.storeSearch);
+        setIsLoading(false);
+      });
+    }, 700);
+    return () => clearTimeout(timer);
+  }, [search]);
 
   function handleCatGo(id: any) {
     setIsLoading(true);
@@ -132,14 +150,43 @@ export default function Stores({ data, hasMore, statusErrors }: any) {
             alignItems: "center",
           }}
         >
+          {/* <LabeledInput
+            value={search}
+            onChange={(e: any) => setSearch(e.target.value)}
+            type="text"
+            width="100%"
+            placeholder="Search stores"
+            label={
+              <>
+                <svg
+                  version="1.1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 487.95 487.95"
+                  width="20px"
+                  height="20px"
+                  sx={{
+                    fill: "primary",
+                  }}
+                >
+                  <path
+                    d="M481.8,453l-140-140.1c27.6-33.1,44.2-75.4,44.2-121.6C386,85.9,299.5,0.2,193.1,0.2S0,86,0,191.4s86.5,191.1,192.9,191.1
+               c45.2,0,86.8-15.5,119.8-41.4l140.5,140.5c8.2,8.2,20.4,8.2,28.6,0C490,473.4,490,461.2,481.8,453z M41,191.4
+               c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z"
+                  />
+                </svg>
+              </>
+            }
+            mb={0}
+          /> */}
+
           {isLoading && <Loading sx={{ my: "auto" }} />}
-          {!isLoading && data.stores.length < 1 && (
+          {!isLoading && stores.length < 1 && (
             <Heading as="h3" variant="cardHeading" mt={4}>
               No stores found
             </Heading>
           )}
           {!isLoading &&
-            data?.stores?.map((s: any, i: any) => (
+            stores?.map((s: any, i: any) => (
               <A href={"/s/" + s?.id} passHref key={i}>
                 <Link
                   sx={{

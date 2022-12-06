@@ -8,14 +8,16 @@ export default function LabeledInput({
   type = "number",
   width = "540px",
   icon,
+  mb = 4,
   ...rest
 }: {
-  label?: string;
+  label?: string | any;
   value: string;
   placeholder?: string;
   type?: string;
   width?: string;
   icon?: React.ReactNode;
+  sx?: any;
   [key: string]: any;
 }) {
   return (
@@ -23,12 +25,13 @@ export default function LabeledInput({
       sx={{
         position: "relative",
         mx: "auto",
-        mb: 4,
+        mb: mb,
         maxWidth: width,
+        width: "100%",
       }}
     >
       <label
-        htmlFor={label}
+        htmlFor={typeof label === "string" ? label : placeholder}
         sx={{
           position: "absolute",
           right: "18px",
@@ -55,7 +58,7 @@ export default function LabeledInput({
           pr: label.length * 8 + 34 + (icon ? 16 : 0) + "px",
         }}
         value={value}
-        id={label}
+        id={typeof label === "string" ? label : placeholder}
         {...rest}
       />
     </Flex>

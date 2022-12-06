@@ -7,6 +7,28 @@ import client from "../configs/apollo-client";
 
 export const useGraph = () => {
   return {
+    search_stores: async (skip: number, first: number, query: string) => {
+      return await client.query({
+        query: gql`
+          query stores($skip: Int!, $first: Int!, $query: String!) {
+            storeSearch(skip: $skip, first: $first, text: $query) {
+              id
+              name
+              description
+              logo
+              total_items
+              total_orders
+            }
+          }
+        `,
+        variables: {
+          skip,
+          first,
+          query,
+        },
+      });
+    },
+
     get_orders_by_buyer: async (buyer_id: string) => {
       return await client.query({
         query: gql`
