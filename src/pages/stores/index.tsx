@@ -150,7 +150,7 @@ export default function Stores({ data, hasMore, statusErrors }: any) {
             alignItems: "center",
           }}
         >
-          <LabeledInput
+          {/* <LabeledInput
             value={search}
             onChange={(e: any) => setSearch(e.target.value)}
             type="text"
@@ -177,7 +177,7 @@ export default function Stores({ data, hasMore, statusErrors }: any) {
               </>
             }
             mb={0}
-          />
+          /> */}
 
           {isLoading && <Loading sx={{ my: "auto" }} />}
           {!isLoading && stores.length < 1 && (
