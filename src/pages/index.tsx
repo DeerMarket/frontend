@@ -93,11 +93,11 @@ const Home: NextPage = ({ statusErrors }: any) => {
       <Box
         sx={{
           variant: "background.mesh",
-          color: "white",
-          mt: 3,
-          pt: 5,
+          color: "dark",
+          mt: 4,
+          pt: 4,
+          pb: 4,
           mb: "-1px",
-          minHeight: "80vh",
           borderTopLeftRadius: "15vw",
         }}
       >
@@ -269,13 +269,16 @@ const Home: NextPage = ({ statusErrors }: any) => {
               </Paragraph>
             </Box>
           </Flex>
+          <Box>
+            <Button>Learn More</Button>
+          </Box>
         </Container>
       </Box>
       <Box
         sx={{
           background: "white",
           pb: 6,
-          pt: 4,
+          pt: 5,
         }}
       >
         <Container

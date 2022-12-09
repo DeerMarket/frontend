@@ -1,39 +1,46 @@
 import { makeTheme } from "@theme-ui/css/utils";
 import { darken, lighten, alpha } from "@theme-ui/color";
 
-// NEAR Brand From https://near.org/about/brand
 const baseColors = {
-  black: "#262626",
-  dark: "#3F4246",
-  light: "#A7A7A7",
   white: "#FFFFFF",
+  gray100: "#F8F9FA",
+  gray200: "#E9ECEF",
+  gray300: "#DEE2E6",
+  gray400: "#CED4DA",
+  gray500: "#ADB5BD",
+  gray600: "#6C757D",
+  gray700: "#495057",
+  gray800: "#343A40",
+  gray900: "#212529",
+  black: "#000",
 };
 const accentColors = {
-  blue: "#5F8AFA",
+  blue: "#32C4F9",
+  yellow: "#FEDC29",
+  red: "#EA3F4F",
+  purple: "#9E00ff",
   green: "#2fd5a9",
-  yellow: "#FFC860",
-  red: "#df4545",
   aqua: "#4FD1D9",
-  purple: "#6B6EF9",
   lilac: "#A463B0",
   orange: "#cf8d04",
 };
 // Our brand
-const brandColors = {
-  primary: "#0412ff",
-  secondary: "#fdd46a",
+const coreColors = {
+  primary: "#008970",
+  light: "#99EEDF",
+  dark: "#002833",
 };
 
 // Colors Object
 export const colors = {
   ...baseColors,
   ...accentColors,
-  ...brandColors,
+  ...coreColors,
   text: baseColors.black,
-  muted: "#eff7ff",
+  muted: baseColors.gray200,
   background: baseColors.white,
-  primaryHover: "#001a9e",
-  shadow: alpha(baseColors.black, 0.125),
+  primaryHover: coreColors.dark,
+  shadow: coreColors.light + "60",
 };
 
 export const baseFonts = {
@@ -282,9 +289,9 @@ const background = {
     backgroundColor: "secondary",
   },
   background: {
-    backgroundImage:
-      "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAABlBMVEXd3d39/f1xnp1AAAAAAnRSTlNAQPA2w60AAAGISURBVBjTDdA9SxxRFMbxp81XsNkPILoQIQFD3Fu5pViYKSwtAhYrEmISxLnTaCEESwnLuBAIwdcFi8juZpyTJqQwLiK+ocwUCqsZ1wlZnHFzZ+Z42/PA4ccf/pux1bhFaGavnYM+gfqZtF+EhJGl+ymlLDjuV8NjAh+mp3mT8DyeuTk+IaTcyFVcgvxfZbtBCHjAu7YFSk7vuHEFONedlANCtFG6ZQVEKrXTHmD281tjeZ5QcGtmVwr8LfTVKg+EsqF2y0r/db2loiRsZL+z3g8CU92LzWKT8OxIbkYdglm8qw+EAoON8uTDJeH7bCD9TwKtJDGl9pZU3JK+QM3O5k/7LTQ7e9GN9o6p6SC3YsHPHOYVwlxZrnttgW+3/Gd81EIY75x3dYctb0FxYOG9bHa3HX3/VTWGtadevXtyrztUt4Z2KgWBXMLMESErDP0MfeALt7nzg7CuNfIlIY7zfr6t94nk1T/dyQzXoqBE2I/r/LEBLKeH7tMR3XU7cd9NE8IodcJF8QgGAe8Uybjj2wAAAABJRU5ErkJggg==)",
-    backgroundRepeat: "repeat",
+    // backgroundImage:
+      // "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAABlBMVEXd3d39/f1xnp1AAAAAAnRSTlNAQPA2w60AAAGISURBVBjTDdA9SxxRFMbxp81XsNkPILoQIQFD3Fu5pViYKSwtAhYrEmISxLnTaCEESwnLuBAIwdcFi8juZpyTJqQwLiK+ocwUCqsZ1wlZnHFzZ+Z42/PA4ccf/pux1bhFaGavnYM+gfqZtF+EhJGl+ymlLDjuV8NjAh+mp3mT8DyeuTk+IaTcyFVcgvxfZbtBCHjAu7YFSk7vuHEFONedlANCtFG6ZQVEKrXTHmD281tjeZ5QcGtmVwr8LfTVKg+EsqF2y0r/db2loiRsZL+z3g8CU92LzWKT8OxIbkYdglm8qw+EAoON8uTDJeH7bCD9TwKtJDGl9pZU3JK+QM3O5k/7LTQ7e9GN9o6p6SC3YsHPHOYVwlxZrnttgW+3/Gd81EIY75x3dYctb0FxYOG9bHa3HX3/VTWGtadevXtyrztUt4Z2KgWBXMLMESErDP0MfeALt7nzg7CuNfIlIY7zfr6t94nk1T/dyQzXoqBE2I/r/LEBLKeH7tMR3XU7cd9NE8IodcJF8QgGAe8Uybjj2wAAAABJRU5ErkJggg==)",
+    // backgroundRepeat: "repeat",
 
     "&::after, &::before": {
       content: "''",
@@ -299,12 +306,11 @@ const background = {
       // opacity: 0.25,
       // borderRadius: "50%",
 
-      backgroundImage: "url(/g1.png)",
+      backgroundImage: "url(/g2.png)",
       backgroundSize: "contain",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",
-      opacity: 0.8,
-
+      
       transform: "rotate(45deg)",
       top: ["-10vh", "-10vh", "-10vh", "0"],
       height: "70vh",
@@ -317,12 +323,11 @@ const background = {
       // opacity: 0.25,
       // borderRadius: "50%",
       // background: `linear-gradient( 109.6deg,  rgba(247,253,166,1) 11.2%, rgba(128,255,221,1) 57.8%)`,
-
-      backgroundImage: "url(/g2.png)",
+      
+      backgroundImage: "url(/g1.png)",
       backgroundSize: "contain",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",
-      opacity: 0.9,
 
       bottom: "10px",
       right: "-5vw",
@@ -334,8 +339,8 @@ const background = {
     },
   },
   mesh: {
-    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' viewBox='0 0 700 700' width='700' height='700' opacity='1'%3E%3Cdefs%3E%3ClinearGradient gradientTransform='rotate(165, 0.5, 0.5)' x1='50%25' y1='0%25' x2='50%25' y2='100%25' id='ffflux-gradient'%3E%3Cstop stop-color='%2303a9f4' stop-opacity='1' offset='0%25'%3E%3C/stop%3E%3Cstop stop-color='%235800ff' stop-opacity='1' offset='100%25'%3E%3C/stop%3E%3C/linearGradient%3E%3Cfilter id='ffflux-filter' x='-20%25' y='-20%25' width='140%25' height='140%25' filterUnits='objectBoundingBox' primitiveUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005 0.003' numOctaves='1' seed='36' stitchTiles='stitch' x='0%25' y='0%25' width='100%25' height='100%25' result='turbulence'%3E%3C/feTurbulence%3E%3CfeGaussianBlur stdDeviation='16 54' x='0%25' y='0%25' width='100%25' height='100%25' in='turbulence' edgeMode='duplicate' result='blur'%3E%3C/feGaussianBlur%3E%3CfeBlend mode='color-dodge' x='0%25' y='0%25' width='100%25' height='100%25' in='SourceGraphic' in2='blur' result='blend'%3E%3C/feBlend%3E%3C/filter%3E%3C/defs%3E%3Crect width='700' height='700' fill='url(%23ffflux-gradient)' filter='url(%23ffflux-filter)'%3E%3C/rect%3E%3C/svg%3E"),
-      linear-gradient(180deg, transparent 0%, #fff 100%)
+    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' viewBox='0 0 700 700' width='700' height='700' opacity='1'%3E%3Cdefs%3E%3ClinearGradient gradientTransform='rotate(165, 0.5, 0.5)' x1='50%25' y1='0%25' x2='50%25' y2='100%25' id='ffflux-gradient'%3E%3Cstop stop-color='%2399EEDF' stop-opacity='1' offset='0%25'%3E%3C/stop%3E%3Cstop stop-color='%23008970' stop-opacity='1' offset='100%25'%3E%3C/stop%3E%3C/linearGradient%3E%3Cfilter id='ffflux-filter' x='-20%25' y='-20%25' width='140%25' height='140%25' filterUnits='objectBoundingBox' primitiveUnits='userSpaceOnUse' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.005 0.003' numOctaves='1' seed='36' stitchTiles='stitch' x='0%25' y='0%25' width='100%25' height='100%25' result='turbulence'%3E%3C/feTurbulence%3E%3CfeGaussianBlur stdDeviation='16 54' x='0%25' y='0%25' width='100%25' height='100%25' in='turbulence' edgeMode='duplicate' result='blur'%3E%3C/feGaussianBlur%3E%3CfeBlend mode='color-dodge' x='0%25' y='0%25' width='100%25' height='100%25' in='SourceGraphic' in2='blur' result='blend'%3E%3C/feBlend%3E%3C/filter%3E%3C/defs%3E%3Crect width='700' height='700' fill='url(%23ffflux-gradient)' filter='url(%23ffflux-filter)'%3E%3C/rect%3E%3C/svg%3E"),
+      linear-gradient(180deg, transparent 40%, #fff 100%)
     `,
     // backgroundImage: `linear-gradient(125deg, #0412ff 0%, #9e00ff 100%)`,
     backgroundBlendMode: "overlay",
@@ -353,29 +358,28 @@ const background = {
 const gradient = {
   primary: {
     backgroundColor: "primary",
-    background: `linear-gradient( 131deg,  ${colors.primary}cc 20%, ${colors.primaryHover} 110%)`,
-    backgroundImage: `linear-gradient(125deg, #0412ff 0%, #9e00ff 100%)`,
+    background: `linear-gradient( 125deg,  ${colors.primary} 40%, ${colors.primaryHover} 140%)`,
   },
 };
 
 const shadow = {
   primary: {
-    boxShadow: "rgb(0 77 255 / 50%) 0px 2px 16px",
+    boxShadow: colors.shadow + " 0px 2px 16px",
   },
 };
 
 const box = {
   card: {
     background: "white",
-    boxShadow: `0 0 15px 0px var(--theme-ui-colors-shadow)`,
+    boxShadow: `0 0 10px 0px var(--theme-ui-colors-dark)10`,
     borderRadius: 30,
     border: "1px solid",
-    borderColor: alpha("primary", 0.1),
+    borderColor: alpha("light", 0.3),
     transition: "all 0.3s ease-in-out",
   },
   cardHover: {
     borderColor: alpha("primary", 0.3),
-    boxShadow: `0 0 40px 20px var(--theme-ui-colors-shadow)`,
+    boxShadow: `0 0 20px 10px var(--theme-ui-colors-dark)20`,
   },
   dashboardCard: {
     background: "white",
@@ -390,11 +394,11 @@ const box = {
   },
   light: {
     background: alpha("white", 0.85),
-    boxShadow: `0 0 15px 0px var(--theme-ui-colors-shadow)`,
     borderRadius: 30,
     border: "1px solid",
     borderColor: alpha("white", 0.9),
     color: "black",
+    variant: "shadow.primary",
   },
   notice: {
     backgroundColor: "#fffacf",
