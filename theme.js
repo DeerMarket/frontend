@@ -1,39 +1,46 @@
 import { makeTheme } from "@theme-ui/css/utils";
 import { darken, lighten, alpha } from "@theme-ui/color";
 
-// NEAR Brand From https://near.org/about/brand
 const baseColors = {
-  black: "#262626",
-  dark: "#3F4246",
-  light: "#A7A7A7",
   white: "#FFFFFF",
+  gray100: "#F8F9FA",
+  gray200: "#E9ECEF",
+  gray300: "#DEE2E6",
+  gray400: "#CED4DA",
+  gray500: "#ADB5BD",
+  gray600: "#6C757D",
+  gray700: "#495057",
+  gray800: "#343A40",
+  gray900: "#212529",
+  black: "#000",
 };
 const accentColors = {
-  blue: "#5F8AFA",
+  blue: "#32C4F9",
+  yellow: "#FEDC29",
+  red: "#EA3F4F",
+  purple: "#9E00ff",
   green: "#2fd5a9",
-  yellow: "#FFC860",
-  red: "#df4545",
   aqua: "#4FD1D9",
-  purple: "#6B6EF9",
   lilac: "#A463B0",
   orange: "#cf8d04",
 };
 // Our brand
-const brandColors = {
+const coreColors = {
   primary: "#0412ff",
-  secondary: "#fdd46a",
+  light: "#9ac9ff",
+  dark: "#001560",
 };
 
 // Colors Object
 export const colors = {
   ...baseColors,
   ...accentColors,
-  ...brandColors,
+  ...coreColors,
   text: baseColors.black,
-  muted: "#eff7ff",
+  muted: baseColors.gray200,
   background: baseColors.white,
-  primaryHover: "#001a9e",
-  shadow: alpha(baseColors.black, 0.125),
+  primaryHover: coreColors.dark,
+  shadow: coreColors.light + "60",
 };
 
 export const baseFonts = {
@@ -299,11 +306,10 @@ const background = {
       // opacity: 0.25,
       // borderRadius: "50%",
 
-      backgroundImage: "url(/g1.png)",
+      backgroundImage: "url(/g3.png)",
       backgroundSize: "contain",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",
-      opacity: 0.8,
 
       transform: "rotate(45deg)",
       top: ["-10vh", "-10vh", "-10vh", "0"],
@@ -311,6 +317,7 @@ const background = {
       left: "-5vh",
       width: "50vw",
       minWidth: "300px",
+      minHeight: "700px",
     },
     "&::after": {
       // filter: "blur(100px)",
@@ -318,18 +325,17 @@ const background = {
       // borderRadius: "50%",
       // background: `linear-gradient( 109.6deg,  rgba(247,253,166,1) 11.2%, rgba(128,255,221,1) 57.8%)`,
 
-      backgroundImage: "url(/g2.png)",
+      backgroundImage: "url(/g5.png)",
       backgroundSize: "contain",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "center",
-      opacity: 0.9,
 
       bottom: "10px",
       right: "-5vw",
       height: "50vw",
       width: "50vw",
       minWidth: "300px",
-      minHeight: "300px",
+      minHeight: "500px",
       transform: "rotate(45deg)",
     },
   },

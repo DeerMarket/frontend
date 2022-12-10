@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     async function graph_status() {
-      const graphmeta = await client.query({
+      let promises = await Promise.all([client.query({
         query: gql`
           query meta {
             _meta {
@@ -54,8 +54,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             }
           }
         `,
-      });
-      const nearmeta = await getBlocks();
+      }), getBlocks()]);
+      let graphmeta = promises[0];
+      let nearmeta = promises[1];
 
       let lastGraphBlock = graphmeta.data._meta.block.number;
       let lastNearBlock = nearmeta.header.height;

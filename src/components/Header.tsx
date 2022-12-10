@@ -91,7 +91,7 @@ export default function Header({
           {/* laptop navigation */}
           <Flex
             as="nav"
-            ml={[1, 1, 1, 4]}
+            ml={[2, 2, 4, 5]}
             sx={{
               display: ["none", "none", "flex", "flex"],
             }}

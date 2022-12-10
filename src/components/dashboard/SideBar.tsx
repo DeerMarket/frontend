@@ -113,9 +113,9 @@ export default function SideBar({ tab, ...rest }: any) {
                 fill: link.active ? "white" : "primary",
 
                 "&:hover": {
-                  bg: !link.active && "primary",
-                  fill: !link.active && "white",
-                  color: !link.active && "white",
+                  bg: !link.active && "light",
+                  fill: !link.active && "primary",
+                  color: !link.active && "primary",
                 },
               }}
             >
@@ -149,9 +149,9 @@ export default function SideBar({ tab, ...rest }: any) {
             mt: [0, 0, "auto"],
 
             "&:hover": {
-              bg: "primary",
-              fill: "white",
-              color: "white",
+              bg: "light",
+              fill: "primary",
+              color: "primary",
             },
           }}
           onClick={handleLogout}
