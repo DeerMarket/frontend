@@ -1,9 +1,7 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 
-const uri =
-  process.env.NODE_ENV === "development"
-    ? "https://api.thegraph.com/subgraphs/name/dino-bear/deer"
-    : "https://api.thegraph.com/subgraphs/name/dino-bear/deer";
+const uri = process.env.NEXT_PUBLIC_DEER_GRAPH_URI || "https://api.thegraph.com/subgraphs/name/dino-bear/deer";
+
 const client = new ApolloClient({
   uri: uri,
   cache: new InMemoryCache({
@@ -12,8 +10,10 @@ const client = new ApolloClient({
 });
 
 export const TheGraphURI =
-  process.env.NODE_ENV === "development"
-    ? "https://thegraph.com/hosted-service/subgraph/dino-bear/deertest?selected=logs"
-    : "https://thegraph.com/hosted-service/subgraph/dino-bear/deer?selected=logs";
+  uri.split("/name/")?.length > 1
+    ? "https://thegraph.com/hosted-service/subgraph" +
+      uri.split("/name/")[1] +
+      "?selected=logs"
+    : uri;
 
 export default client;

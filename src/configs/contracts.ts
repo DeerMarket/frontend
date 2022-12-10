@@ -1,6 +1,6 @@
 export const store_factory = {
   contractName: "store_factory",
-  contractId: "dm7.testnet",
+  contractId: process.env.NEXT_PUBLIC_STORE_FACTORY_CONTRACT_ID || "dm7.testnet",
   contractMethods: {
     changeMethods: ["create", "update"],
     viewMethods: ["get_stores_by_creator", "get_stores"],
@@ -32,7 +32,7 @@ export const store = {
 };
 export const dispute = {
   contractName: "dispute",
-  contractId: "ddd7.testnet",
+  contractId: process.env.NEXT_PUBLIC_DISPUTE_CONTRACT_ID || "ddd7.testnet",
   contractMethods: {
     changeMethods: ["vote", "add_evidence"],
     viewMethods: [
